@@ -1,0 +1,51 @@
+@charset "UTF-8";
+/* CSS Document */
+*{
+	border:0;
+	margin:0;
+}
+body, html{
+}
+.r{
+	float:right;
+}
+.l{
+	float: left;
+}
+.clearFix{
+	clear:both;
+}
+.hidden{
+	display:none;
+}
+.pushTop{
+	margin-top: 12px;
+}
+.pushLeft{
+	margin-left: 12px;
+}
+.pushBottom{
+	margin-bottom: 12px;
+}
+.pushBottomMore{
+	margin-bottom: 24px;
+}
+
+#board{
+    position: relative;
+    margin: 40px auto;
+    width: calc(8*40px);
+    height: calc(8*40px);
+    background-color: silver;
+}
+[pentomino] {
+    position: absolute;
+    width: calc(3*40px);
+    height: calc(3*40px);
+    pointer-events: none;
+}
+[pentomino] > .section{
+    background-color: red;
+    width: 40px;
+    height: 40px;
+}
