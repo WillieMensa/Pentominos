@@ -1,7 +1,5 @@
-angular.module('pentominoApp')
-
 // The terminal (input / output)
-.directive('pentomino', [function() {
+app.directive('pentomino', [function() {
 	return {
 		restrict: 'A',
 		templateUrl: 'app/components/pentomino.html',

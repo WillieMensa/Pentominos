@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="pentominoApp" ng-controller="mainController" >
+<html>
 <head>
     <title>Pentomino Puzzle</title>
     <meta charset="utf-8" />
@@ -7,13 +7,31 @@
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/screen.css" />
 </head>
-<body>
+<body ng-app="pentominoApp" ng-controller="mainController" >
     <div id="board">
-        <div pentomino></div>
+        <div class="pentomino"
+            draggable="true"
+            ng-repeat="pentomino in pentominos track by $index"
+            ng-style="{
+                'left':pentomino.position.x*partSize+'px',
+                'top':pentomino.position.y*partSize+'px'
+            }">
+            <div class="relContainer">
+                <div class="part"
+                    ng-repeat="part in pentomino.faces[pentomino.face] track by $index"
+                    ng-style="{
+                        'left':part[0]*partSize+'px',
+                        'top':part[1]*partSize+'px',
+                        'backgroundColor':pentomino.color
+                    }"
+                    class="section"></div>
+            </div>
+        </div>
     </div>
     <div class="hidden">
-        <script src="node_modules/angular/angular.min.js"></script>
-        <script src="app/app.module.js" type="text/javascript"></script>
+        <script src="node_modules/angular/angular.js"></script>
+        <script src="app/app.module.js"></script>
+        <script src="app/services/dataservice.js"></script>
     </div>
 </body>
 </html>
