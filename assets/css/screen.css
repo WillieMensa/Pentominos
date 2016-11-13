@@ -12,11 +12,6 @@ body, html{
 .l{
 	float: left;
 }
-.relContainer{
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
 .clearFix{
 	clear:both;
 }
@@ -55,9 +50,10 @@ input+span{
     position: absolute;
     left: 0;
     top: 0;
-    width: calc(3*40px);
-    height: calc(3*40px);
     pointer-events: none;
+}
+.relContainer{
+    position: relative;
 }
 .part{
     position: absolute;
@@ -65,4 +61,15 @@ input+span{
     top: 0;
     width: 40px;
     height: 40px;
+    pointer-events:auto;
+    cursor: move; /* fallback: no `url()` support or images disabled */
+    cursor: -webkit-grab; /* Chrome 1-21, Safari 4+ */
+    cursor:    -moz-grab; /* Firefox 1.5-26 */
+    cursor:         grab; /* W3C standards syntax, should come least */
+}
+.part:active {
+    cursor: url(images/grabbing.cur);
+    cursor: -webkit-grabbing;
+    cursor:    -moz-grabbing;
+    cursor:         grabbing;
 }

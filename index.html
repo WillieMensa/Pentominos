@@ -12,10 +12,9 @@
         data-board-size="8x8"
         ng-style="getBoardSize()">
         <div class="pentomino"
-            draggable="true"
             ng-repeat="pentomino in pentominos"
             ng-style="{{getPentominoCss(pentomino)}}">
-            <div class="relContainer">
+            <div class="relContainer" draggable>
                 <div class="part"
                     ng-repeat="part in pentomino.faces[pentomino.face] track by $index"
                     ng-style="{{getPartCss(pentomino, $index)}}"
@@ -43,8 +42,9 @@
             </label>
         </form>
     </div>
-    <div class="hidden">
+    <div class="hidden">dragdrop
         <script src="node_modules/angular/angular.js"></script>
+        <!-- <script src="node_modules/angular-dragula/dist/angular-dragula.js"></script> -->
         <script src="app/app.module.js"></script>
         <script src="app/services/dataservice.js"></script>
     </div>

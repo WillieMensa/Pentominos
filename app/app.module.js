@@ -25,7 +25,6 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
         return theStyle;
     }
     $scope.redrawBoard = function () {
-        $scope.$apply();
     }
     $scope.getPentominoCss = function(pentomino) {
         // console.log(pentomino);
@@ -45,4 +44,47 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
     }
 
     console.log($scope.pentominos);
-}]);
+}])
+
+.directive('draggable', function($document) {
+    return function(scope, element, attr) {
+        var startX = 0,
+        startY = 0,
+        x = 0,
+        y = 0;
+        var container = null;
+
+        element.css({
+            position: 'relative',
+            cursor: 'pointer'
+        });
+
+        element.on('mousedown', function(event) {
+            // Prevent default dragging of selected content
+            event.preventDefault();
+            startX = event.screenX - x;
+            startY = event.screenY - y;
+            // startX = event.screenX - x;
+            // startY = event.screenY - y;
+            $document.on('mousemove', mousemove);
+            $document.on('mouseup', mouseup);
+            container = attr.$$element.parent();
+            console.log(element);
+        });
+
+        function mousemove(event) {
+            y = event.screenY - startY;
+            x = event.screenX - startX;
+            console.log("x: " + x + " y: " + y)
+            container.css({
+                top: y + 'px',
+                left: x + 'px'
+            });
+        }
+
+        function mouseup() {
+            $document.unbind('mousemove', mousemove);
+            $document.unbind('mouseup', mouseup);
+        }
+    }
+});
