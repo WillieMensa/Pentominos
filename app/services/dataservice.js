@@ -7,8 +7,7 @@ app.service('dataservice', function(){
                 faces : [
                     [
                         [0,0],[1,0],[2,0],[3,0],[4,0]
-                    ],
-                    [
+                    ],[
                         [0,0],[0,1],[0,2],[0,3],[0,4]
                     ]
                 ],
@@ -16,6 +15,20 @@ app.service('dataservice', function(){
                 parts : 5,
                 position : {
                     x : 0,
+                    y : 0
+                }
+            },{
+                color : 'green',
+                face : 0,
+                faces : [
+                    [
+                        [1,0],[0,1],[1,1],[2,1],[1,2]
+                    ]
+                ],
+                name : 'x',
+                parts : 5,
+                position : {
+                    x : 4,
                     y : 0
                 }
             },{
@@ -41,7 +54,7 @@ app.service('dataservice', function(){
                     return pentominos
                     break;
                 case boardType = '6x10':
-                    return pentominos.slice(-1)
+                    return pentominos.slice(0,-1)
                     break;
                 default:
             }

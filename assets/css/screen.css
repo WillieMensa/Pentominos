@@ -39,9 +39,17 @@ body, html{
 #board{
     position: relative;
     margin: 40px auto;
-    width: calc(8*40px);
-    height: calc(8*40px);
     background-color: silver;
+}
+#controls{
+    padding: 40px;
+}
+label{
+    display: block;
+    margin-bottom: 10px;
+}
+input+span{
+    margin-left: 5px;
 }
 .pentomino {
     position: absolute;

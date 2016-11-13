@@ -8,25 +8,40 @@
     <link rel="stylesheet" href="assets/css/screen.css" />
 </head>
 <body ng-app="pentominoApp" ng-controller="mainController" >
-    <div id="board">
+    <div id="board"
+        data-board-size="8x8"
+        ng-style="getBoardSize()">
         <div class="pentomino"
             draggable="true"
-            ng-repeat="pentomino in pentominos track by $index"
-            ng-style="{
-                'left':pentomino.position.x*partSize+'px',
-                'top':pentomino.position.y*partSize+'px'
-            }">
+            ng-repeat="pentomino in pentominos"
+            ng-style="{{getPentominoCss(pentomino)}}">
             <div class="relContainer">
                 <div class="part"
                     ng-repeat="part in pentomino.faces[pentomino.face] track by $index"
-                    ng-style="{
-                        'left':part[0]*partSize+'px',
-                        'top':part[1]*partSize+'px',
-                        'backgroundColor':pentomino.color
-                    }"
+                    ng-style="{{getPartCss(pentomino, $index)}}"
                     class="section"></div>
             </div>
         </div>
+    </div>
+    <div id="controls">
+        <form action="">
+            <label for="square">
+                <input type="radio"
+                    ng-model="boardType"
+                    ng-change="redrawBoard()"
+                    name="boardType"
+                    value="8x8"
+                    id="square" /><span>8&times;8</span>
+            </label>
+            <label for="rectangular">
+                <input type="radio"
+                    ng-model="boardType"
+                    ng-change="redrawBoard()"
+                    name="boardType"
+                    value="6x10"
+                    id="rectangular" /><span>6&times;10</span>
+            </label>
+        </form>
     </div>
     <div class="hidden">
         <script src="node_modules/angular/angular.js"></script>
