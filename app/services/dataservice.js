@@ -2,6 +2,34 @@
 app.service('dataservice', function(){
     var pentominos = [
             {
+                color : 'purple',
+                face : 0,
+                faces : [
+                    [
+                        [0,0],[1,0],[2,0],[0,1],[1,1]
+                    ],[
+                        [0,0],[1,0],[0,1],[1,1],[1,2]
+                    ],[
+                        [1,0],[2,0],[0,1],[1,1],[2,1]
+                    ],[
+                        [0,0],[0,1],[1,1],[0,2],[1,2]
+                    ],[
+                        [0,0],[1,0],[2,0],[1,1],[2,1]
+                    ],[
+                        [0,0],[1,0],[0,1],[1,1],[0,2]
+                    ],[
+                        [0,0],[1,0],[0,1],[1,1],[2,1]
+                    ],[
+                        [1,0],[0,1],[1,1],[0,2],[1,2]
+                    ]
+                ],
+                name : 'b',
+                parts : 5,
+                position : {
+                    x : 0,
+                    y : 1
+                }
+            },{
                 color : 'red',
                 face : 0,
                 faces : [
@@ -28,8 +56,8 @@ app.service('dataservice', function(){
                 name : 'x',
                 parts : 5,
                 position : {
-                    x : 4,
-                    y : 0
+                    x : 2,
+                    y : 1
                 }
             },{
                 color : 'blue',
@@ -42,8 +70,8 @@ app.service('dataservice', function(){
                 name : 'o',
                 parts : 4,
                 position : {
-                    x : 0,
-                    y : 1
+                    x : 1,
+                    y : 3
                 }
             }
         ];
