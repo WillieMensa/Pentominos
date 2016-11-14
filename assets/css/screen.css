@@ -35,6 +35,7 @@ body, html{
     position: relative;
     margin: 40px auto;
     background-color: silver;
+    border: 5px solid darkgray;
 }
 #controls{
     padding: 40px;
