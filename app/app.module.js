@@ -3,7 +3,7 @@ var app = angular.module('pentominoApp', []);
 
 // Controller for blocks
 app.controller('mainController', ['$scope', 'dataservice', function($scope, dataservice){
-    var partSize = 40
+    $scope.partSize = 40
     $scope.boardType = document.querySelector('#board').getAttribute('data-board-size');
     $scope.pentominos = dataservice.givePentominos($scope.boardType);
     $scope.getBoardSize = function() {
@@ -11,14 +11,14 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
         switch ($scope.boardType) {
             case '6x10':
                 theStyle = {
-                    'width':6*partSize+'px',
-                    'height':10*partSize+'px',
+                    'width':6*$scope.partSize+'px',
+                    'height':10*$scope.partSize+'px',
                 }
                 break;
             default:
                 theStyle = {
-                    'width':8*partSize+'px',
-                    'height':8*partSize+'px',
+                    'width':8*$scope.partSize+'px',
+                    'height':8*$scope.partSize+'px',
                 }
                 break;
         }
@@ -29,16 +29,16 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
     $scope.getPentominoCss = function(pentomino) {
         // console.log(pentomino);
         return {
-            'left':pentomino.position.x*partSize+'px',
-            'top':pentomino.position.y*partSize+'px',
+            'left':pentomino.position.x*$scope.partSize+'px',
+            'top':pentomino.position.y*$scope.partSize+'px',
         }
     }
     $scope.getPartCss = function(pentomino, i) {
         // console.log(pentomino);
         var part = pentomino.faces[pentomino.face];
         return {
-            'left':part[i][0]*partSize+'px',
-            'top':part[i][1]*partSize+'px',
+            'left':part[i][0]*$scope.partSize+'px',
+            'top':part[i][1]*$scope.partSize+'px',
             'backgroundColor':pentomino.color
         }
     }
@@ -48,10 +48,9 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
 
 .directive('draggable', function($document) {
     return function(scope, element, attr) {
-        var startX = 0,
-        startY = 0,
-        x = 0,
-        y = 0;
+        var startX = 0, startY = 0,
+            pentoX = 0, pentoY = 0,
+            x = 0, y = 0;
         var container = null;
 
         element.css({
@@ -62,27 +61,28 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
         element.on('mousedown', function(event) {
             // Prevent default dragging of selected content
             event.preventDefault();
-            startX = event.screenX - x;
-            startY = event.screenY - y;
-            // startX = event.screenX - x;
-            // startY = event.screenY - y;
+            pentoX = attr.$$element.parent()[0].offsetLeft;
+            pentoY = attr.$$element.parent()[0].offsetTop;
+            startX = event.clientX - pentoX;
+            startY = event.clientY - pentoY;
             $document.on('mousemove', mousemove);
             $document.on('mouseup', mouseup);
             container = attr.$$element.parent();
-            console.log(element);
+            // console.log(container);
         });
 
         function mousemove(event) {
-            y = event.screenY - startY;
-            x = event.screenX - startX;
-            console.log("x: " + x + " y: " + y)
+            x = event.clientX - startX;
+            y = event.clientY - startY;
+            // console.log("x: " + x + " y: " + y)
             container.css({
-                top: y + 'px',
-                left: x + 'px'
+                left: x + 'px',
+                top: y + 'px'
             });
         }
 
-        function mouseup() {
+        function mouseup(event) {
+            console.log(x,y);
             $document.unbind('mousemove', mousemove);
             $document.unbind('mouseup', mouseup);
         }
