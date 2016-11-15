@@ -24,23 +24,24 @@ app.directive('draggable', function($document) {
             // console.log(container);
         });
 
-        function setCss(x,y) {
+        function setCss(x,y,z) {
             container.css({
                 left: x + 'px',
-                top: y + 'px'
+                top: y + 'px',
+                zIndex: z
             });
         }
 
         function mousemove(event) {
             x = event.clientX - startX;
             y = event.clientY - startY;
-            setCss(x,y);
+            setCss(x,y,100);
         }
 
         function mouseup(event) {
             x = Math.round(x / scope.partSize) * scope.partSize;
             y = Math.round(y / scope.partSize) * scope.partSize;
-            setCss(x,y);
+            setCss(x,y,'auto');
             $document.unbind('mousemove', mousemove);
             $document.unbind('mouseup', mouseup);
         }

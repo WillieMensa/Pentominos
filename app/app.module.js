@@ -3,7 +3,7 @@ var app = angular.module('pentominoApp', []);
 
 // Controller for blocks
 app.controller('mainController', ['$scope', 'dataservice', function($scope, dataservice){
-    $scope.partSize = 40
+    $scope.partSize = 40;
     $scope.boardType = document.querySelector('#board').getAttribute('data-board-size');
     $scope.pentominos = dataservice.givePentominos($scope.boardType);
     $scope.getBoardSize = function() {
@@ -24,8 +24,6 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
         }
         return theStyle;
     }
-    $scope.redrawBoard = function () {
-    }
     $scope.getPentominoCss = function(pentomino) {
         // console.log(pentomino);
         return {
@@ -33,14 +31,25 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
             'top':pentomino.position.y*$scope.partSize+'px',
         }
     }
-    $scope.getPartCss = function(pentomino, i) {
+    $scope.getPartCss = function(pIndex, i) {
         // console.log(pentomino);
-        var part = pentomino.faces[pentomino.face];
+        var part = $scope.pentominos[pIndex].faces[$scope.pentominos[pIndex].face];
         return {
             'left':part[i][0]*$scope.partSize+'px',
             'top':part[i][1]*$scope.partSize+'px',
-            'backgroundColor':pentomino.color
+            'backgroundColor':$scope.pentominos[pIndex].color
         }
+    }
+    $scope.flipRotate = function(pIndex, i) {
+        console.log($scope.pentominos[pIndex], i);
+        switch (i) {
+            case 0 :
+                $scope.pentominos[pIndex].face = ($scope.pentominos[pIndex].face + 1) % $scope.pentominos[pIndex].faces.length;
+                break;
+            default:
+
+        }
+        console.log($scope.pentominos);
     }
 
     console.log($scope.pentominos);

@@ -6,19 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/screen.css" />
+    <script src="https://use.fontawesome.com/3554191950.js"></script>
 </head>
 <body ng-app="pentominoApp" ng-controller="mainController" >
     <div id="board"
         data-board-size="8x8"
         ng-style="getBoardSize()">
         <div class="pentomino"
-            ng-repeat="pentomino in pentominos"
+            ng-repeat="pentomino in pentominos track by $index"
+            ng-init="pentominoIndex = $index"
             ng-style="{{getPentominoCss(pentomino)}}">
             <div class="relContainer" draggable>
                 <div class="part"
-                    ng-repeat="part in pentomino.faces[pentomino.face] track by $index"
-                    ng-style="{{getPartCss(pentomino, $index)}}"
-                    class="section"></div>
+                    ng-class="{
+                        'fa fa-refresh rotate':$index==0,
+                        'fa fa-arrows-h flipH':$index==1,
+                        'fa fa-arrows-v flipV':$index==2
+                    }"
+                    ng-click="flipRotate(pentominoIndex, $index)"
+                    ng-model="pentominos[pentominoIndex].face"
+                    ng-repeat="part in pentominos[pentominoIndex].faces[pentominos[pentominoIndex].face] track by $index"
+                    ng-style="{{getPartCss(pentominoIndex, $index)}}"></div>
             </div>
         </div>
     </div>
@@ -27,7 +35,6 @@
             <label for="square">
                 <input type="radio"
                     ng-model="boardType"
-                    ng-change="redrawBoard()"
                     name="boardType"
                     value="8x8"
                     id="square" /><span>8&times;8</span>
@@ -35,14 +42,13 @@
             <label for="rectangular">
                 <input type="radio"
                     ng-model="boardType"
-                    ng-change="redrawBoard()"
                     name="boardType"
                     value="6x10"
                     id="rectangular" /><span>6&times;10</span>
             </label>
         </form>
     </div>
-    <div class="hidden">dragdrop
+    <div class="hidden">
         <script src="node_modules/angular/angular.js"></script>
         <script src="app/app.module.js"></script>
         <script src="app/services/dataservice.js"></script>
