@@ -1,0 +1,17 @@
+<form name="settingsForm" action="">
+    <label for="square">
+        <input type="radio"
+            ng-model="board.brdType"
+            name="brdType"
+            value="square"
+            ng-click="showSize()"
+            id="square" /><span>8&times;8</span>
+    </label>
+    <label for="rectangular">
+        <input type="radio"
+            ng-model="board.brdType"
+            name="brdType"
+            value="rectangle"
+            id="rectangular" /><span>6&times;10</span>
+    </label>
+</form>

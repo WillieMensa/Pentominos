@@ -3,39 +3,41 @@ var app = angular.module('pentominoApp', []);
 
 // Controller for blocks
 app.controller('mainController', ['$scope', 'dataservice', function($scope, dataservice){
-    $scope.partSize = 40;
-    $scope.boardType = document.querySelector('#board').getAttribute('data-board-size');
-    $scope.pentominos = dataservice.givePentominos($scope.boardType);
-    $scope.getBoardSize = function() {
-        var theStyle;
-        switch ($scope.boardType) {
-            case '6x10':
-                theStyle = {
-                    'width':6*$scope.partSize+'px',
-                    'height':10*$scope.partSize+'px',
-                }
-                break;
-            default:
-                theStyle = {
-                    'width':8*$scope.partSize+'px',
-                    'height':8*$scope.partSize+'px',
-                }
-                break;
+    $scope.board = {
+        partSize : 40,
+        sizeType : document.querySelector('#board').getAttribute('data-board-size'),
+        brdType : 'square',
+        brdTypes : {
+            'square' : {
+                w : 8,
+                h : 8
+            },
+            'rectangle' : {
+                w : 6,
+                h : 10
+            }
+        },
+        theBoardCss : function () {
+            return{
+                'width':this.brdTypes[this.brdType].w*this.partSize+'px',
+                'height':this.brdTypes[this.brdType].h*this.partSize+'px'
+            }
         }
-        return theStyle;
-    }
+    };
+
+    $scope.pentominos = dataservice.givePentominos($scope.board.sizeType);
     $scope.getPentominoCss = function(pentomino) {
         // console.log(pentomino);
         return {
-            'left':pentomino.position.x*$scope.partSize+'px',
-            'top':pentomino.position.y*$scope.partSize+'px',
+            'left':pentomino.position.x*$scope.board.partSize+'px',
+            'top':pentomino.position.y*$scope.board.partSize+'px',
         }
     }
     $scope.getPartCss = function(part,pIndex) {
         // console.log(pentomino);
         return {
-            'left':part[0]*$scope.partSize+'px',
-            'top':part[1]*$scope.partSize+'px',
+            'left':part[0]*$scope.board.partSize+'px',
+            'top':part[1]*$scope.board.partSize+'px',
             'backgroundColor':$scope.pentominos[pIndex].color
         }
     }
