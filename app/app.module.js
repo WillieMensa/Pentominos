@@ -31,12 +31,11 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
             'top':pentomino.position.y*$scope.partSize+'px',
         }
     }
-    $scope.getPartCss = function(pIndex, i) {
+    $scope.getPartCss = function(part,pIndex) {
         // console.log(pentomino);
-        var part = $scope.pentominos[pIndex].faces[$scope.pentominos[pIndex].face];
         return {
-            'left':part[i][0]*$scope.partSize+'px',
-            'top':part[i][1]*$scope.partSize+'px',
+            'left':part[0]*$scope.partSize+'px',
+            'top':part[1]*$scope.partSize+'px',
             'backgroundColor':$scope.pentominos[pIndex].color
         }
     }
@@ -44,12 +43,13 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
         console.log($scope.pentominos[pIndex], i);
         switch (i) {
             case 0 :
+                console.log('rotate', pIndex);
                 $scope.pentominos[pIndex].face = ($scope.pentominos[pIndex].face + 1) % $scope.pentominos[pIndex].faces.length;
                 break;
             default:
 
         }
-        console.log($scope.pentominos);
+        console.log($scope.pentominos[pIndex]);
     }
 
     console.log($scope.pentominos);

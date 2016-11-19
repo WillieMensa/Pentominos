@@ -24,9 +24,8 @@
                         'fa fa-arrows-v flipV':$index==2
                     }"
                     ng-click="flipRotate(pentominoIndex, $index)"
-                    ng-model="pentominos[pentominoIndex].face"
                     ng-repeat="part in pentominos[pentominoIndex].faces[pentominos[pentominoIndex].face] track by $index"
-                    ng-style="{{getPartCss(pentominoIndex, $index)}}"></div>
+                    ng-style="{{getPartCss(part, pentominoIndex)}}"></div>
             </div>
         </div>
     </div>
