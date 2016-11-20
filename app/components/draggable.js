@@ -4,6 +4,7 @@ app.directive('draggable', function($document) {
         var startX = 0, startY = 0,
             pentoX = 0, pentoY = 0,
             x = 0, y = 0;
+            pIndex = null;
         var container = null;
 
         element.css({
@@ -21,6 +22,7 @@ app.directive('draggable', function($document) {
             $document.on('mousemove', mousemove);
             $document.on('mouseup', mouseup);
             container = attr.$$element.parent();
+            pIndex = element[0].offsetParent.dataset.index;
             // console.log(container);
         });
 
@@ -39,11 +41,14 @@ app.directive('draggable', function($document) {
         }
 
         function mouseup(event) {
-            x = Math.round(x / scope.board.partSize) * scope.board.partSize;
-            y = Math.round(y / scope.board.partSize) * scope.board.partSize;
+            var normalize = function (amount) {
+                return Math.round(amount / scope.board.partSize)
+            }
+            x = normalize(x) * scope.board.partSize;
+            y = normalize(y) * scope.board.partSize;
             setCss(x,y,'auto');
-            console.log(event);
-            // scope.pentominos[]
+            scope.pentominos[pIndex].position.x = normalize(x);
+            scope.pentominos[pIndex].position.y = normalize(y);
             $document.unbind('mousemove', mousemove);
             $document.unbind('mouseup', mouseup);
         }

@@ -36,7 +36,8 @@ angular.module('pentominoApp')
                         x : 0,
                         y : 1
                     }
-                },{
+                }
+                ,{
                     color : 'brown',
                     face : 2,
                     faces : [
@@ -120,10 +121,14 @@ angular.module('pentominoApp')
                             break;
                         default:
                     }
+                    // $scope.pentominos[pentomino] = p;
+                    // console.log($scope.pentominos[pentomino]);
                 },
                 getPartCss : function(pentomino,part) {
                     // console.log(pentomino);
                     var p = $scope.pentominos[pentomino];
+                    // console.log(p.face);
+                    // console.log('object', p.faces[p.face][part]);
                     return {
                         'left':p.faces[p.face][part][0]*$scope.board.partSize+'px',
                         'top':p.faces[p.face][part][1]*$scope.board.partSize+'px',
@@ -133,7 +138,7 @@ angular.module('pentominoApp')
             }
         },
         controller: function ($scope) {
-            console.log($scope);
+            // console.log($scope);
         }
 		// controllerAs: 'settingsCtrl'
 	};
