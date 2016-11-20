@@ -1,5 +1,7 @@
+angular.module('pentominoApp')
+
 // Draggable directive for the pentomino blocks
-app.directive('draggable', function($document) {
+.directive('draggable', function($document) {
     return function(scope, element, attr) {
         var startX = 0, startY = 0,
             pentoX = 0, pentoY = 0,
@@ -22,8 +24,8 @@ app.directive('draggable', function($document) {
             $document.on('mousemove', mousemove);
             $document.on('mouseup', mouseup);
             container = attr.$$element.parent();
-            pIndex = element[0].offsetParent.dataset.index;
-            // console.log(container);
+            pIndex = element[0].offsetParent.dataset.pentominoIndex - 0;
+            console.log('clicked %O', scope.pentominos[pIndex].position);
         });
 
         function setCss(x,y,z) {
@@ -38,6 +40,7 @@ app.directive('draggable', function($document) {
             x = event.clientX - startX;
             y = event.clientY - startY;
             setCss(x,y,100);
+            console.log('dragged');
         }
 
         function mouseup(event) {
@@ -49,8 +52,9 @@ app.directive('draggable', function($document) {
             setCss(x,y,'auto');
             scope.pentominos[pIndex].position.x = normalize(x);
             scope.pentominos[pIndex].position.y = normalize(y);
-            $document.unbind('mousemove', mousemove);
-            $document.unbind('mouseup', mouseup);
+            $document.off('mousemove', mousemove);
+            $document.off('mouseup', mouseup);
+            console.log('released %O', scope.pentominos[pIndex].position);
         }
     }
 });

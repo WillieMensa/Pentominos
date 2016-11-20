@@ -1,17 +1,18 @@
 <div class="pentomino"
     ng-repeat="pentomino in pentominos track by $index"
-    ng-init="pentominoIndex = $index"
-    data-index="{{$index}}"
-    ng-style="{{methods.getPentominoCss($index)}}">
-    <div class="relContainer" draggable>
+    ng-style="{{methods.getPentominoCss(pentomino)}}"
+    data-pentomino-index="{{$index}}">
+    <div class="relContainer" draggable
+        ng-repeat="face in pentomino.faces track by $index"
+        ng-if="$index == pentomino.face">
         <div class="part"
+            ng-repeat="part in face track by $index"
             ng-class="{
                 'fa fa-refresh rotate':$index==0,
                 'fa fa-arrows-h flipH':$index==1,
                 'fa fa-arrows-v flipV':$index==2
             }"
-            ng-repeat="part in pentominos[pentominoIndex].faces[pentominos[pentominoIndex].face] track by $index"
-            ng-click="methods.flipRotate(pentominoIndex, $index)"
-            ng-style="{{methods.getPartCss(pentominoIndex, $index)}}"></div>
+            ng-click="methods.flipRotate(pentomino, $index)"
+            ng-style="{{methods.getPartCss(pentomino, part)}}"></div>
     </div>
 </div>
