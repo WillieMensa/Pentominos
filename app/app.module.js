@@ -25,7 +25,8 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
             position : {
                 x : 0,
                 y : 1
-            }
+            },
+            drag : false
         },{
             color : 'brown',
             face : 2,
@@ -40,7 +41,8 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
             position : {
                 x : 4,
                 y : 1
-            }
+            },
+            drag : false
         },{
             color : 'red',
             face : 0,
@@ -53,7 +55,8 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
             position : {
                 x : 0,
                 y : 0
-            }
+            },
+            drag : false
         },{
             color : 'yellow',
             face : 0,
@@ -68,7 +71,8 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
             position : {
                 x : 5,
                 y : 0
-            }
+            },
+            drag : false
         },{
             color : 'green',
             face : 0,
@@ -80,7 +84,8 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
             position : {
                 x : 2,
                 y : 1
-            }
+            },
+            drag : false
         },{
             color : 'blue',
             face : 0,
@@ -92,7 +97,8 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
             position : {
                 x : 1,
                 y : 3
-            }
+            },
+            drag : false
         }
     ];
     $scope.methods = {};
