@@ -9,25 +9,10 @@
         <script src="https://use.fontawesome.com/3554191950.js"></script>
     </head>
     <body ng-app="pentominoApp" ng-controller="mainController" >
+
         <div id="board" board
             data-board-size="8x8"
             ng-style="board.theBoardCss()">
-            <div class="pentomino"
-                ng-repeat="pentomino in pentominos track by $index"
-                ng-init="pentominoIndex = $index"
-                ng-style="{{getPentominoCss(pentomino)}}">
-                <div class="relContainer" draggable>
-                    <div class="part"
-                        ng-class="{
-                            'fa fa-refresh rotate':$index==0,
-                            'fa fa-arrows-h flipH':$index==1,
-                            'fa fa-arrows-v flipV':$index==2
-                        }"
-                        ng-click="flipRotate(pentominoIndex, $index)"
-                        ng-repeat="part in pentominos[pentominoIndex].faces[pentominos[pentominoIndex].face] track by $index"
-                        ng-style="{{getPartCss(part, pentominoIndex)}}"></div>
-                </div>
-            </div>
         </div>
 
         <div settings id="controls"></div>
@@ -36,6 +21,8 @@
             <script src="node_modules/angular/angular.js"></script>
             <script src="app/app.module.js"></script>
             <script src="app/services/dataservice.js"></script>
+            <script src="app/components/board.js"></script>
+            <script src="app/components/pentominos.js"></script>
             <script src="app/components/draggable.js"></script>
             <script src="app/components/settings.js"></script>
         </div>

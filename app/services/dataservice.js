@@ -78,10 +78,10 @@ app.service('dataservice', function(){
     return {
         givePentominos : function(boardType) {
             switch (boardType) {
-                case boardType = '8x8':
+                case boardType = 'square':
                     return pentominos
                     break;
-                case boardType = '6x10':
+                case boardType = 'rectangle':
                     return pentominos.slice(0,-1)
                     break;
                 default:

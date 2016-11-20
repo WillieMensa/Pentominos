@@ -6,10 +6,7 @@ angular.module('pentominoApp')
 		restrict: 'A',
         scope: false,
 		templateUrl: 'app/components/settings.html',
-		controller: function($scope) {
-            showSize = function () {
-                console.log($scope.board.sizeType);
-            }
+		link: function($scope) {
 		},
 		controllerAs: 'settingsCtrl'
 	};

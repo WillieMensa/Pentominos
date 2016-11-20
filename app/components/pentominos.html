@@ -1,0 +1,16 @@
+<div class="pentomino"
+    ng-repeat="pentomino in pentominos track by $index"
+    ng-init="pentominoIndex = $index"
+    ng-style="{{methods.getPentominoCss($index)}}">
+    <div class="relContainer" draggable>
+        <div class="part"
+            ng-class="{
+                'fa fa-refresh rotate':$index==0,
+                'fa fa-arrows-h flipH':$index==1,
+                'fa fa-arrows-v flipV':$index==2
+            }"
+            ng-repeat="part in pentominos[pentominoIndex].faces[pentominos[pentominoIndex].face] track by $index"
+            ng-click="methods.flipRotate(pentominoIndex, $index)"
+            ng-style="{{methods.getPartCss(pentominoIndex, $index)}}"></div>
+    </div>
+</div>
