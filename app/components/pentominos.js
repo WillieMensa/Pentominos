@@ -37,6 +37,26 @@ angular.module('pentominoApp')
                         y : 1
                     }
                 },{
+                    color : 'brown',
+                    face : 2,
+                    faces : [
+                        [
+                            [0,0],[1,0],[0,1],[0,2],[1,2]
+                        ],[
+                            [0,0],[1,0],[2,0],[0,1],[2,1]
+                        ],[
+                            [0,0],[1,0],[1,1],[0,2],[1,2]
+                        ],[
+                            [0,0],[2,0],[0,1],[1,1],[2,1]
+                        ]
+                    ],
+                    name : 'c',
+                    parts : 5,
+                    position : {
+                        x : 4,
+                        y : 1
+                    }
+                },{
                     color : 'red',
                     face : 0,
                     faces : [
@@ -86,31 +106,29 @@ angular.module('pentominoApp')
 
             $scope.methods = {
                 getPentominoCss : function (pentomino) {
+                    var p = $scope.pentominos[pentomino];
                     return {
-                        'left':$scope.pentominos[pentomino].position.x*$scope.board.partSize+'px',
-                        'top' :$scope.pentominos[pentomino].position.y*$scope.board.partSize+'px',
+                        'left':p.position.x*$scope.board.partSize+'px',
+                        'top' :p.position.y*$scope.board.partSize+'px',
                     }
                 },
                 flipRotate : function (pentomino,part) {
+                    var p = $scope.pentominos[pentomino];
                     switch (part) {
                         case 0 :
-                            console.log('rotate', pentomino);
-                            $scope.pentominos[pentomino].face = ($scope.pentominos[pentomino].face + 1) % $scope.pentominos[pentomino].faces.length;
+                            p.face = (p.face + 1) % p.faces.length;
                             break;
                         default:
                     }
                 },
                 getPartCss : function(pentomino,part) {
                     // console.log(pentomino);
-                    p = $scope.pentominos[pentomino];
+                    var p = $scope.pentominos[pentomino];
                     return {
                         'left':p.faces[p.face][part][0]*$scope.board.partSize+'px',
                         'top':p.faces[p.face][part][1]*$scope.board.partSize+'px',
                         'backgroundColor':p.color
                     }
-                },
-                getFace : function(pentomino){
-                    return faces[face];
                 }
             }
         },

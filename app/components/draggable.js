@@ -39,9 +39,11 @@ app.directive('draggable', function($document) {
         }
 
         function mouseup(event) {
-            x = Math.round(x / scope.partSize) * scope.partSize;
-            y = Math.round(y / scope.partSize) * scope.partSize;
+            x = Math.round(x / scope.board.partSize) * scope.board.partSize;
+            y = Math.round(y / scope.board.partSize) * scope.board.partSize;
             setCss(x,y,'auto');
+            console.log(event);
+            // scope.pentominos[]
             $document.unbind('mousemove', mousemove);
             $document.unbind('mouseup', mouseup);
         }

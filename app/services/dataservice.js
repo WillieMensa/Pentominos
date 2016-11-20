@@ -1,5 +1,5 @@
 // The data for blocks
-app.service('dataservice', function(){
+app.factory('dataservice', function(){
     var pentominos = [
             {
                 color : 'purple',
