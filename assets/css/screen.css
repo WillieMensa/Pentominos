@@ -64,6 +64,8 @@ input+span{
     height: 40px;
     text-align: center;
     color: white;
+    border: .5px solid rgba(211,211,211,.3);
+    box-sizing: border-box;
     pointer-events:auto;
     cursor: move; /* fallback: no `url()` support or images disabled */
     cursor: -webkit-grab; /* Chrome 1-21, Safari 4+ */

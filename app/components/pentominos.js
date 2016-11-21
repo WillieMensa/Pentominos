@@ -7,7 +7,6 @@ angular.module('pentominoApp')
         scope: false,
 		templateUrl: 'app/components/pentominos.html',
         link: function($scope) {
-            // $scope.pentominos = dataservice.givePentominos($scope.board.sizeType);
 
             $scope.methods = {
                 self : this,
@@ -70,6 +69,8 @@ angular.module('pentominoApp')
                     }
                 }
             }
+        },
+        controller : function ($scope) {
         }
 	};
 }]);
