@@ -22,9 +22,18 @@ angular.module('pentominoApp')
                     }
                 },
                 flipRotate : function (pentomino, part) {
+                    var rotable = [1,2,3,0,5,6,7,4],
+                        fliptableH = [4,7,6,5,0,3,2,1],
+                        fliptableV = [6,5,4,7,2,1,0,3];
                     switch (part) {
                         case 0 :
-                            pentomino.face = (pentomino.face + 1) % pentomino.faces.length;
+                            pentomino.face = rotable[pentomino.face];
+                            break;
+                        case 1 :
+                            pentomino.face = fliptableH[pentomino.face];
+                            break;
+                        case 2 :
+                            pentomino.face = fliptableV[pentomino.face];
                             break;
                         default:
                     }
