@@ -12,9 +12,9 @@
         <div class="part"
             ng-repeat="part in face track by $index"
             ng-class="{
-                'fa fa-refresh rotate':$index==0,
-                'fa fa-arrows-h flipH':($index==1 && pentomino.faces.length > 1),
-                'fa fa-arrows-v flipV':($index==2 && pentomino.faces.length > 1)
+                'fa fa-refresh rotate':($index==0 && pentomino.faces.length > 1),
+                'fa fa-arrows-h flipH':($index==1 && pentomino.faces.length > 2),
+                'fa fa-arrows-v flipV':($index==2 && pentomino.faces.length > 2)
             }"
             ng-click="methods.flipRotate(pentomino, $index)"
             ng-style="{{methods.getPartCss(pentomino, part)}}"></div>

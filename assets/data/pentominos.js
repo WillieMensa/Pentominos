@@ -1,6 +1,7 @@
 $scope.pentominos = [
     {
         "name" : "b",
+        "type" : 0,
         "color" : "purple",
         "face" : 0,
         "faces" : [
@@ -9,9 +10,9 @@ $scope.pentominos = [
             [[1,0],[2,0],[0,1],[1,1],[2,1]],
             [[0,0],[0,1],[1,1],[0,2],[1,2]],
             [[0,0],[1,0],[2,0],[1,1],[2,1]],
-            [[0,0],[1,0],[0,1],[1,1],[0,2]],
+            [[1,0],[0,1],[1,1],[0,2],[1,2]],
             [[0,0],[1,0],[0,1],[1,1],[2,1]],
-            [[1,0],[0,1],[1,1],[0,2],[1,2]]
+            [[0,0],[1,0],[0,1],[1,1],[0,2]]
         ],
         "parts" : 5,
         "position" : {
@@ -21,13 +22,14 @@ $scope.pentominos = [
         "drag" : false
     },{
         "name" : "c",
+        "type" : 2,
         "color" : "brown",
-        "face" : 2,
+        "face" : 1,
         "faces" : [
-            [[0,0],[1,0],[0,1],[0,2],[1,2]],
             [[0,0],[1,0],[2,0],[0,1],[2,1]],
             [[0,0],[1,0],[1,1],[0,2],[1,2]],
-            [[0,0],[2,0],[0,1],[1,1],[2,1]]
+            [[0,0],[2,0],[0,1],[1,1],[2,1]],
+            [[0,0],[1,0],[0,1],[0,2],[1,2]]
         ],
         "parts" : 5,
         "position" : {
@@ -37,6 +39,7 @@ $scope.pentominos = [
         "drag" : false
     },{
         "name" : "i",
+        "type" : 4,
         "color" : "red",
         "face" : 0,
         "faces" : [
@@ -51,7 +54,8 @@ $scope.pentominos = [
         "drag" : false
     },{
         "name" : "t",
-        "color" : "yellow",
+        "type" : 2,
+        "color" : "orange",
         "face" : 0,
         "faces" : [
             [[0,0],[1,0],[2,0],[1,1],[1,2]],
@@ -67,6 +71,7 @@ $scope.pentominos = [
         "drag" : false
     },{
         "name" : "x",
+        "type" : 5,
         "color" : "green",
         "face" : 0,
         "faces" : [
@@ -80,6 +85,7 @@ $scope.pentominos = [
         "drag" : false
     },{
         "name" : "y",
+        "type" : 0,
         "color" : "teal",
         "face" : 2,
         "faces" : [
@@ -100,6 +106,7 @@ $scope.pentominos = [
         "drag" : false
     },{
         "name" : "o",
+        "type" : 5,
         "color" : "blue",
         "face" : 0,
         "faces" : [

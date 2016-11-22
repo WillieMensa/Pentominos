@@ -15,27 +15,43 @@ angular.module('pentominoApp')
                 x : 0, y : 0,
                 pIndex : null,
                 container : null,
+                resetParams : function() {
+                    self.container.style.left = 0;
+                    self.container.style.top = 0;
+                },
                 getPentominoCss : function (pentomino) {
                     return {
                         'left':pentomino.position.x*$scope.board.partSize+'px',
                         'top' :pentomino.position.y*$scope.board.partSize+'px',
                     }
                 },
+                // Returns the new face for a given face, action and blocktype
                 flipRotate : function (pentomino, part) {
-                    var rotable = [1,2,3,0,5,6,7,4],
-                        fliptableH = [4,7,6,5,0,3,2,1],
-                        fliptableV = [6,5,4,7,2,1,0,3];
-                    switch (part) {
-                        case 0 :
-                            pentomino.face = rotable[pentomino.face];
-                            break;
-                        case 1 :
-                            pentomino.face = fliptableH[pentomino.face];
-                            break;
-                        case 2 :
-                            pentomino.face = fliptableV[pentomino.face];
-                            break;
-                        default:
+                    var rotable = [
+                        [                       // rotate
+                            [1,2,3,0,5,6,7,4],  // blyfn
+                            [1,2,3,0],          // vw
+                            [1,2,3,0],          // tu
+                            [1,0,3,2],          // z
+                            [1,0],              // i
+                            [0]                 // xo not necessary
+                        ],[                     // flip horizontally
+                            [4,7,6,5,0,3,2,1],  // blyfn
+                            [3,2,1,0],          // vw
+                            [0,3,2,1],          // tu
+                            [2,3,0,1],          // z
+                            [0,1],              // i not necessary
+                            [0]                 // xo not necessary
+                        ],[                     // flip vertically
+                            [6,5,4,7,2,1,0,3],  // blyfn
+                            [1,0,3,2],          // vw
+                            [2,1,0,3],          // tu
+                            [2,3,0,1],          // z
+                            [0,1],              // i not necessary
+                            [0]                 // xo not necessary
+                        ]];
+                    if (pentomino.drag == false) {
+                        pentomino.face = rotable[part][pentomino.type][pentomino.face];
                     }
                 },
                 getPartCss : function(pentomino, part) {
@@ -49,7 +65,7 @@ angular.module('pentominoApp')
                     console.log(event);
                     pentomino.drag = true;
                     // Prevent default dragging of selected content
-                    // event.stopPropagation();
+                    event.stopPropagation();
                     self.container = event.target.offsetParent.offsetParent;
                     self.container.style.zIndex = 100;
                     self.pentoX = self.container.offsetLeft;
@@ -57,6 +73,7 @@ angular.module('pentominoApp')
                     self.startX = event.clientX - self.pentoX;
                     self.startY = event.clientY - self.pentoY;
                 },
+                // this should be on the body and communicate via service
                 doDrag : function(pentomino, event) {
                     if (pentomino.drag) {
                         // console.log(event);
