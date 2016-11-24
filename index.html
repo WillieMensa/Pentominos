@@ -8,7 +8,9 @@
         <link rel="stylesheet" href="assets/css/screen.css" />
         <script src="https://use.fontawesome.com/3554191950.js"></script>
     </head>
-    <body ng-app="pentominoApp" ng-controller="mainController" >
+    <body ng-app="pentominoApp"
+        ng-controller="mainController"
+        ng-mousemove="methods.doDrag($event)">
 
         <div id="board" board
             data-board-size="8x8"

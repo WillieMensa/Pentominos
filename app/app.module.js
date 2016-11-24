@@ -6,6 +6,7 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
 
     $scope.board = {};
     $scope.methods = {};
+    $scope.currentPentomino = null;
     dataservice.givePentominos($scope.board.sizeType).then(function(data) {
         $scope.pentominos = data;
         console.log(data);

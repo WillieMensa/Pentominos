@@ -1,9 +1,8 @@
 <div class="pentomino"
     ng-repeat="pentomino in pentominos track by $index"
     ng-mousedown="methods.startDrag(pentomino, $event)"
-    ng-mousemove="methods.doDrag(pentomino, $event)"
     ng-mouseup="methods.stopDrag(pentomino, $event)"
-    ng-mouseleave="methods.stopDrag(pentomino, $event)"
+    ang-mouseleave="methods.stopDrag(pentomino, $event)"
     ng-style="{{methods.getPentominoCss(pentomino)}}"
     data-pentomino-index="{{$index}}">
     <div class="relContainer"
