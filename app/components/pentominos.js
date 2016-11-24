@@ -9,7 +9,6 @@ angular.module('pentominoApp')
         link: function($scope) {
 
             $scope.methods = {
-                // this : this,
                 startX : 0, startY : 0,
                 pentoX : 0, pentoY : 0,
                 x : 0, y : 0,
@@ -63,7 +62,6 @@ angular.module('pentominoApp')
                 },
                 startDrag : function(pentomino, event) {
                     $scope.currentPentomino = pentomino;
-                    pentomino.drag = true;
                     // Prevent default dragging of selected content
                     event.stopPropagation();
                     this.container = event.target.offsetParent.offsetParent;
@@ -74,9 +72,8 @@ angular.module('pentominoApp')
                     this.startY = event.clientY - this.pentoY;
                     this.x = event.clientX - this.startX;
                     this.y = event.clientY - this.startY;
-                    console.log(this);
+                    // console.log(this);
                 },
-                // this should be on the body and communicate via service
                 doDrag : function(event) {
                     if ($scope.currentPentomino) {
                         // console.log(event);
@@ -94,8 +91,7 @@ angular.module('pentominoApp')
                         this.container.style.left = pentomino.position.x * $scope.board.partSize + 'px';
                         this.container.style.top = pentomino.position.y * $scope.board.partSize + 'px';
                         this.container.style.zIndex = '';
-                        pentomino.drag = false;
-                        container = null;
+                        this.container = null;
                         $scope.currentPentomino = null;
                         this.resetParams();
                     }

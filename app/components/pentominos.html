@@ -16,6 +16,9 @@
                 'fa fa-arrows-v flipV':($index==2 && pentomino.faces.length > 2)
             }"
             ng-click="methods.flipRotate(pentomino, $index)"
-            ng-style="{{methods.getPartCss(pentomino, part)}}"></div>
+            ng-style="{{methods.getPartCss(pentomino, part)}}">
+            <!-- <span ng-if="$index==3">{{pentomino.position.x + '/' + pentomino.position.y}}</span>
+            <span ng-if="$index==4">{{pentomino.face}}</span> -->
+        </div>
     </div>
 </div>
