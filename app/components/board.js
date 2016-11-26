@@ -34,11 +34,9 @@ angular.module('pentominoApp')
                         (y >= 0) && (y < this.height());
                 },
                 theBoardCss : function () {
-                    var borderColor = (this.solved) ? 'lime' : 'darkgray';
                     return {
                         'width':this.width()*this.partSize+'px',
-                        'height':this.height()*this.partSize+'px',
-                        'borderColor':borderColor
+                        'height':this.height()*this.partSize+'px'
                     }
                 },
                 registerPiece : function(pentomino,onOff) {

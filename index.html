@@ -15,7 +15,8 @@
 
         <div id="board" board
             data-board-size="8x8"
-            ng-style="board.theBoardCss()">
+            ng-style="board.theBoardCss()"
+            ng-class="{'solved' : board.solved}">
         </div>
 
         <div settings id="controls"></div>
