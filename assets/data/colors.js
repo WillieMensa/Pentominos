@@ -1,25 +1,25 @@
-$scope.pentominos = [
+$scope.colors = [
     {
         "name" : "b",
-        "color" : "darkblue"
+        "color" : "midnightblue"
     },{
         "name" : "c",
         "color" : "darkviolet"
     },{
         "name" : "f",
-        "color" : "orange"
+        "color" : "darkorange"
     },{
         "name" : "i",
         "color" : "maroon"
     },{
         "name" : "l",
-        "color" : "green"
+        "color" : "darkgreen"
     },{
         "name" : "n",
         "color" : "magenta"
     },{
         "name" : "t",
-        "color" : "lime"
+        "color" : "limegreen"
     },{
         "name" : "v",
         "color" : "deepskyblue"
@@ -34,7 +34,7 @@ $scope.pentominos = [
         "color" : "gold"
     },{
         "name" : "z",
-        "color" : "blue"
+        "color" : "mediumblue"
     },{
         "name" : "o",
         "color" : "darkslategray"
