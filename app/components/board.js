@@ -8,6 +8,7 @@ angular.module('pentominoApp')
 		templateUrl: 'app/components/board.html',
         link: function($scope) {
             $scope.board = {
+                fields : [],
                 partSize : 40,
                 sizeType : document.querySelector('#board').getAttribute('data-board-size'),
                 brdType : 'square',
@@ -21,11 +22,61 @@ angular.module('pentominoApp')
                         h : 10
                     }
                 },
+                solved : false,
+                width : function() {
+                    return $scope.board.brdTypes[$scope.board.brdType].w;
+                },
+                height : function() {
+                    return $scope.board.brdTypes[$scope.board.brdType].h;
+                },
+                onBoard : function(x,y) {
+                    return (x >= 0) && (x < this.width()) &&
+                        (y >= 0) && (y < this.height());
+                },
                 theBoardCss : function () {
+                    var borderColor = (this.solved) ? 'lime' : 'darkgray';
                     return {
-                        'width':this.brdTypes[this.brdType].w*this.partSize+'px',
-                        'height':this.brdTypes[this.brdType].h*this.partSize+'px'
+                        'width':this.width()*this.partSize+'px',
+                        'height':this.height()*this.partSize+'px',
+                        'borderColor':borderColor
                     }
+                },
+                registerPiece : function(pentomino,onOff) {
+                    var x, y;
+                    for (var i = 0; i < pentomino.faces[pentomino.face].length; i++) {
+                        x = pentomino.faces[pentomino.face][i][0]+pentomino.position.x;
+                        y = pentomino.faces[pentomino.face][i][1]+pentomino.position.y;
+                        if (this.onBoard(x,y)) {
+                            this.fields[y][x] += onOff;
+                        }
+
+                    }
+                },
+                registerAllPieces : function(pentominos) {
+                    for (var i = 0; i < pentominos.length; i++) {
+                        this.registerPiece(pentominos[i],1);
+                    }
+                },
+                isSolved : function() {
+                    var solved = true;
+                    for (var y = 0; y < $scope.board.width(); y++) {
+                        for (var x = 0; x < $scope.board.height(); x++) {
+                            solved = ($scope.board.fields[y][x] == 1) && solved;
+                            if (!solved) {
+                                break;
+                            }
+                        }
+                    }
+                    this.solved = solved;
+                }
+            };
+
+            var w = $scope.board.width();
+            var h = $scope.board.height();
+            for (var y = 0; y < h; y++) {
+                $scope.board.fields.push([]);
+                for (var x = 0; x < w; x++) {
+                    $scope.board.fields[y].push(0);
                 }
             };
         },

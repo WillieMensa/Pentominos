@@ -10,7 +10,8 @@
     </head>
     <body ng-app="pentominoApp"
         ng-controller="mainController"
-        ng-mousemove="methods.doDrag($event)">
+        ng-mousemove="methods.doDrag($event)"
+        ng-mouseup="methods.stopDrag($event)">
 
         <div id="board" board
             data-board-size="8x8"

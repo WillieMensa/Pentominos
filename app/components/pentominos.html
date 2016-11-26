@@ -1,8 +1,5 @@
 <div class="pentomino"
     ng-repeat="pentomino in pentominos track by $index"
-    ng-mousedown="methods.startDrag(pentomino, $event)"
-    ng-mouseup="methods.stopDrag(pentomino, $event)"
-    ang-mouseleave="methods.stopDrag(pentomino, $event)"
     ng-style="{{methods.getPentominoCss(pentomino)}}"
     data-pentomino-index="{{$index}}">
     <div class="relContainer"
@@ -10,12 +7,12 @@
         ng-if="$index == pentomino.face">
         <div class="part"
             ng-repeat="part in face track by $index"
+            ng-mousedown="methods.startDrag(pentomino, $index, $event)"
             ng-class="{
                 'fa fa-refresh rotate':($index==0 && pentomino.faces.length > 1),
                 'fa fa-arrows-h flipH':($index==1 && pentomino.faces.length > 2),
                 'fa fa-arrows-v flipV':($index==2 && pentomino.faces.length > 2)
             }"
-            ng-click="methods.flipRotate(pentomino, $index)"
             ng-style="{{methods.getPartCss(pentomino, part)}}">
             <!-- <span ng-if="$index==3">{{pentomino.position.x + '/' + pentomino.position.y}}</span>
             <span ng-if="$index==4">{{pentomino.face}}</span> -->

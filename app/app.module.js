@@ -19,7 +19,6 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
             $scope.pentominos[i].face = data[i].face;
             $scope.pentominos[i].position = data[i].position;
         }
-        console.log(data);
     });
 
 }]);
