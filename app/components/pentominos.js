@@ -1,7 +1,7 @@
 angular.module('pentominoApp')
 
 // The terminal (input / output)
-.directive('pentominos', ['dataservice', function(dataservice) {
+.directive('pentominos', [function() {
 	return {
 		restrict: 'A',
         scope: false,
@@ -62,6 +62,7 @@ angular.module('pentominoApp')
                 },
                 startDrag : function(pentomino, event) {
                     $scope.currentPentomino = pentomino;
+                    console.log(JSON.stringify($scope.pentominos));
                     // Prevent default dragging of selected content
                     event.stopPropagation();
                     this.container = event.target.offsetParent.offsetParent;
