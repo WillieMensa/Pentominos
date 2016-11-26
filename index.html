@@ -11,7 +11,9 @@
     <body ng-app="pentominoApp"
         ng-controller="mainController"
         ng-mousemove="methods.doDrag($event)"
-        ng-mouseup="methods.stopDrag($event)">
+        ng-touchmove="methods.doDrag($event)"
+        ng-mouseup="methods.stopDrag($event)"
+        ng-touchend="methods.stopDrag($event)">
 
         <div id="board" board
             data-board-size="8x8"
@@ -21,14 +23,15 @@
 
         <div settings id="controls"></div>
 
-        <div class="hidden">
+        <scripts class="hidden">
             <script src="node_modules/angular/angular.js"></script>
+            <script src="node_modules/ngtouch/build/ngTouch.min.js"></script>
             <script src="app/app.module.js"></script>
             <script src="app/services/dataservice.js"></script>
             <script src="app/components/board.js"></script>
             <script src="app/components/pentominos.js"></script>
             <script src="app/components/settings.js"></script>
-        </div>
+        </scripts>
 
     </body>
 </html>

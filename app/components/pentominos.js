@@ -63,7 +63,7 @@ angular.module('pentominoApp')
                     }
                 },
                 startDrag : function(pentomino, part, event) {
-                    event.stopPropagation();
+                    // event.stopPropagation();
                     $scope.board.registerPiece(pentomino,-1);
                     if ((part < 3) && pentomino.type < 5) {
                         this.flipRotate(pentomino, part);
@@ -75,17 +75,17 @@ angular.module('pentominoApp')
                         this.container.style.zIndex = 100;
                         this.pentoX = this.container.offsetLeft;
                         this.pentoY = this.container.offsetTop;
-                        this.startX = event.clientX - this.pentoX;
-                        this.startY = event.clientY - this.pentoY;
-                        this.x = event.clientX - this.startX;
-                        this.y = event.clientY - this.startY;
+                        this.startX = event.pageX - this.pentoX;
+                        this.startY = event.pageY - this.pentoY;
+                        this.x = event.pageX - this.startX;
+                        this.y = event.pageY - this.startY;
                     }
                 },
                 doDrag : function(event) {
                     if ($scope.currentPentomino) {
                         // console.log(event);
-                        this.x = event.clientX - this.startX;
-                        this.y = event.clientY - this.startY;
+                        this.x = event.pageX - this.startX;
+                        this.y = event.pageY - this.startY;
                         this.container.style.left = this.x + 'px';
                         this.container.style.top = this.y + 'px';
                         // console.log(Math.round(this.y / $scope.board.partSize));

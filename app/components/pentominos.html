@@ -8,6 +8,7 @@
         <div class="part"
             ng-repeat="part in face track by $index"
             ng-mousedown="methods.startDrag(pentomino, $index, $event)"
+            ng-touchstart="methods.startDrag(pentomino, $index, $event)"
             ng-class="{
                 'fa fa-refresh rotate':($index==0 && pentomino.faces.length > 1),
                 'fa fa-arrows-h flipH':($index==1 && pentomino.faces.length > 2),

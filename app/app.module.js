@@ -1,5 +1,5 @@
 // The keyboard application
-var app = angular.module('pentominoApp', []);
+var app = angular.module('pentominoApp', ['ngTouch']);
 
 // Controller for blocks
 app.controller('mainController', ['$scope', 'dataservice', function($scope, dataservice){
