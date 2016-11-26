@@ -1,7 +1,7 @@
 angular.module('pentominoApp')
 
 // The terminal (input / output)
-.directive('board', ['dataservice', function(dataservice) {
+.directive('board', [function() {
 	return {
 		restrict: 'A',
         scope: false,
