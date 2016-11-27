@@ -1,7 +1,7 @@
 angular.module('pentominoApp')
 
 // The terminal (input / output)
-.directive('pentominos', [function() {
+.directive('pentominos', ['dataservice', function(dataservice) {
 	return {
 		restrict: 'A',
         scope: false,
@@ -20,6 +20,26 @@ angular.module('pentominoApp')
                     this.container = null;
                     this.x = 0;
                     this.y = 0;
+                },
+                initPentominos : function(sizeType) {
+                    $scope.pentominos = {};
+                    dataservice.getPentominos(sizeType).then(function(data) {
+                        $scope.pentominos = data;
+                    });
+                    console.log($scope.pentominos);
+                    dataservice.getStartPosition(sizeType).then(function(data) {
+                        for (var i = 0; i < $scope.pentominos.length; i++) {
+                            $scope.pentominos[i].face = data[i].face;
+                            $scope.pentominos[i].position = data[i].position;
+                        }
+                    });
+                    console.log($scope.pentominos);
+                    dataservice.getColors(sizeType).then(function(data) {
+                        for (var i = 0; i < $scope.pentominos.length; i++) {
+                            $scope.pentominos[i].color = data[i].color;
+                        }
+                    });
+                    console.log($scope.pentominos);
                 },
                 getPentominoCss : function (pentomino) {
                     var theCss = {
@@ -104,9 +124,12 @@ angular.module('pentominoApp')
                     }
                 }
             };
+            $scope.methods.initPentominos($scope.board.sizeType);
             $scope.board.registerAllPieces($scope.pentominos);
+
         },
         controller : function ($scope) {
+
         }
 	};
 }]);

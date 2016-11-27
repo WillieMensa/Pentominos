@@ -81,6 +81,7 @@ angular.module('pentominoApp')
             };
 
             $scope.board.setBoardFields();
+
         },
         controller: function($scope) {
 		},
