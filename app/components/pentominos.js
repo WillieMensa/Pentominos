@@ -65,7 +65,8 @@ angular.module('pentominoApp')
                 startDrag : function(pentomino, part, event) {
                     // event.stopPropagation();
                     $scope.board.registerPiece(pentomino,-1);
-                    if ((part < 3) && pentomino.type < 5) {
+                    if (((pentomino.type < 4) && (part < 3)) ||
+                        ((pentomino.type == 4) && (part < 1))) {
                         this.flipRotate(pentomino, part);
                         $scope.board.registerPiece(pentomino,1);
                         $scope.board.isSolved();

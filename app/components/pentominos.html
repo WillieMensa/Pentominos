@@ -10,9 +10,9 @@
             ng-mousedown="methods.startDrag(pentomino, $index, $event)"
             ng-touchstart="methods.startDrag(pentomino, $index, $event)"
             ng-class="{
-                'fa fa-refresh rotate':($index==0 && pentomino.faces.length > 1),
-                'fa fa-arrows-h flipH':($index==1 && pentomino.faces.length > 2),
-                'fa fa-arrows-v flipV':($index==2 && pentomino.faces.length > 2)
+                'fa fa-refresh rotate':($index==0 && pentomino.type < 5),
+                'fa fa-arrows-h flipH':($index==1 && pentomino.type < 4),
+                'fa fa-arrows-v flipV':($index==2 && pentomino.type < 4)
             }"
             ng-style="{{methods.getPartCss(pentomino, part)}}">
             <!-- <span ng-if="$index==3">{{pentomino.position.x + '/' + pentomino.position.y}}</span>
