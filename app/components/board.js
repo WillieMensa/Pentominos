@@ -39,6 +39,17 @@ angular.module('pentominoApp')
                         'height':this.height()*this.partSize+'px'
                     }
                 },
+                setBoardFields : function() {
+                    var w = $scope.board.width();
+                    var h = $scope.board.height();
+                    $scope.board.fields = [];
+                    for (var y = 0; y < h; y++) {
+                        $scope.board.fields.push([]);
+                        for (var x = 0; x < w; x++) {
+                            $scope.board.fields[y].push(0);
+                        }
+                    };
+                },
                 registerPiece : function(pentomino,onOff) {
                     var x, y;
                     for (var i = 0; i < pentomino.faces[pentomino.face].length; i++) {
@@ -69,17 +80,10 @@ angular.module('pentominoApp')
                 }
             };
 
-            var w = $scope.board.width();
-            var h = $scope.board.height();
-            for (var y = 0; y < h; y++) {
-                $scope.board.fields.push([]);
-                for (var x = 0; x < w; x++) {
-                    $scope.board.fields[y].push(0);
-                }
-            };
+            $scope.board.setBoardFields();
         },
         controller: function($scope) {
 		},
-		controllerAs: 'settingsCtrl'
+		controllerAs: 'boardCtrl'
 	};
 }]);

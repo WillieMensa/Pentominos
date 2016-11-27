@@ -22,10 +22,11 @@ angular.module('pentominoApp')
                     this.y = 0;
                 },
                 getPentominoCss : function (pentomino) {
-                    return {
+                    var theCss = {
                         'left':pentomino.position.x*$scope.board.partSize+'px',
                         'top' :pentomino.position.y*$scope.board.partSize+'px',
-                    }
+                    };
+                    return theCss;
                 },
                 // Returns the new face for a given face, action and blocktype
                 flipRotate : function (pentomino, part) {
