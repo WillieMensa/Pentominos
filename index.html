@@ -16,7 +16,7 @@
         ng-touchend="methods.stopDrag($event)">
 
         <div id="board" board
-            data-board-size="8x8"
+            data-board-size="{{board.brdType}}"
             ng-style="board.theBoardCss()"
             ng-class="{'solved' : board.solved}">
         </div>
@@ -25,7 +25,7 @@
 
         <scripts class="hidden">
             <script src="node_modules/angular/angular.js"></script>
-            <script src="node_modules/ngtouch/build/ngTouch.min.js"></script>
+            <script src="node_modules/ngtouch/src/ngTouch.js"></script>
             <script src="app/app.module.js"></script>
             <script src="app/services/dataservice.js"></script>
             <script src="app/components/board.js"></script>

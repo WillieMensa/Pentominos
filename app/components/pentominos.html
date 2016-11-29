@@ -1,6 +1,7 @@
 <div class="pentomino"
     ng-repeat="pentomino in pentominos track by $index"
     ng-style="{{methods.getPentominoCss(pentomino)}}"
+    ng-show="pentominos"
     data-pentomino-index="{{$index}}">
     <div class="relContainer"
         ng-repeat="face in pentomino.faces track by $index"
