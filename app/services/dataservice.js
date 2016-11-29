@@ -5,7 +5,7 @@ angular.module('pentominoApp')
     var self = this;
     self.dataSlice = function (data, boardType) {
         switch (boardType) {
-            case boardType = '6x10':
+            case boardType = 'rectangle':
                 return data.slice(0,-1)
             default: // square
                 return data
@@ -29,8 +29,9 @@ angular.module('pentominoApp')
         getStartPosition : function(boardType){
 			var fileName = 'assets/data/square-start.json';
             switch (boardType) {
-                case boardType = '6x10':
+                case boardType = 'rectangle':
                     fileName = 'assets/data/rectangle-start.json';
+                    break;
                 default: // square
                     fileName = 'assets/data/square-start.json';
             }

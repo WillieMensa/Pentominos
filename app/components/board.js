@@ -66,6 +66,7 @@ angular.module('pentominoApp')
                         }
                     }
                     this.solved = solved;
+                    if (this.solved) console.log(JSON.stringify($scope.pentominos));
                 }
             };
 
