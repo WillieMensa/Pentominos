@@ -10,7 +10,6 @@ angular.module('pentominoApp')
             $scope.board = {
                 fields : [],
                 partSize : 40,
-                sizeType : document.querySelector('#board').getAttribute('data-board-size'),
                 brdType : 'square',
                 brdTypes : {
                     'square' : {
@@ -50,9 +49,9 @@ angular.module('pentominoApp')
 
                     }
                 },
-                registerAllPieces : function(pentominos) {
-                    for (var i = 0; i < pentominos.length; i++) {
-                        this.registerPiece(pentominos[i],1);
+                registerAllPieces : function() {
+                    for (var i = 0; i < $scope.pentominos.length; i++) {
+                        this.registerPiece($scope.pentominos[i],1);
                     }
                 },
                 isSolved : function() {
@@ -67,17 +66,20 @@ angular.module('pentominoApp')
                     }
                     this.solved = solved;
                     if (this.solved) console.log(JSON.stringify($scope.pentominos));
+                },
+                cleanBoard : function() {
+                    var w = $scope.board.width();
+                    var h = $scope.board.height();
+                    for (var y = 0; y < h; y++) {
+                        $scope.board.fields.push([]);
+                        for (var x = 0; x < w; x++) {
+                            $scope.board.fields[y].push(0);
+                        }
+                    };
                 }
             };
 
-            var w = $scope.board.width();
-            var h = $scope.board.height();
-            for (var y = 0; y < h; y++) {
-                $scope.board.fields.push([]);
-                for (var x = 0; x < w; x++) {
-                    $scope.board.fields[y].push(0);
-                }
-            };
+            $scope.board.cleanBoard();
         },
         controller: function($scope) {
 		},

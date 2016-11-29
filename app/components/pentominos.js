@@ -27,7 +27,7 @@ angular.module('pentominoApp')
                         'top' :pentomino.position.y*$scope.board.partSize+'px',
                     }
                 },
-                // Returns the new face for a given face, action and blocktype
+                // Returns the new face index for a given face, action and blocktype
                 flipRotate : function (pentomino, part) {
                     var rotable = [
                         [                       // rotate
@@ -104,7 +104,7 @@ angular.module('pentominoApp')
                     }
                 }
             };
-            $scope.board.registerAllPieces($scope.pentominos);
+            
         },
         controller : function ($scope) {
         }

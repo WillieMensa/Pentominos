@@ -6,7 +6,12 @@ angular.module('pentominoApp')
 		restrict: 'A',
         scope: false,
 		templateUrl: 'app/components/settings.html',
-		link: function($scope) {
+		controller: function($scope) {
+            $scope.readStart = function () {
+                $scope.getStartPosition();
+            }
+            $scope.board.cleanBoard();
+            $scope.board.registerAllPieces();
 		},
 		controllerAs: 'settingsCtrl'
 	};
