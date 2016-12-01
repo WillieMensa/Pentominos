@@ -3,31 +3,23 @@ angular.module('pentominoApp')
 // The data for blocks
 .factory('dataservice',['$http', function($http){
     var self = this;
-    self.dataSlice = function (data, boardType) {
-        switch (boardType) {
-            case boardType = 'rectangle':
-                return data.slice(0,-1)
-            default: // square
-                return data
-        }
-    };
 	return {
-		getPentominos : function(boardType){
+		getPentominos : function(){
 			var fileName = 'assets/data/pentominos.json';
 			return $http.get(fileName)
 				.then(function(response){
-                    return self.dataSlice(response.data, boardType);
+                    return response.data;
 				});
 		},
-        getColors : function(boardType){
+        getColors : function(){
 			var fileName = 'assets/data/colors.json';
 			return $http.get(fileName)
 				.then(function(response){
-                    return self.dataSlice(response.data, boardType);
+                    return response.data;
 				});
 		},
         getStartPosition : function(boardType){
-			var fileName = 'assets/data/square-start.json';
+			var fileName;
             switch (boardType) {
                 case boardType = 'rectangle':
                     fileName = 'assets/data/rectangle-start.json';

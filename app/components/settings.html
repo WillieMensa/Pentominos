@@ -3,17 +3,17 @@
     <label for="square">
         <input type="radio"
             ng-model="board.brdType"
-            name="brdType"
+            name="board.brdType"
             value="square"
-            ng-change="getStartPosition()"
+            ng-change="readStart()"
             id="square" /><span>8&times;8</span>
     </label>
     <label for="rectangular">
         <input type="radio"
             ng-model="board.brdType"
-            name="brdType"
+            name="board.brdType"
             value="rectangle"
-            ng-change="getStartPosition()"
+            ng-change="readStart()"
             id="rectangular" /><span>6&times;10</span>
     </label>
 </form>
