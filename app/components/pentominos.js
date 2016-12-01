@@ -104,7 +104,7 @@ angular.module('pentominoApp')
                     }
                 }
             };
-            
+
         },
         controller : function ($scope) {
         }

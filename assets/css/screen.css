@@ -60,6 +60,7 @@ body{
 }
 #controls{
     padding: 40px;
+    margin-top: 400px;
 }
 label{
     display: block;

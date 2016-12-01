@@ -10,8 +10,7 @@ angular.module('pentominoApp')
             $scope.readStart = function () {
                 $scope.getStartPosition();
             }
-            $scope.board.cleanBoard();
-            $scope.board.registerAllPieces();
+            console.log($scope.board);
 		},
 		controllerAs: 'settingsCtrl'
 	};
