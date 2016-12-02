@@ -21,10 +21,10 @@ angular.module('pentominoApp')
                     this.x = 0;
                     this.y = 0;
                 },
-                getPentominoCss : function (pentomino) {
+                getPentominoCss : function (position) {
                     return {
-                        'left':pentomino.position.x*$scope.board.partSize+'px',
-                        'top' :pentomino.position.y*$scope.board.partSize+'px',
+                        'left':position.x*$scope.board.partSize+'px',
+                        'top' :position.y*$scope.board.partSize+'px',
                     }
                 },
                 // Returns the new face index for a given face, action and blocktype

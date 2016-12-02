@@ -9,6 +9,7 @@ angular.module('pentominoApp')
 		controller: function($scope) {
             $scope.readStart = function () {
                 $scope.getStartPosition($scope.board.brdType);
+                $scope.board.cleanBoard();
                 console.log($scope.board);
             }
 		},

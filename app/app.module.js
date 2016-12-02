@@ -11,7 +11,7 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
         dataservice.getStartPosition(boardType).then(function(data) {
             for (var i = 0; i < $scope.pentominos.length; i++) {
                 $scope.pentominos[i].face = data[i].face;
-                $scope.pentominos[i].position = data[i].position;
+                $scope.pentominos[i].position = angular.copy(data[i].position);
             }
         }).then(function() {
             // $scope.board.cleanBoard();
