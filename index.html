@@ -16,7 +16,7 @@
         ng-touchend="methods.stopDrag($event)">
 
         <div id="board" board
-            ng-if="pentominos"
+            ng-show="pentominos"
             ng-style="board.theBoardCss()"
             ng-class="{'solved' : board.solved}">
         </div>
