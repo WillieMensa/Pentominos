@@ -56,8 +56,8 @@ angular.module('pentominoApp')
                 },
                 isSolved : function() {
                     var solved = true;
-                    for (var y = 0; y < $scope.board.width(); y++) {
-                        for (var x = 0; x < $scope.board.height(); x++) {
+                    for (var y = 0; y < $scope.board.height(); y++) {
+                        for (var x = 0; x < $scope.board.width(); x++) {
                             solved = ($scope.board.fields[y][x] == 1) && solved;
                             if (!solved) {
                                 break;
@@ -70,6 +70,7 @@ angular.module('pentominoApp')
                 cleanBoard : function() {
                     var w = $scope.board.width();
                     var h = $scope.board.height();
+                    $scope.solved = false;
                     $scope.board.fields = [];
                     for (var y = 0; y < h; y++) {
                         $scope.board.fields.push([]);
