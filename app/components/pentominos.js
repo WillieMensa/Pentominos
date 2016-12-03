@@ -21,34 +21,15 @@ angular.module('pentominoApp')
                     this.x = 0;
                     this.y = 0;
                 },
-                initPentominos : function(sizeType) {
-                    $scope.pentominos = {};
-                    dataservice.getPentominos(sizeType).then(function(data) {
-                        $scope.pentominos = data;
-                    });
-                    console.log($scope.pentominos);
-                    dataservice.getStartPosition(sizeType).then(function(data) {
-                        for (var i = 0; i < $scope.pentominos.length; i++) {
-                            $scope.pentominos[i].face = data[i].face;
-                            $scope.pentominos[i].position = data[i].position;
+                getPentominoCss : function (position) {
+                    if (position) {
+                        return {
+                            'left':position.x*$scope.board.partSize+'px',
+                            'top' :position.y*$scope.board.partSize+'px',
                         }
-                    });
-                    console.log($scope.pentominos);
-                    dataservice.getColors(sizeType).then(function(data) {
-                        for (var i = 0; i < $scope.pentominos.length; i++) {
-                            $scope.pentominos[i].color = data[i].color;
-                        }
-                    });
-                    console.log($scope.pentominos);
+                    }
                 },
-                getPentominoCss : function (pentomino) {
-                    var theCss = {
-                        'left':pentomino.position.x*$scope.board.partSize+'px',
-                        'top' :pentomino.position.y*$scope.board.partSize+'px',
-                    };
-                    return theCss;
-                },
-                // Returns the new face for a given face, action and blocktype
+                // Returns the new face index for a given face, action and blocktype
                 flipRotate : function (pentomino, part) {
                     var rotable = [
                         [                       // rotate
@@ -86,7 +67,8 @@ angular.module('pentominoApp')
                 startDrag : function(pentomino, part, event) {
                     // event.stopPropagation();
                     $scope.board.registerPiece(pentomino,-1);
-                    if ((part < 3) && pentomino.type < 5) {
+                    if (((pentomino.type < 4) && (part < 3)) ||
+                        ((pentomino.type == 4) && (part < 1))) {
                         this.flipRotate(pentomino, part);
                         $scope.board.registerPiece(pentomino,1);
                         $scope.board.isSolved();
@@ -122,10 +104,13 @@ angular.module('pentominoApp')
                         $scope.board.isSolved();
                         this.resetVars();
                     }
+                },
+                registerPieces : function () {
+                    $scope.board.cleanBoard();
+                    $scope.board.registerAllPieces();
                 }
             };
-            $scope.methods.initPentominos($scope.board.sizeType);
-            $scope.board.registerAllPieces($scope.pentominos);
+            // $scope.methods.registerPieces();
 
         },
         controller : function ($scope) {

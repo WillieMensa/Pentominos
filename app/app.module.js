@@ -4,8 +4,30 @@ var app = angular.module('pentominoApp', ['ngTouch']);
 // Controller for blocks
 app.controller('mainController', ['$scope', '$timeout', 'dataservice', function($scope, $timeout, dataservice){
 
-
-    $scope.board = {};
+    // $scope.board = {};
+    // $scope.board.brdType = 'square';
     $scope.currentPentomino = null;
+    $scope.getStartPosition = function () {
+        var boardType = $scope.board.brdType;
+        dataservice.getStartPosition(boardType).then(function(data) {
+            for (var i = 0; i < $scope.pentominos.length; i++) {
+                $scope.pentominos[i].face = data[i].face;
+                $scope.pentominos[i].position = angular.copy(data[i].position);
+            }
+        }).then(function() {
+            $scope.methods.registerPieces();
+            console.log($scope.board);
+            console.log($scope.pentominos);
+        });
+    };
+    dataservice.getPentominos().then(function(data) {
+        $scope.pentominos = data;
+        $scope.getStartPosition();
+    });
+    dataservice.getColors().then(function(data) {
+        for (var i = 0; i < $scope.pentominos.length; i++) {
+            $scope.pentominos[i].color = data[i].color;
+        }
+    });
 
 }]);

@@ -1,17 +1,19 @@
-<form name="settingsForm" action="">
-    <label for="rectangle">
+<form name="settingsForm" action=""
+    ng-if="board.brdType">
+    <label for="square">
         <input type="radio"
             ng-model="board.brdType"
-            name="brdType"
-            value="rectangle"
-            ng-click="initPentominos(brdType); board.setBoardFields(brdType)"
-            id="rectangle" /><span>6&times;10</span>
+            name="board.brdType"
+            value="square"
+            ng-change="readStart()"
+            id="square" /><span>8&times;8</span>
     </label>
     <label for="square">
         <input type="radio"
             ng-model="board.brdType"
-            name="brdType"
-            value="square"
-            id="square" /><span>8&times;8</span>
+            name="board.brdType"
+            value="rectangle"
+            ng-change="readStart()"
+            id="rectangular" /><span>6&times;10</span>
     </label>
 </form>
