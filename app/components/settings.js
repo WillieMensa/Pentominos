@@ -8,9 +8,9 @@ angular.module('pentominoApp')
 		templateUrl: 'app/components/settings.html',
 		controller: function($scope) {
             $scope.readStart = function () {
-                $scope.getStartPosition($scope.board.brdType);
+                $scope.getStartPosition();
                 $scope.board.cleanBoard();
-                console.log($scope.board);
+                $scope.board.registerAllPieces();
             }
 		},
 		controllerAs: 'settingsCtrl'

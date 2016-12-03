@@ -7,15 +7,16 @@ app.controller('mainController', ['$scope', 'dataservice', function($scope, data
     // $scope.board = {};
     // $scope.board.brdType = 'square';
     $scope.currentPentomino = null;
-    $scope.getStartPosition = function (boardType) {
+    $scope.getStartPosition = function () {
+        var boardType = $scope.board.brdType;
         dataservice.getStartPosition(boardType).then(function(data) {
             for (var i = 0; i < $scope.pentominos.length; i++) {
                 $scope.pentominos[i].face = data[i].face;
                 $scope.pentominos[i].position = angular.copy(data[i].position);
             }
         }).then(function() {
-            // $scope.board.cleanBoard();
-            // $scope.board.registerAllPieces();
+            $scope.methods.registerPieces();
+            console.log($scope.board);
             console.log($scope.pentominos);
         });
     };

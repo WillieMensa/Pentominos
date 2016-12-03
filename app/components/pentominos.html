@@ -1,7 +1,7 @@
 <div class="pentomino"
     ng-repeat="pentomino in pentominos track by $index"
+    ng-show="pentominos && (((board.brdType == 'square') && ($index < 13)) || ((board.brdType == 'rectangle') && ($index < 12)))"
     ng-style="methods.getPentominoCss(pentomino.position)"
-    ng-if="pentominos && (((board.brdType == 'square') && ($index < 13)) || ((board.brdType == 'rectangle') && ($index < 12)))"
     data-pentomino-index="{{$index}}">
     <div class="relContainer"
         ng-repeat="face in pentomino.faces track by $index"

@@ -79,11 +79,7 @@ angular.module('pentominoApp')
                     };
                 }
             };
-
-            $scope.board.cleanBoard();
         },
-        controller: function($scope) {
-		},
-		controllerAs: 'settingsCtrl'
+		controllerAs: 'boardCtrl'
 	};
 }]);

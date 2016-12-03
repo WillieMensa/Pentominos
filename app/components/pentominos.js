@@ -22,9 +22,11 @@ angular.module('pentominoApp')
                     this.y = 0;
                 },
                 getPentominoCss : function (position) {
-                    return {
-                        'left':position.x*$scope.board.partSize+'px',
-                        'top' :position.y*$scope.board.partSize+'px',
+                    if (position) {
+                        return {
+                            'left':position.x*$scope.board.partSize+'px',
+                            'top' :position.y*$scope.board.partSize+'px',
+                        }
                     }
                 },
                 // Returns the new face index for a given face, action and blocktype
@@ -102,8 +104,13 @@ angular.module('pentominoApp')
                         $scope.board.isSolved();
                         this.resetVars();
                     }
+                },
+                registerPieces : function () {
+                    $scope.board.cleanBoard();
+                    $scope.board.registerAllPieces();
                 }
             };
+            // $scope.methods.registerPieces();
 
         },
         controller : function ($scope) {
