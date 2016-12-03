@@ -61,14 +61,17 @@ body{
 #controls{
     padding: 45px 40px 40px 40px;
     margin-top: 400px;
+    text-align: center;
 }
 #controls button{
     width: 60px;
-    text-align: center;
     padding: 5px 10px;
     margin-bottom: 10px;
     border-radius: 3px;
-    background-color: lightgray;
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-weight: bold;
 }
 .pentominosWrapper{
 }
