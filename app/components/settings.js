@@ -6,11 +6,5 @@ angular.module('pentominoApp')
 		restrict: 'A',
         scope: false,
 		templateUrl: 'app/components/settings.html',
-		controller: function($scope) {
-            $scope.readStart = function () {
-                $scope.getStartPosition();
-            }
-		},
-		controllerAs: 'settingsCtrl'
 	};
 });
