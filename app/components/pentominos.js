@@ -105,6 +105,31 @@ angular.module('pentominoApp')
                         this.resetVars();
                     }
                 },
+                clearBoard : function () {
+                    var boardWidth = $scope.board.width();
+                    var xPos;
+                    for (var i = 0; i < $scope.pentominos.length; i++) {
+                        xPos = $scope.pentominos[i].position.x;
+                        $scope.methods.flipRotate($scope.pentominos[i], 1);
+                        if (xPos < $scope.board.width()/2) {
+                            $scope.pentominos[i].position.x = -2 * $scope.pentominos[i].position.x;
+                        } else {
+                            $scope.pentominos[i].position.x += 2 * (boardWidth - xPos);
+                        }
+                    }
+                },
+                mixBoard : function () {
+                    var boardWidth = $scope.board.width();
+                    var xPos, face;
+                    for (var i = 0; i < $scope.pentominos.length; i++) {
+                        xPos = Math.floor(Math.random() * $scope.board.width());
+                        yPos = Math.floor(Math.random() * $scope.board.height());
+                        face = Math.floor(Math.random() * $scope.pentominos[i].faces.length);
+                        $scope.pentominos[i].position.x = xPos;
+                        $scope.pentominos[i].position.y = yPos;
+                        $scope.pentominos[i].face = face;
+                    }
+                },
                 registerPieces : function () {
                     $scope.board.cleanBoard();
                     $scope.board.registerAllPieces();

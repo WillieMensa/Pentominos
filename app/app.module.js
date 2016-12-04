@@ -6,6 +6,7 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
 
     // $scope.board = {};
     // $scope.board.brdType = 'square';
+    $scope.pentominos = {};
     $scope.currentPentomino = null;
     $scope.getStartPosition = function (brdType) {
         $scope.board.brdType = (brdType) ? brdType : $scope.board.brdType;
