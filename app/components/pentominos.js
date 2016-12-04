@@ -103,6 +103,7 @@ angular.module('pentominoApp')
                         $scope.board.registerPiece($scope.currentPentomino,1);
                         $scope.board.isSolved();
                         this.resetVars();
+                        console.table($scope.board.fields);
                     }
                 },
                 clearBoard : function () {
@@ -118,7 +119,7 @@ angular.module('pentominoApp')
                         }
                     }
                 },
-                mixBoard : function () {
+                mixBoard : function () { // This fucks up the board.fields
                     var boardWidth = $scope.board.width();
                     var xPos, face;
                     for (var i = 0; i < $scope.pentominos.length; i++) {
@@ -129,6 +130,8 @@ angular.module('pentominoApp')
                         $scope.pentominos[i].position.y = yPos;
                         $scope.pentominos[i].face = face;
                     }
+                    $scope.methods.registerPieces();
+                    console.table($scope.board.fields);
                 },
                 registerPieces : function () {
                     $scope.board.cleanBoard();

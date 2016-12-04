@@ -3,6 +3,10 @@ angular.module('pentominoApp')
 // The data for blocks
 .factory('dataservice',['$http', function($http){
     var self = this;
+        solutions = {
+            rectangles : [],
+            square : []
+        };
 	return {
 		getPentominos : function(){
 			var fileName = 'assets/data/pentominos.json';
@@ -31,6 +35,15 @@ angular.module('pentominoApp')
 				.then(function(response){
                     return response.data;
 				});
-		}
+		},
+        saveSolution : function (pentominos) {
+            var solution = {};
+            for (var i = 0; i < pentominos.length; i++) {
+                solution.face = pentominos[i].face;
+                solution.position = pentominos[i].face;
+            }
+            // $scope.solutions[$scope.board.brdType].push(solution);
+            console.table(solution);
+        }
     }
 }]);
