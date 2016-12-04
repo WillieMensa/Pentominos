@@ -1,17 +1,13 @@
-<form name="settingsForm" action="">
-    <label for="square">
-        <input type="radio"
-            ng-model="board.brdType"
-            name="brdType"
-            value="square"
-            ng-click="showSize()"
-            id="square" /><span>8&times;8</span>
-    </label>
-    <label for="rectangular">
-        <input type="radio"
-            ng-model="board.brdType"
-            name="brdType"
-            value="rectangle"
-            id="rectangular" /><span>6&times;10</span>
-    </label>
-</form>
+<div>
+    <button
+        ng-click="getStartPosition('rectangle')"
+        ng-touchstart="getStartPosition('rectangle')"><span>6&times;10</span></button>
+</div>
+<div>
+    <button ng-click="getStartPosition('square')"
+        ng-touchstart="getStartPosition('square')"><span>8&times;8</span></button>
+</div>
+<div class="textAlignLeft">
+    <button ng-click="methods.mixBoard()"
+        ng-touchstart="methods.mixBoard()"><span>Shuffle</span></button>
+</div>

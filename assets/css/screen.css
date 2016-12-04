@@ -1,10 +1,26 @@
 @charset "UTF-8";
 /* CSS Document */
-*{
-	border:0;
-	margin:0;
-}
 body, html{
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    font-family: TrebucheMS, sans-serif;
+    color: #fff;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+html{
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    align-items: center;
+}
+body{
+    flex: 1 0 auto;
 }
 .r{
 	float:right;
@@ -30,22 +46,36 @@ body, html{
 .pushBottomMore{
 	margin-bottom: 24px;
 }
-
+.textAlignLeft{
+    text-align: left;
+}
 #board{
     position: relative;
     margin: 40px auto;
     background-color: lightgray;
     border: 5px solid darkgray;
 }
+#board.solved{
+    border-color: lime;
+    -webkit-box-shadow: 0 0 30px 0 rgba(0,255,0,.5);
+    box-shadow: 0 0 30px 0 rgba(0,255,0,.5);
+}
 #controls{
-    padding: 40px;
+    padding: 45px 0 0 0;
+    margin-top: 400px;
+    text-align: center;
 }
-label{
-    display: block;
+#controls button{
+    width: 60px;
+    padding: 5px 10px;
     margin-bottom: 10px;
+    border-radius: 3px;
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-weight: bold;
 }
-input+span{
-    margin-left: 5px;
+.pentominosWrapper{
 }
 .pentomino {
     position: absolute;
@@ -64,7 +94,7 @@ input+span{
     height: 40px;
     text-align: center;
     color: white;
-    border: .5px solid rgba(211,211,211,.3);
+    border: .5px solid rgba(211,211,211,.2);
     box-sizing: border-box;
     pointer-events:auto;
     cursor: move; /* fallback: no `url()` support or images disabled */
@@ -79,7 +109,7 @@ input+span{
     cursor:         grabbing;
 }
 .part::before{
-    line-height: 40px;
+    line-height: 38px;
     display: none;
 }
 .pentomino:hover .part::before{
