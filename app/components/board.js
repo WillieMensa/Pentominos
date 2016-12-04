@@ -81,7 +81,7 @@ angular.module('pentominoApp')
                 cleanBoard : function() {
                     var w = $scope.board.width();
                     var h = $scope.board.height();
-                    $scope.solved = false;
+                    $scope.board.solved = false;
                     $scope.board.fields = [];
                     for (var y = 0; y < h; y++) {
                         $scope.board.fields.push([]);
