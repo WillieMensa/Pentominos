@@ -25,7 +25,7 @@ angular.module('pentominoApp')
         getStartPosition : function(boardType){
 			var fileName;
             switch (boardType) {
-                case boardType = 'rectangle':
+                case 'rectangle':
                     fileName = 'assets/data/rectangle-start.json';
                     break;
                 default: // square
