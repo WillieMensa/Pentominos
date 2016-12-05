@@ -1,3 +1,21 @@
+<div ng-show="solutions[board.brdType].length">
+    <button class="small r"
+        title="Show next solution"
+        ng-click="getNextSolution(board.brdType)"
+        ng-touchstart="getNextSolution(board.brdType)">
+        <span class="fa fa-step-forward"></span>
+    </button>
+    <button class="small l"
+        title="Show previous solution"
+        ng-click="getPreviousSolution(board.brdType)"
+        ng-touchstart="getPreviousSolution(board.brdType)">
+        <span class="fa fa-step-backward"></span>
+    </button>
+    <button
+        ng-click="showSolution()">Show solution
+        {{currentSolution + 1}} / {{solutions[board.brdType].length}}
+    </button>
+</div>
 <div>
     <button
         ng-click="getStartPosition('rectangle')"

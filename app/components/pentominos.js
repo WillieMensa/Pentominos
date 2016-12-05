@@ -106,6 +106,15 @@ angular.module('pentominoApp')
                         console.table($scope.board.fields);
                     }
                 },
+                showSolution : function (solutionString) {
+                    var splitString = solutionString.substr(1).split('#');
+                    for (var i = 0; i < splitString.length; i++) {
+                        $scope.pentominos[i].face = splitString[i].charAt(1);
+                        $scope.pentominos[i].position.x = splitString[i].charAt(2);
+                        $scope.pentominos[i].position.y = splitString[i].charAt(3);
+                    }
+                    console.log(splitString);
+                },
                 clearBoard : function () {
                     var boardWidth = $scope.board.width();
                     var xPos;

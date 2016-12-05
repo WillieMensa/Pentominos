@@ -18,7 +18,8 @@
         <div id="board" board
             ng-show="pentominos"
             ng-style="board.theBoardCss()"
-            ng-class="{'solved' : board.solved}">
+            ng-class="{'solved' : board.solved}"
+            class="{{board.brdType}}">
         </div>
 
         <scripts class="hidden">

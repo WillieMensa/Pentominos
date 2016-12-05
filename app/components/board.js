@@ -76,7 +76,7 @@ angular.module('pentominoApp')
                         }
                     }
                     this.solved = solved;
-                    if (solved) $scope.saveSolution();
+                    if (solved) $scope.saveSolution($scope.board.brdType, $scope.pentominos);
                 },
                 cleanBoard : function() {
                     var w = $scope.board.width();
