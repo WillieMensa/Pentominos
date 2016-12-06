@@ -7,9 +7,11 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
     // $scope.board = {};
     // $scope.board.brdType = 'square';
     $scope.pentominos = {};
+    $scope.solutions = dataservice.getSolutions();
+    $scope.currentSolution = 0;
     $scope.currentPentomino = null;
     $scope.saveSolution = function () {
-        dataservice.saveSolution($scope.pentominos);
+        return dataservice.saveSolution($scope.board.brdType, $scope.pentominos);
     }
     $scope.getStartPosition = function (brdType) {
         $scope.board.brdType = (brdType) ? brdType : $scope.board.brdType;
@@ -31,6 +33,7 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
                 $scope.pentominos[i].color = data[i].color;
             }
             $scope.getStartPosition();
+            $scope.solutions = dataservice.getSolutions();
         });
     });
 

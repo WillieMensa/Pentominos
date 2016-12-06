@@ -55,18 +55,24 @@ body{
     background-color: lightgray;
     border: 5px solid darkgray;
 }
-#board.solved{
+#board.solved,
+.solved{
     border-color: lime;
     -webkit-box-shadow: 0 0 30px 0 rgba(0,255,0,.5);
     box-shadow: 0 0 30px 0 rgba(0,255,0,.5);
 }
 #controls{
-    padding: 45px 0 0 0;
-    margin-top: 400px;
+    padding: 20px 0 0 0;
     text-align: center;
 }
+#board.square #controls > div:first-child{
+    margin-bottom: 30px;
+}
+#board.rectangle #controls > div:first-child{
+    margin-bottom: 10px;
+}
 #controls button{
-    width: 60px;
+    min-width: 60px;
     padding: 5px 10px;
     margin-bottom: 10px;
     border-radius: 3px;
@@ -75,7 +81,13 @@ body{
     color: white;
     font-weight: bold;
 }
-.pentominosWrapper{
+#controls button.small{
+    min-width: 30px;
+    padding: 5px;
+}
+#controls button + span{
+    margin: 0 10px;
+    line-height: 30px;
 }
 .pentomino {
     position: absolute;

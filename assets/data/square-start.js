@@ -88,7 +88,7 @@ $scope.squareStart = [
         "face" : 0,
         "position" : {
             "x" : 3,
-            "y" : 11
+            "y" : 10
         }
     }
 ];
