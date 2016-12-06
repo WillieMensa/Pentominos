@@ -7,10 +7,21 @@ angular.module('pentominoApp')
         scope: false,
 		templateUrl: 'app/components/settings.html',
         link: function ($scope) {
-            $scope.currentSolution = 0;
             $scope.showSolution = function() {
                 $scope.methods.showSolution($scope.solutions[$scope.board.brdType][$scope.currentSolution]);
-            }
+            };
+            $scope.getPreviousSolution = function() {
+                if ($scope.currentSolution > 0) {
+                    $scope.currentSolution --;
+                    $scope.showSolution();
+                }
+            };
+            $scope.getNextSolution = function() {
+                if ($scope.currentSolution < $scope.solutions[$scope.board.brdType].length) {
+                    $scope.currentSolution ++;
+                    $scope.showSolution();
+                }
+            };
         }
 	};
 });

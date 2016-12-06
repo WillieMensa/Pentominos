@@ -22,6 +22,7 @@ angular.module('pentominoApp')
                     }
                 },
                 solved : false,
+                newSolution : false,
                 width : function() {
                     return $scope.board.brdTypes[$scope.board.brdType].w;
                 },
@@ -67,6 +68,7 @@ angular.module('pentominoApp')
                 },
                 isSolved : function() {
                     var solved = true;
+                    var saveResult;
                     for (var y = 0; y < $scope.board.height(); y++) {
                         for (var x = 0; x < $scope.board.width(); x++) {
                             solved = ($scope.board.fields[y][x] == 1) && solved;
@@ -76,7 +78,16 @@ angular.module('pentominoApp')
                         }
                     }
                     this.solved = solved;
-                    if (solved) $scope.saveSolution($scope.board.brdType, $scope.pentominos);
+                    if (solved) {
+                        saveResult = $scope.saveSolution($scope.board.brdType, $scope.pentominos);
+                        this.solved = solved;
+                        if (!isNaN(saveResult)) {
+                            $scope.currentSolution = saveResult;
+                            this.newSolution = false;
+                        } else {
+                            this.newSolution = true;
+                        }
+                    }
                 },
                 cleanBoard : function() {
                     var w = $scope.board.width();

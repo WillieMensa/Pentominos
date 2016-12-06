@@ -109,11 +109,11 @@ angular.module('pentominoApp')
                 showSolution : function (solutionString) {
                     var splitString = solutionString.substr(1).split('#');
                     for (var i = 0; i < splitString.length; i++) {
-                        $scope.pentominos[i].face = splitString[i].charAt(1);
-                        $scope.pentominos[i].position.x = splitString[i].charAt(2);
-                        $scope.pentominos[i].position.y = splitString[i].charAt(3);
+                        $scope.pentominos[i].face = parseInt(splitString[i].charAt(1),10);
+                        $scope.pentominos[i].position.x = parseInt(splitString[i].charAt(2));;
+                        $scope.pentominos[i].position.y = parseInt(splitString[i].charAt(3));;
                     }
-                    console.log(splitString);
+                    $scope.methods.registerPieces();
                 },
                 clearBoard : function () {
                     var boardWidth = $scope.board.width();

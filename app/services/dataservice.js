@@ -35,20 +35,33 @@ angular.module('pentominoApp')
         saveSolution : function (boardType, pentominos) {
             var solutions = this.getSolutions();
             var solution = '';
-            var solution2string = function (solution) {
-                if (solution) {
-                    return '#' + solution.name + solution.face + solution.position.x + solution.position.y;
+            var solution2string = function (sol) {
+                if (sol) {
+                    return '#' + sol.name + sol.face + sol.position.x + sol.position.y;
                 } else {
                     return 'false';
                 }
             };
+            var isNewSolution = function(sol) {
+                var isNewSolution = true;
+                for (var i = 0; i < solutions[boardType].length; i++) {
+                    isNewSolution = isNewSolution && (solutions[boardType][i] !== sol);
+                    if (!isNewSolution) return i;
+                }
+                return isNewSolution;
+            };
             for (var i = 0; i < pentominos.length; i++) {
                 solution += solution2string(pentominos[i]);
-            }
-            solutions[boardType].push(solution);
-			localStorage.setItem("pentominos", JSON.stringify(solutions));
-            console.table(solution);
-            return solution;
+            };
+            var isNewSolution = isNewSolution(solution);
+            if (isNewSolution === true) {
+                solutions[boardType].push(solution);
+			    localStorage.setItem("pentominos", JSON.stringify(solutions));
+                console.table(solution);
+                return solution;  // solution string
+            } else {
+                return isNewSolution; // number indicating index of existing solution;
+            };
         },
         getSolutions : function(){
             if (localStorage.getItem("pentominos")) {
