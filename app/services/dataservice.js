@@ -68,7 +68,7 @@ angular.module('pentominoApp')
                 solutions = JSON.parse(localStorage.getItem("pentominos"));
             } else {
                 solutions = {
-                    rectangles : [],
+                    rectangle : [],
                     square : []
                 };
             }
