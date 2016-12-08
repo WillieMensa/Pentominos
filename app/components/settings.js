@@ -10,13 +10,13 @@ angular.module('pentominoApp')
             $scope.showSolution = function() {
                 $scope.methods.showSolution($scope.solutions[$scope.board.brdType][$scope.currentSolution]);
             };
-            $scope.getPreviousSolution = function() {
+            $scope.showPreviousSolution = function() {
                 if ($scope.currentSolution > 0) {
                     $scope.currentSolution --;
                     $scope.showSolution();
                 }
             };
-            $scope.getNextSolution = function() {
+            $scope.showNextSolution = function() {
                 if ($scope.currentSolution < $scope.solutions[$scope.board.brdType].length) {
                     $scope.currentSolution ++;
                     $scope.showSolution();

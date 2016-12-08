@@ -2,15 +2,15 @@
     <button class="small r"
         ng-disabled="(currentSolution == solutions[board.brdType].length - 1)"
         title="Show next solution"
-        ng-click="getNextSolution(board.brdType)"
-        ng-touchstart="getNextSolution(board.brdType)">
+        ng-click="showNextSolution(board.brdType)"
+        ng-touchstart="showNextSolution(board.brdType)">
         <span class="fa fa-step-forward"></span>
     </button>
     <button class="small l"
         ng-disabled="(currentSolution == 0)"
         title="Show previous solution"
-        ng-click="getPreviousSolution(board.brdType)"
-        ng-touchstart="getPreviousSolution(board.brdType)">
+        ng-click="showPreviousSolution(board.brdType)"
+        ng-touchstart="showPreviousSolution(board.brdType)">
         <span class="fa fa-step-backward"></span>
     </button>
     <button

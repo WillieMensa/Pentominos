@@ -85,6 +85,7 @@ angular.module('pentominoApp')
                             $scope.currentSolution = saveResult;
                             this.newSolution = false;
                         } else {
+                            $scope.solutions[$scope.board.brdType].push(saveResult);
                             this.newSolution = true;
                         }
                     }
