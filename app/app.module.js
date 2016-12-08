@@ -32,6 +32,7 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
                 }
             }
             $scope.methods.registerPieces();
+            $scope.currentSolution = 0;
         });
     }
     dataservice.getPentominos().then(function(data) {

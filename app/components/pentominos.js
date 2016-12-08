@@ -118,10 +118,13 @@ angular.module('pentominoApp')
                 },
                 showSolution : function (solutionString) {
                     var splitString = solutionString.substr(1).split('#');
+                    var pentomino;
                     for (var i = 0; i < splitString.length; i++) {
-                        $scope.pentominos[i].face = parseInt(splitString[i].charAt(1),10);
-                        $scope.pentominos[i].position.x = parseInt(splitString[i].charAt(2));;
-                        $scope.pentominos[i].position.y = parseInt(splitString[i].charAt(3));;
+                        pentomino = $scope.pentominos[i];
+                        pentomino.face = parseInt(splitString[i].charAt(1),10);
+                        pentomino.position.x = parseInt(splitString[i].charAt(2));
+                        pentomino.position.y = parseInt(splitString[i].charAt(3));
+                        $scope.methods.adjustDimensions(pentomino);
                     }
                     $scope.methods.registerPieces();
                 },
