@@ -39,14 +39,14 @@ angular.module('pentominoApp')
                             [1,0,3,2],          // z
                             [1,0],              // i
                             [0]                 // xo not necessary
-                        ],[                     // flip horizontally
+                        ],[                     // flip around yAxis
                             [4,7,6,5,0,3,2,1],  // blyfn
                             [3,2,1,0],          // vw
                             [0,3,2,1],          // tu
                             [2,3,0,1],          // z
                             [0,1],              // i not necessary
                             [0]                 // xo not necessary
-                        ],[                     // flip vertically
+                        ],[                     // flip around xAxis
                             [6,5,4,7,2,1,0,3],  // blyfn
                             [1,0,3,2],          // vw
                             [2,1,0,3],          // tu
@@ -55,7 +55,17 @@ angular.module('pentominoApp')
                             [0]                 // xo not necessary
                         ]];
                     pentomino.face = rotable[part][pentomino.type][pentomino.face];
-                    $scope.board.isSolved();
+                    // switch the dimensions if pentomino is rotated;
+                    if (part == 0) {
+                        pentomino.dimensions.reverse();
+                    }
+                    console.log(pentomino);
+                },
+                adjustDimensions : function(pentomino) {
+                    pentomino.dimensions = angular.copy(pentomino.initialDimensions);
+                    if (pentomino.face % 2 == 1) {
+                        pentomino.dimensions.reverse();
+                    }
                 },
                 getPartCss : function(pentomino, part) {
                     return {
@@ -128,19 +138,30 @@ angular.module('pentominoApp')
                         }
                     }
                 },
-                mixBoard : function () { // This fucks up the board.fields
+                mixBoard : function () {
                     var boardWidth = $scope.board.width();
                     var xPos, face;
+                    var pentomino;
                     for (var i = 0; i < $scope.pentominos.length; i++) {
+                        pentomino = $scope.pentominos[i];
                         xPos = Math.floor(Math.random() * $scope.board.width());
                         yPos = Math.floor(Math.random() * $scope.board.height());
-                        face = Math.floor(Math.random() * $scope.pentominos[i].faces.length);
-                        $scope.pentominos[i].position.x = xPos;
-                        $scope.pentominos[i].position.y = yPos;
-                        $scope.pentominos[i].face = face;
+                        face = Math.floor(Math.random() * pentomino.faces.length);
+                        pentomino.position.x = xPos;
+                        pentomino.position.y = yPos;
+                        pentomino.face = face;
+                        $scope.methods.adjustDimensions(pentomino);
                     }
                     $scope.methods.registerPieces();
                     console.table($scope.board.fields);
+                },
+                flipBoardYAxis : function () {
+                    var pentomino;
+                    for (var i = 0; i < $scope.pentominos.length; i++) {
+                        pentomino = $scope.pentominos[i]
+                        $scope.methods.flipRotate(pentomino,1);
+                        pentomino.position.x = $scope.board.width() - pentomino.position.x - pentomino.dimensions[0];
+                    }
                 },
                 registerPieces : function () {
                     $scope.board.cleanBoard();
