@@ -11,7 +11,7 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
     $scope.currentSolution = 0;
     $scope.currentPentomino = null;
     $scope.saveSolution = function () {
-        return dataservice.saveSolution($scope.board.brdType, $scope.pentominos);
+        dataservice.saveSolution($scope.board.brdType, $scope.pentominos);
     }
     $scope.getStartPosition = function (brdType) {
         $scope.board.brdType = (brdType) ? brdType : $scope.board.brdType;

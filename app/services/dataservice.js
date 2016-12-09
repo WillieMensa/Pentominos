@@ -32,37 +32,6 @@ angular.module('pentominoApp')
                     return response.data;
 				});
 		},
-        saveSolution : function (boardType, pentominos) {
-            var solutions = this.getSolutions();
-            var solution = '';
-            var solution2string = function (sol) {
-                if (sol) {
-                    return '#' + sol.name + sol.face + sol.position.x + sol.position.y;
-                } else {
-                    return 'false';
-                }
-            };
-            var isNewSolution = function(sol) {
-                var isNewSolution = true;
-                for (var i = 0; i < solutions[boardType].length; i++) {
-                    isNewSolution = isNewSolution && (solutions[boardType][i] !== sol);
-                    if (!isNewSolution) return i;
-                }
-                return isNewSolution;
-            };
-            for (var i = 0; i < pentominos.length; i++) {
-                solution += solution2string(pentominos[i]);
-            };
-            var isNewSolution = isNewSolution(solution);
-            if (isNewSolution === true) {
-                solutions[boardType].push(solution);
-			    localStorage.setItem("pentominos", JSON.stringify(solutions));
-                console.table(solution);
-                return solution;  // solution string
-            } else {
-                return isNewSolution; // number indicating index of existing solution;
-            };
-        },
         getSolutions : function(){
             if (localStorage.getItem("pentominos")) {
                 solutions = JSON.parse(localStorage.getItem("pentominos"));
@@ -74,6 +43,12 @@ angular.module('pentominoApp')
             }
             return solutions;
         },
+        saveSolution : function (boardType, solutionString) {
+            var solutions = this.getSolutions();
+                solutions[boardType].push(solutionString);
+			    localStorage.setItem("pentominos", JSON.stringify(solutions));
+                // console.table(solutionString);
+        }
 
     }
 }]);

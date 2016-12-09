@@ -66,26 +66,59 @@ angular.module('pentominoApp')
                         this.registerPiece($scope.pentominos[i],1);
                     }
                 },
-                isSolved : function() {
-                    var solved = true;
-                    var saveResult;
+                boardIsFull : function() {
                     for (var y = 0; y < $scope.board.height(); y++) {
                         for (var x = 0; x < $scope.board.width(); x++) {
-                            solved = ($scope.board.fields[y][x] == 1) && solved;
-                            if (!solved) {
-                                break;
+                            if ($scope.board.fields[y][x] !== 1) {
+                                return false;
                             }
                         }
                     }
-                    this.solved = solved;
+                    return true;
+                },
+                pentomino2string : function (pentomino) {
+                    if (pentomino) {
+                        return '#' + pentomino.name + pentomino.face + pentomino.position.x + pentomino.position.y;
+                    } else {
+                        return 'false';
+                    }
+                },
+                solution2String : function () {
+                    var solution = $scope.pentominos;
+                    var solutionString = "";
+                    for (var i = 0; i < solution.length; i++) {
+                        solutionString += $scope.board.pentomino2string(solution[i]);
+                    }
+                    return solutionString;
+                },
+                hasFlipRotateSibling : function (solution) {
+                    for (var flip = 0; flip < 2; flip++) {
+                        for (var rotation = 0; rotation < 4; rotation++) {
+                            $scope.methods.rotateBoard();
+                        }
+                    }
+                },
+                isNewSolution : function() {
+                    var solutionString = $scope.board.solution2String();
+                    var isNewSolution = true;
+                    for (var i = 0; i < $scope.solutions[$scope.board.brdType].length; i++) {
+                        isNewSolution = isNewSolution && (solutions[$scope.board.brdType][i] !== solutionString);
+                        if (!isNewSolution) return i;
+                    }
+                    return solutionString;
+                },
+                isSolved : function() {
+                    var saveResult;
+                    var solved = $scope.board.boardIsFull();
+                    var solutionResult = $scope.board.isNewSolution();
                     if (solved) {
-                        saveResult = $scope.saveSolution($scope.board.brdType, $scope.pentominos);
                         this.solved = solved;
-                        if (!isNaN(saveResult)) {
-                            $scope.currentSolution = saveResult;
+                        if (!isNaN(solutionResult)) {
+                            $scope.currentSolution = solutionResult;
                             this.newSolution = false;
                         } else {
-                            $scope.solutions[$scope.board.brdType].push(saveResult);
+                            $scope.saveSolution();
+                            $scope.solutions[$scope.board.brdType].push(solutionResult);
                             this.newSolution = true;
                         }
                     }
@@ -103,7 +136,6 @@ angular.module('pentominoApp')
                     };
                 }
             };
-        },
-		controllerAs: 'boardCtrl'
+        }
 	};
 }]);

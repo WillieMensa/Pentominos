@@ -59,7 +59,7 @@ angular.module('pentominoApp')
                     if (part == 0) {
                         pentomino.dimensions.reverse();
                     }
-                    console.log(pentomino);
+                    // console.log(pentomino);
                 },
                 adjustDimensions : function(pentomino) {
                     pentomino.dimensions = angular.copy(pentomino.initialDimensions);
