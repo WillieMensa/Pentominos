@@ -50,5 +50,5 @@ angular.module('pentominoApp')
                 // console.table(solutionString);
         }
 
-    }
+    };
 }]);

@@ -66,6 +66,10 @@ angular.module('pentominoApp')
                         this.registerPiece($scope.pentominos[i],1);
                     }
                 },
+                registerPieces : function () {
+                    $scope.board.cleanBoard();
+                    $scope.board.registerAllPieces();
+                },
                 boardIsFull : function() {
                     for (var y = 0; y < $scope.board.height(); y++) {
                         for (var x = 0; x < $scope.board.width(); x++) {
@@ -92,9 +96,10 @@ angular.module('pentominoApp')
                     return solutionString;
                 },
                 hasFlipRotateSibling : function (solution) {
+                    var rotations = ($scope.board.brdType == 'square')? 4 : 2;
                     for (var flip = 0; flip < 2; flip++) {
-                        for (var rotation = 0; rotation < 4; rotation++) {
-                            $scope.methods.rotateBoard();
+                        for (var rotation = 0; rotation < rotations; rotation++) {
+                            $scope.methods.rotateSquareBoard();
                         }
                     }
                 },
@@ -108,11 +113,11 @@ angular.module('pentominoApp')
                     return solutionString;
                 },
                 isSolved : function() {
-                    var saveResult;
-                    var solved = $scope.board.boardIsFull();
-                    var solutionResult = $scope.board.isNewSolution();
-                    if (solved) {
-                        this.solved = solved;
+                    var boardIsFull = $scope.board.boardIsFull();
+                    var solutionResult;
+                    if (boardIsFull) {
+                        solutionResult = $scope.board.isNewSolution()
+                        this.solved = boardIsFull;
                         if (!isNaN(solutionResult)) {
                             $scope.currentSolution = solutionResult;
                             this.newSolution = false;

@@ -12,7 +12,7 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
     $scope.currentPentomino = null;
     $scope.saveSolution = function () {
         dataservice.saveSolution($scope.board.brdType, $scope.pentominos);
-    }
+    };
     $scope.getStartPosition = function (brdType) {
         $scope.board.brdType = (brdType) ? brdType : $scope.board.brdType;
         var boardType = $scope.board.brdType;
@@ -31,10 +31,10 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
                     $scope.methods.adjustDimensions(pentomino);
                 }
             }
-            $scope.methods.registerPieces();
+            $scope.board.registerPieces();
             $scope.currentSolution = 0;
         });
-    }
+    };
     dataservice.getPentominos().then(function(data) {
         $scope.pentominos = data;
         dataservice.getColors().then(function(data) {
