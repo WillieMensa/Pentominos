@@ -181,6 +181,20 @@ angular.module('pentominoApp')
                         // rotated pentomino
                         $scope.methods.flipRotate(pentomino,0);
                     }
+                },
+                shiftPieces : function (dx,dy) {
+                    for (var i = 0; i < $scope.pentominos.length; i++) {
+                        $scope.pentominos[i].position.y += 4;
+                    }
+                },
+                rotateBoard : function () {
+                    if ($scope.board.brdType == 'square') {
+                        $scope.methods.rotateSquareBoard();
+                    } else {
+                        // rotate twice and shift pentominos 4 positions down
+                        for (var i = 0; i < 2; i++) $scope.methods.rotateSquareBoard();
+                        $scope.methods.shiftPieces(0,4);
+                    }
                 }
             };
         },
