@@ -21,6 +21,9 @@ angular.module('pentominoApp')
                     this.x = 0;
                     this.y = 0;
                 },
+                pentominosLength : function () {
+                    return ($scope.board.brdType == 'rectangle') ? $scope.pentominos.length-1 : $scope.pentominos.length;
+                },
                 getPentominoCss : function (position) {
                     if (position) {
                         return {
@@ -119,7 +122,8 @@ angular.module('pentominoApp')
                 showSolution : function (solutionString) {
                     var splitString = solutionString.substr(1).split('#');
                     var pentomino;
-                    for (var i = 0; i < splitString.length; i++) {
+                    var theLength = $scope.methods.pentominosLength();
+                    for (var i = 0; i < theLength; i++) {
                         pentomino = $scope.pentominos[i];
                         pentomino.face = parseInt(splitString[i].charAt(1),10);
                         pentomino.position.x = parseInt(splitString[i].charAt(2));
@@ -195,6 +199,7 @@ angular.module('pentominoApp')
                         for (var i = 0; i < 2; i++) $scope.methods.rotateSquareBoard();
                         $scope.methods.shiftPieces(0,4);
                     }
+                    console.log($scope.pentominos[12]);
                 }
             };
         },

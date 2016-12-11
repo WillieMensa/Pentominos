@@ -37,7 +37,7 @@ angular.module('pentominoApp')
                     return {
                         'width':this.width()*this.partSize+'px',
                         'height':this.height()*this.partSize+'px'
-                    }
+                    };
                 },
                 setBoardFields : function() {
                     var w = $scope.board.width();
@@ -48,7 +48,7 @@ angular.module('pentominoApp')
                         for (var x = 0; x < w; x++) {
                             $scope.board.fields[y].push(0);
                         }
-                    };
+                    }
                 },
                 registerPiece : function(pentomino,onOff) {
                     var x, y;
@@ -90,7 +90,8 @@ angular.module('pentominoApp')
                 solution2String : function () {
                     var solution = $scope.pentominos;
                     var solutionString = "";
-                    for (var i = 0; i < solution.length; i++) {
+                    var theLength = $scope.methods.pentominosLength();
+                    for (var i = 0; i < theLength; i++) {
                         solutionString += $scope.board.pentomino2string(solution[i]);
                     }
                     return solutionString;
@@ -106,7 +107,8 @@ angular.module('pentominoApp')
                 isNewSolution : function() {
                     var solutionString = $scope.board.solution2String();
                     var isNewSolution = true;
-                    for (var i = 0; i < $scope.solutions[$scope.board.brdType].length; i++) {
+                    var theLength = $scope.methods.pentominosLength();
+                    for (var i = 0; i < theLength; i++) {
                         isNewSolution = isNewSolution && (solutions[$scope.board.brdType][i] !== solutionString);
                         if (!isNewSolution) return i;
                     }
@@ -116,13 +118,13 @@ angular.module('pentominoApp')
                     var boardIsFull = $scope.board.boardIsFull();
                     var solutionResult;
                     if (boardIsFull) {
-                        solutionResult = $scope.board.isNewSolution()
+                        solutionResult = $scope.board.isNewSolution();
                         this.solved = boardIsFull;
                         if (!isNaN(solutionResult)) {
                             $scope.currentSolution = solutionResult;
                             this.newSolution = false;
                         } else {
-                            $scope.saveSolution();
+                            $scope.saveSolution(solutionResult);
                             $scope.solutions[$scope.board.brdType].push(solutionResult);
                             this.newSolution = true;
                         }
@@ -138,7 +140,7 @@ angular.module('pentominoApp')
                         for (var x = 0; x < w; x++) {
                             $scope.board.fields[y].push(0);
                         }
-                    };
+                    }
                 }
             };
         }
