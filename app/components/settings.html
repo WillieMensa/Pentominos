@@ -2,15 +2,15 @@
     <button class="small r"
         ng-disabled="(currentSolution == solutions[board.brdType].length - 1)"
         title="Show next solution"
-        ng-click="getNextSolution(board.brdType)"
-        ng-touchstart="getNextSolution(board.brdType)">
+        ng-click="showNextSolution(board.brdType)"
+        ng-touchstart="showNextSolution(board.brdType)">
         <span class="fa fa-step-forward"></span>
     </button>
     <button class="small l"
         ng-disabled="(currentSolution == 0)"
         title="Show previous solution"
-        ng-click="getPreviousSolution(board.brdType)"
-        ng-touchstart="getPreviousSolution(board.brdType)">
+        ng-click="showPreviousSolution(board.brdType)"
+        ng-touchstart="showPreviousSolution(board.brdType)">
         <span class="fa fa-step-backward"></span>
     </button>
     <button
@@ -27,8 +27,12 @@
 <div>
     <button ng-click="getStartPosition('square')"
         ng-touchstart="getStartPosition('square')"><span>8&times;8</span></button>
+    <!--button class="r" ng-click="methods.rotateBoard()"
+        ng-touchstart="methods.rotateBoard()"><span>Rotate Board</span></button-->
 </div>
-<div class="textAlignLeft">
+<!-- div class="textAlignLeft">
     <button ng-click="methods.mixBoard()"
         ng-touchstart="methods.mixBoard()"><span>Shuffle</span></button>
-</div>
+    <button class="r" ng-click="methods.flipBoardYAxis()"
+            ng-touchstart="methods.flipBoardYAxis()"><span>Flip Board</span></button>
+</div-->

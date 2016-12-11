@@ -10,22 +10,31 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
     $scope.solutions = dataservice.getSolutions();
     $scope.currentSolution = 0;
     $scope.currentPentomino = null;
-    $scope.saveSolution = function () {
-        return dataservice.saveSolution($scope.board.brdType, $scope.pentominos);
-    }
+    $scope.saveSolution = function (solutionString) {
+        dataservice.saveSolution($scope.board.brdType, solutionString);
+    };
     $scope.getStartPosition = function (brdType) {
         $scope.board.brdType = (brdType) ? brdType : $scope.board.brdType;
         var boardType = $scope.board.brdType;
+        var pentomino;
         dataservice.getStartPosition(boardType).then(function(data) {
             if ($scope.pentominos) {
                 for (var i = 0; i < $scope.pentominos.length; i++) {
-                    $scope.pentominos[i].face = data[i].face;
-                    $scope.pentominos[i].position = angular.copy(data[i].position);
+                    pentomino = $scope.pentominos[i];
+                    pentomino.face = data[i].face;
+                    pentomino.position = angular.copy(data[i].position);
+                    if (!pentomino.initialDimensions) {
+                        pentomino.initialDimensions = angular.copy(pentomino.dimensions);
+                    } else {
+                        pentomino.dimensions = angular.copy(pentomino.initialDimensions);
+                    }
+                    $scope.methods.adjustDimensions(pentomino);
                 }
             }
-            $scope.methods.registerPieces();
+            $scope.board.registerPieces();
+            $scope.currentSolution = 0;
         });
-    }
+    };
     dataservice.getPentominos().then(function(data) {
         $scope.pentominos = data;
         dataservice.getColors().then(function(data) {
