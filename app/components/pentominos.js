@@ -70,6 +70,9 @@ angular.module('pentominoApp')
                         pentomino.dimensions.reverse();
                     }
                 },
+                isActive : function (i) {
+                    return ($scope.pentominos.indexOf($scope.currentPentomino) === i);
+                },
                 getPartCss : function(pentomino, part) {
                     return {
                         'left':part[0]*$scope.board.partSize+'px',
