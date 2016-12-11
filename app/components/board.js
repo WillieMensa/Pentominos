@@ -96,21 +96,21 @@ angular.module('pentominoApp')
                     }
                     return solutionString;
                 },
-                hasFlipRotateSibling : function (solution) {
+                isNewSolution : function() {
+                    var solutionString;
+                    var isNewSolution = true;
+                    var theLength = $scope.methods.pentominosLength();
                     var rotations = ($scope.board.brdType == 'square')? 4 : 2;
                     for (var flip = 0; flip < 2; flip++) {
                         for (var rotation = 0; rotation < rotations; rotation++) {
-                            $scope.methods.rotateSquareBoard();
+                            for (var i = 0; i < $scope.solutions[$scope.board.brdType].length; i++) {
+                                solutionString = $scope.board.solution2String();
+                                isNewSolution = isNewSolution && (solutions[$scope.board.brdType][i] !== solutionString);
+                                if (!isNewSolution) return i;
+                            }
+                            $scope.methods.rotateBoard();
                         }
-                    }
-                },
-                isNewSolution : function() {
-                    var solutionString = $scope.board.solution2String();
-                    var isNewSolution = true;
-                    var theLength = $scope.methods.pentominosLength();
-                    for (var i = 0; i < theLength; i++) {
-                        isNewSolution = isNewSolution && (solutions[$scope.board.brdType][i] !== solutionString);
-                        if (!isNewSolution) return i;
+                        $scope.methods.flipBoardYAxis();
                     }
                     return solutionString;
                 },
@@ -128,6 +128,8 @@ angular.module('pentominoApp')
                             $scope.solutions[$scope.board.brdType].push(solutionResult);
                             this.newSolution = true;
                         }
+                    } else {
+                        this.solved = false;
                     }
                 },
                 cleanBoard : function() {

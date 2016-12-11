@@ -116,7 +116,7 @@ angular.module('pentominoApp')
                         $scope.board.registerPiece($scope.currentPentomino,1);
                         $scope.board.isSolved();
                         this.resetVars();
-                        // console.table($scope.board.fields);
+                        console.table($scope.board.fields);
                     }
                 },
                 showSolution : function (solutionString) {
@@ -149,7 +149,8 @@ angular.module('pentominoApp')
                     var boardWidth = $scope.board.width();
                     var xPos, face;
                     var pentomino;
-                    for (var i = 0; i < $scope.pentominos.length; i++) {
+                    var theLength = $scope.methods.pentominosLength();
+                    for (var i = 0; i < theLength; i++) {
                         pentomino = $scope.pentominos[i];
                         xPos = Math.floor(Math.random() * $scope.board.width());
                         yPos = Math.floor(Math.random() * $scope.board.height());
@@ -160,7 +161,7 @@ angular.module('pentominoApp')
                         $scope.methods.adjustDimensions(pentomino);
                     }
                     $scope.board.registerPieces();
-                    console.table($scope.board.fields);
+                    // console.table($scope.board.fields);
                 },
                 flipBoardYAxis : function () {
                     var pentomino;
@@ -199,7 +200,7 @@ angular.module('pentominoApp')
                         for (var i = 0; i < 2; i++) $scope.methods.rotateSquareBoard();
                         $scope.methods.shiftPieces(0,4);
                     }
-                    console.log($scope.pentominos[12]);
+                    // console.log($scope.pentominos[12]);
                 }
             };
         },
