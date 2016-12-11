@@ -124,6 +124,7 @@ body{
     line-height: 38px;
     display: none;
 }
+.pentomino.active .part::before,
 .pentomino:hover .part::before{
     display: inline;
 }
