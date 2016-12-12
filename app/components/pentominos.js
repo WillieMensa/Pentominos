@@ -103,8 +103,8 @@ angular.module('pentominoApp')
                     }
                 },
                 doDrag : function(event) {
-                    var clientX = (event.clientX) ? event.clientX : event.touches[0].clientX;
-                    var clientY = (event.clientY) ? event.clientY : event.touches[0].clientY;
+                    var clientX = (event.touches) ? event.touches[0].clientX : event.clientX;
+                    var clientY = (event.touches) ? event.touches[0].clientY : event.clientY;
                     if ($scope.currentPentomino) {
                         // console.log(event);
                         this.x = clientX - this.startX;

@@ -128,3 +128,16 @@ body{
 .pentomino:hover .part::before{
     display: inline;
 }
+footer{
+    display: block;
+    width: 100%;
+    position: absolute;
+    text-align: right;
+    bottom: 20px;
+}
+footer a{
+    color: #f2f2f2;
+    text-decoration: none;
+    padding: 20px;
+    font-size: 12px;
+}
