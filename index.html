@@ -15,6 +15,10 @@
         ng-mouseup="methods.stopDrag($event)"
         ng-touchend="methods.stopDrag($event)">
 
+        <header>
+            <h1>Cover the whole board with the blocks</h1>
+        </header>
+
         <div id="board" board
             ng-show="pentominos"
             ng-style="board.theBoardCss()"

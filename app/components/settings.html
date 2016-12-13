@@ -20,17 +20,23 @@
     </button>
 </div>
 <div>
-    <button
+    <button class="r invisible"><span>Transparent</span></button>
+    <button class="l" ng-click="setOpaqueBlocks()"
+        ng-show="opaqueBlocks == false"
+        ng-touchstart="setOpaqueBlocks()"><span>&emsp;Opaque&emsp;</span></button>
+    <button class="l" ng-click="setTransparentBlocks()"
+        ng-show="opaqueBlocks == true"
+        ng-touchstart="setTransparentBlocks()"><span>Transparent</span></button>
+    <button ng-show="board.brdType == 'square'"
         ng-click="getStartPosition('rectangle')"
         ng-touchstart="getStartPosition('rectangle')"><span>6&times;10</span></button>
-</div>
-<div>
-    <button ng-click="getStartPosition('square')"
+    <button ng-show="board.brdType == 'rectangle'"
+        ng-click="getStartPosition('square')"
         ng-touchstart="getStartPosition('square')"><span>8&times;8</span></button>
-    <!--button class="r" ng-click="methods.rotateBoard()"
-        ng-touchstart="methods.rotateBoard()"><span>Rotate Board</span></button-->
 </div>
 <!-- div class="textAlignLeft">
+<button class="r" ng-click="methods.rotateBoard()"
+    ng-touchstart="methods.rotateBoard()"><span>Rotate Board</span></button>
     <button ng-click="methods.mixBoard()"
         ng-touchstart="methods.mixBoard()"><span>Shuffle</span></button>
     <button class="r" ng-click="methods.flipBoardYAxis()"

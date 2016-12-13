@@ -22,6 +22,14 @@ angular.module('pentominoApp')
                     $scope.showSolution();
                 }
             };
+            $scope.setOpaqueBlocks = function () {
+                $scope.opaqueBlocks = true;
+                console.log($scope.opaqueBlocks);
+            };
+            $scope.setTransparentBlocks = function () {
+                $scope.opaqueBlocks = false;
+                console.log($scope.opaqueBlocks);
+            };
         }
 	};
 });
