@@ -4,14 +4,14 @@
         title="Show next solution"
         ng-click="showNextSolution(board.brdType)"
         ng-touchstart="showNextSolution(board.brdType)">
-        <span class="fa fa-step-forward"></span>
+        <span class="fa fa-step-forward fa-lg"></span>
     </button>
     <button class="small l"
         ng-disabled="(currentSolution == 0)"
         title="Show previous solution"
         ng-click="showPreviousSolution(board.brdType)"
         ng-touchstart="showPreviousSolution(board.brdType)">
-        <span class="fa fa-step-backward"></span>
+        <span class="fa fa-step-backward fa-lg"></span>
     </button>
     <button
         ng-class="{'solved' : (board.solved && !board.newSolution)}"
@@ -19,26 +19,3 @@
         {{currentSolution + 1}} / {{solutions[board.brdType].length}}
     </button>
 </div>
-<div>
-    <button class="r invisible"><span>Transparent</span></button>
-    <button class="l" ng-click="setOpaqueBlocks()"
-        ng-show="opaqueBlocks == false"
-        ng-touchstart="setOpaqueBlocks()"><span>&emsp;Opaque&emsp;</span></button>
-    <button class="l" ng-click="setTransparentBlocks()"
-        ng-show="opaqueBlocks == true"
-        ng-touchstart="setTransparentBlocks()"><span>Transparent</span></button>
-    <button ng-show="board.brdType == 'square'"
-        ng-click="getStartPosition('rectangle')"
-        ng-touchstart="getStartPosition('rectangle')"><span>6&times;10</span></button>
-    <button ng-show="board.brdType == 'rectangle'"
-        ng-click="getStartPosition('square')"
-        ng-touchstart="getStartPosition('square')"><span>8&times;8</span></button>
-</div>
-<!-- div class="textAlignLeft">
-<button class="r" ng-click="methods.rotateBoard()"
-    ng-touchstart="methods.rotateBoard()"><span>Rotate Board</span></button>
-    <button ng-click="methods.mixBoard()"
-        ng-touchstart="methods.mixBoard()"><span>Shuffle</span></button>
-    <button class="r" ng-click="methods.flipBoardYAxis()"
-            ng-touchstart="methods.flipBoardYAxis()"><span>Flip Board</span></button>
-</div-->

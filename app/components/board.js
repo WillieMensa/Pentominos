@@ -33,6 +33,11 @@ angular.module('pentominoApp')
                     return (x >= 0) && (x < this.width()) &&
                         (y >= 0) && (y < this.height());
                 },
+                theHeaderCss : function () {
+                    return {
+                        'width':this.width()*this.partSize+'px'
+                    };
+                },
                 theBoardCss : function () {
                     return {
                         'width':this.width()*this.partSize+'px',

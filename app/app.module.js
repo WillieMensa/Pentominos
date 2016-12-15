@@ -6,6 +6,9 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
 
     // $scope.board = {};
     // $scope.board.brdType = 'square';
+    $scope.settings = {
+        menuVisible : false
+    };
     $scope.pentominos = {};
     $scope.solutions = dataservice.getSolutions();
     $scope.currentSolution = 0;
