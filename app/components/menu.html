@@ -2,7 +2,8 @@
     ng-click="showTheMenu()"
     ng-touchstart="showTheMenu()"></i>
 <ul id="menu" ng-show="settings.menuVisible">
-    <li ng-click="hideTheMenu()">
+    <li ng-click="hideTheMenu()"
+        ng-touchstart="hideTheMenu()">
         <i class="fa fa-times" aria-hidden="true"></i>
     </li>
     <li ng-show="board.brdType == 'square'"
