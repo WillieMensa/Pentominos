@@ -13,10 +13,10 @@
         ng-click="getStartPosition('square')"
         ng-touchstart="getStartPosition('square')">8&times;8</li>
     <li ng-click="setOpaqueBlocks()"
-        ng-show="opaqueBlocks == false"
+        ng-show="settings.opaqueBlocks == false"
         ng-touchstart="setOpaqueBlocks()">Opaque</li>
     <li ng-click="setTransparentBlocks()"
-        ng-show="opaqueBlocks == true"
+        ng-show="settings.opaqueBlocks == true"
         ng-touchstart="setTransparentBlocks()">Transparent</li>
     <li ng-click="methods.rotateBoard()"
         ng-touchstart="methods.rotateBoard()">Rotate&nbsp;Board</li>
@@ -24,4 +24,6 @@
         ng-touchstart="methods.flipBoardYAxis()">Flip Board</li>
     <li ng-click="methods.mixBoard()"
         ng-touchstart="methods.mixBoard()">Shuffle</li>
+    <li ng-click="board.autoSolve()"
+        ng-touchstart="board.autoSolve()">Spoiler</li>
 </ul>

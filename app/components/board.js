@@ -148,6 +148,9 @@ angular.module('pentominoApp')
                             $scope.board.fields[y].push(0);
                         }
                     }
+                },
+                autoSolve : function () {
+                    console.log('autoSolve');
                 }
             };
         }

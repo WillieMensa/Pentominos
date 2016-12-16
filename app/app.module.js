@@ -7,13 +7,13 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
     // $scope.board = {};
     // $scope.board.brdType = 'square';
     $scope.settings = {
-        menuVisible : false
+        menuVisible : false,
+        opaqueBlocks : true
     };
     $scope.pentominos = {};
     $scope.solutions = dataservice.getSolutions();
     $scope.currentSolution = 0;
     $scope.currentPentomino = null;
-    $scope.opaqueBlocks = true;
     $scope.saveSolution = function (solutionString) {
         dataservice.saveSolution($scope.board.brdType, solutionString);
     };
