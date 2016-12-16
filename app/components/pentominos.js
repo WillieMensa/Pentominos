@@ -158,16 +158,14 @@ angular.module('pentominoApp')
                     $scope.board.registerPieces();
                 },
                 clearBoard : function () {
-                    var boardWidth = $scope.board.width();
-                    var xPos;
-                    for (var i = 0; i < $scope.pentominos.length; i++) {
-                        xPos = $scope.pentominos[i].position.x;
-                        $scope.methods.flipRotate($scope.pentominos[i], 1);
-                        if (xPos < $scope.board.width()/2) {
-                            $scope.pentominos[i].position.x = -2 * $scope.pentominos[i].position.x;
-                        } else {
-                            $scope.pentominos[i].position.x += 2 * (boardWidth - xPos);
-                        }
+                    var theLength = $scope.methods.pentominosLength();
+                    var pentomino;
+                    for (var i = 0; i < theLength; i++) {
+                        pentomino = $scope.pentominos[i];
+                        pentomino.position.x = 2;
+                        pentomino.position.y = 10;
+                        pentomino.face = 0;
+                        $scope.methods.adjustDimensions(pentomino);
                     }
                 },
                 mixBoard : function () {

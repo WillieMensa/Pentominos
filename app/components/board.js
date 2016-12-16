@@ -150,7 +150,11 @@ angular.module('pentominoApp')
                     }
                 },
                 autoSolve : function () {
-                    console.log('autoSolve');
+                    var startPositionsXblock = [[1,0],[1,1],[2,0],[2,1],[2,2]];
+                    $scope.methods.clearBoard();
+                    for (var i = 0; i < startPositionsXblock.length; i++) {
+                        // startPositionsXblock[i]
+                    }
                 }
             };
         }
