@@ -1,0 +1,27 @@
+<i class="fa fa-bars" aria-hidden="true"
+    ng-click="showTheMenu()"
+    ng-touchstart="showTheMenu()"></i>
+<ul id="menu" ng-show="settings.menuVisible">
+    <li ng-click="hideTheMenu()"
+        ng-touchstart="hideTheMenu()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </li>
+    <li ng-show="board.brdType == 'square'"
+        ng-click="getStartPosition('rectangle')"
+        ng-touchstart="getStartPosition('rectangle')">6&times;10</li>
+    <li ng-show="board.brdType == 'rectangle'"
+        ng-click="getStartPosition('square')"
+        ng-touchstart="getStartPosition('square')">8&times;8</li>
+    <li ng-click="setOpaqueBlocks()"
+        ng-show="opaqueBlocks == false"
+        ng-touchstart="setOpaqueBlocks()">Opaque</li>
+    <li ng-click="setTransparentBlocks()"
+        ng-show="opaqueBlocks == true"
+        ng-touchstart="setTransparentBlocks()">Transparent</li>
+    <li ng-click="methods.rotateBoard()"
+        ng-touchstart="methods.rotateBoard()">Rotate&nbsp;Board</li>
+    <li ng-click="methods.flipBoardYAxis()"
+        ng-touchstart="methods.flipBoardYAxis()">Flip Board</li>
+    <li ng-click="methods.mixBoard()"
+        ng-touchstart="methods.mixBoard()">Shuffle</li>
+</ul>
