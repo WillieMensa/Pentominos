@@ -70,7 +70,8 @@ h1{
 }
 #hamburger{
     position: absolute;
-    left: 0;
+    left: 2px;
+    top: 2px;
     z-index: 1;
 }
 #hamburger .fa-bars{
