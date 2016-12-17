@@ -55,11 +55,13 @@ angular.module('pentominoApp')
                         }
                     }
                 },
-                registerPiece : function(pentomino,onOff) {
+                registerPiece : function(i,onOff) {
                     var x, y;
-                    for (var i = 0; i < pentomino.faces[pentomino.face].length; i++) {
-                        x = pentomino.faces[pentomino.face][i][0]+pentomino.position.x;
-                        y = pentomino.faces[pentomino.face][i][1]+pentomino.position.y;
+                    var pentomino = $scope.pentominos[i];
+                    for (var j = 0; j < pentomino.faces[pentomino.face].length; j++) {
+                        console.log(pentomino.name);
+                        x = pentomino.faces[pentomino.face][j][0]+pentomino.position.x;
+                        y = pentomino.faces[pentomino.face][j][1]+pentomino.position.y;
                         if (this.onBoard(x,y)) {
                             this.fields[y][x] += onOff;
                         }
@@ -68,7 +70,7 @@ angular.module('pentominoApp')
                 },
                 registerAllPieces : function() {
                     for (var i = 0; i < $scope.pentominos.length; i++) {
-                        this.registerPiece($scope.pentominos[i],1);
+                        this.registerPiece(i,1);
                     }
                 },
                 registerPieces : function () {
@@ -149,12 +151,56 @@ angular.module('pentominoApp')
                         }
                     }
                 },
-                autoSolve : function () {
-                    var startPositionsXblock = [[1,0],[1,1],[2,0],[2,1],[2,2]];
-                    $scope.methods.clearBoard();
-                    for (var i = 0; i < startPositionsXblock.length; i++) {
-                        // startPositionsXblock[i]
+                isFitting : function () {
+                    console.log('fit');
+                    return false;
+                },
+                findNextFit : function () {
+                    console.log('findNextFit');
+                    var theLength = $scope.methods.pentominosLength();
+                    var boardWidth = $scope.board.width();
+                    var boardHeight = $scope.board.height();
+                    var pentomino;
+                    for (var y = 0; y < boardHeight; i++) {
+                        for (var x = 0; x < boardWidth; x++) {
+                            for (var i = 0; i < theLength; i++) {
+                                pentomino = $scope.pentominos[i];
+                                for (var face = 0; face < pentomino.faces.length; face++) {
+                                    $scope.methods.adjustDimensions(pentomino);
+                                    $scope.methods.move(i,[x,y]);
+                                    pentomino.onBoard = true;
+                                    $scope.board.registerPiece(i,1);
+                                    $scope.$applyAsync();
+                                    if ($scope.board.isFitting()) {
+                                        $scope.board.findNextFit();
+                                    } else {
+
+                                    }
+                                }
+                            }
+                        }
+
                     }
+                },
+                autoSolve : function () {
+                    // The x block can only have these 5 unique positions and it can't rotate
+                    var startPositionsXblock = {
+                        'square' : [[1,0],[1,1],[2,0],[2,1],[2,2]],
+                        'rectangle' : [[1,0],[0,1],[1,1],[0,2],[1,2],[0,3],[1,3]],
+                    };
+                    var boardType = $scope.board.brdType;
+                    var pentomino = $scope.pentominos[9];
+                    $scope.settings.menuVisible = false;
+                    $scope.methods.clearBoard();
+                    $scope.pentominos[9].onBoard = true;
+                    for (var i = 0; i < startPositionsXblock[boardType].length; i++) {
+                        $scope.methods.move(i,startPositionsXblock[boardType][i]);
+                        // $scope.board.registerPiece(i,-1);
+                        // $scope.methods.setPosition(9,startPositionsXblock[boardType][i]);
+                        // $scope.board.registerPiece(i,1);
+                        $scope.board.findNextFit();
+                    }
+                    // console.table($scope.board.fields);
                 }
             };
         }
