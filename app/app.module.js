@@ -32,7 +32,7 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
                     } else {
                         pentomino.dimensions = angular.copy(pentomino.initialDimensions);
                     }
-                    $scope.methods.adjustDimensions(pentomino);
+                    $scope.methods.adjustDimensions(i);
                 }
             }
             $scope.board.registerPieces();

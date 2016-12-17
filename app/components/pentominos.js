@@ -68,7 +68,8 @@ angular.module('pentominoApp')
                         pentomino.dimensions.reverse();
                     }
                 },
-                adjustDimensions : function(pentomino) {
+                adjustDimensions : function(i) {
+                    var pentomino = $scope.pentominos[i];
                     pentomino.dimensions = angular.copy(pentomino.initialDimensions);
                     if (pentomino.face % 2 == 1) {
                         pentomino.dimensions.reverse();
@@ -78,7 +79,6 @@ angular.module('pentominoApp')
                     var pentomino = $scope.pentominos[block];
                     pentomino.position.x = position[0];
                     pentomino.position.y = position[1];
-                    pentomino.onBoard = false;
                 },
                 isActive : function (i) {
                     return ($scope.pentominos.indexOf($scope.currentPentomino) === i);
@@ -128,10 +128,11 @@ angular.module('pentominoApp')
                 isDragged : function() {
                     return ((Math.abs(this.dragEndPos.x - this.dragStartPos.x) > 19) || (Math.abs(this.dragEndPos.y - this.dragStartPos.y) > 19));
                 },
-                move : function (i,position) {
+                movePentomino : function (i,position) {
                     $scope.board.registerPiece(i,-1);
-                    $scope.methods.setPosition(9,position);
+                    $scope.methods.setPosition(i,position);
                     $scope.board.registerPiece(i,1);
+                    // console.table($scope.board.fields);
                 },
                 alignToGrid : function() {
                     $scope.currentPentomino.position.x = Math.round(this.x / $scope.board.partSize);
@@ -164,7 +165,7 @@ angular.module('pentominoApp')
                         pentomino.face = parseInt(splitString[i].charAt(1),10);
                         pentomino.position.x = parseInt(splitString[i].charAt(2));
                         pentomino.position.y = parseInt(splitString[i].charAt(3));
-                        this.adjustDimensions(pentomino);
+                        this.adjustDimensions(i);
                     }
                     $scope.board.registerPieces();
                 },
@@ -173,11 +174,9 @@ angular.module('pentominoApp')
                     var pentomino;
                     for (var i = 0; i < theLength; i++) {
                         pentomino = $scope.pentominos[i];
-                        $scope.board.registerPiece($scope.pentominos.indexOf(pentomino),-1);
-                        pentomino.position.x = 0;
-                        pentomino.position.y = $scope.board.height() + 1;
+                        this.movePentomino(i,[0,$scope.board.height() + 1]);
                         pentomino.face = 0;
-                        this.adjustDimensions(pentomino);
+                        this.adjustDimensions(i);
                     }
                 },
                 mixBoard : function () {
@@ -193,7 +192,7 @@ angular.module('pentominoApp')
                         pentomino.position.x = xPos;
                         pentomino.position.y = yPos;
                         pentomino.face = face;
-                        $scope.pentominos.adjustDimensions(pentomino);
+                        $scope.pentominos.adjustDimensions(i);
                     }
                     $scope.board.registerPieces();
                 },
