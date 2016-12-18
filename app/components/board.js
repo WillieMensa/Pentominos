@@ -242,15 +242,16 @@ angular.module('pentominoApp')
                             }
                         }
                     }
+                    console.table(this.fields);
                     console.table(board);
                 },
                 findNextFit : function () {
-                    this.positionsTried++;
                     // console.log(this.positionsTried);
                     var firstEmpty = this.findFirstEmpty();
                     var hasHole = this.isHole(firstEmpty);
-                    var exit = false;
-                    if (firstEmpty && !hasHole && !exit) {
+                    // var exit = (firstEmpty === false);
+                    var shiftLeft = true;
+                    if (!hasHole) {
                         var theLength = $scope.methods.pentominosLength();
                         var boardWidth = this.width();
                         var boardHeight = this.height();
@@ -258,33 +259,45 @@ angular.module('pentominoApp')
                         for (var i = 0; i < theLength; i++) {
                             pentomino = $scope.pentominos[i];
                             if (!pentomino.onBoard) {
-                                pentomino.onBoard = true;
+                                $scope.lastPentomino = pentomino;
                                 for (var face = 0; face < pentomino.faces.length; face++) {
-                                    $scope.methods.movePentomino(i,[0,this.height() + 1]);
+                                    // $scope.methods.movePentomino(i,[0,this.height() + 1]);
+                                    this.positionsTried++;
                                     pentomino.face = face;
                                     $scope.methods.adjustDimensions(i);
-                                    $scope.methods.movePentomino(i,firstEmpty);
+                                    $scope.methods.movePentomino(i,firstEmpty,shiftLeft);
+                                    pentomino.onBoard = true;
+                                    this.logBoard();
                                     // console.log(pentomino.name);
                                     // $scope.$applyAsync();
                                     if (this.isFitting()) {
                                         // console.clear();
                                         // this.logBoard();
-                                        this.findNextFit();
+                                        if (!this.findNextFit()) {
+                                            $scope.methods.movePentomino(i,[0,this.height() + 1]);
+                                            pentomino.onBoard = false;
+                                            this.logBoard();
+                                        }
                                         // this.logBoard();
                                         // console.log('back');
                                         // $scope.methods.movePentomino(i,[0,this.height() + 1]);
                                     } else {
-                                        // $scope.$apply();
+                                        $scope.methods.movePentomino(i,[0,this.height() + 1]);
+                                        pentomino.onBoard = false;
+                                        this.logBoard();
                                     }
                                 }
-                                $scope.methods.movePentomino(i,[0,this.height() + 1]);
-                                pentomino.onBoard = false;
                             }
                         }
                     } else {
-                        // exit = true;
-                        // console.log('holeFound');
+                        if ($scope.lastPentomino) {
+                            $scope.methods.movePentomino($scope.pentominos.indexOf($scope.lastPentomino),[0,this.height() + 1]);
+                            $scope.lastPentomino.onBoard = false;
+                            $scope.lastPentomino = null;
+                            this.logBoard();
+                        }
                     }
+                    return firstEmpty;
                     // console.log('no fit found');
                 },
                 autoSolve : function () {

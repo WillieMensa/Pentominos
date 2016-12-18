@@ -14,6 +14,7 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
     $scope.solutions = dataservice.getSolutions();
     $scope.currentSolution = 0;
     $scope.currentPentomino = null;
+    $scope.lastPentomino = null; // for autoSolve
     $scope.saveSolution = function (solutionString) {
         dataservice.saveSolution($scope.board.brdType, solutionString);
     };
