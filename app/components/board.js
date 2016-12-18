@@ -23,6 +23,7 @@ angular.module('pentominoApp')
                 },
                 solved : false,
                 newSolution : false,
+                positionsTried : 0,
                 width : function() {
                     return this.brdTypes[this.brdType].w;
                 },
@@ -153,7 +154,6 @@ angular.module('pentominoApp')
                     return fields;
                 },
                 findFirstEmpty : function () {
-                    // lijkt op boardIsFull()
                     var w = this.width();
                     var h = this.height();
                     var x,y;
@@ -163,6 +163,49 @@ angular.module('pentominoApp')
                         }
                     }
                     return false;
+                },
+                isHole : function (xy) {
+                    var holeSize = 0;
+                    var minHoleSize = ($scope.pentominos[12].onBoard || this.brdType === 'rectangle') ? 5 : 4;
+                    var w = this.width();
+                    var h = this.height();
+                    var label = 'a';
+                    var board = angular.copy(this.fields);
+                    // var x = xy[0];
+                    var y = xy[1];
+                    function countDown(xy) {
+                        var y = xy[1];
+                        while ((y < h) && (board[y][xy[0]] === 0) && (holeSize < minHoleSize)) {
+                            board[y][xy[0]] = label;
+                            holeSize++;
+                            // console.table(board);
+                            countLeft([xy[0]-1,y]);
+                            countRight([xy[0]+1,y]);
+                            y++;
+                        }
+                    }
+                    function countRight(xy) {
+                        var x = xy[0];
+                        while ((x < w) && (board[xy[1]][x] === 0) && (holeSize < minHoleSize)) {
+                            board[xy[1]][x] = label;
+                            holeSize++;
+                            // console.table(board);
+                            countDown([x,xy[1]+1]);
+                            x++;
+                        }
+                    }
+                    function countLeft(xy) {
+                        var x = xy[0];
+                        while ((x >= 0) && (board[xy[1]][x] === 0) && (holeSize < minHoleSize)) {
+                            board[xy[1]][x] = label;
+                            holeSize++;
+                            // console.table(board);
+                            countDown([x,xy[1]+1]);
+                            x--;
+                        }
+                    }
+                    countRight(xy);
+                    return (holeSize < minHoleSize);
                 },
                 // Return true if no overlapping pieces and pieces are completely on the board
                 isFitting : function () {
@@ -202,11 +245,12 @@ angular.module('pentominoApp')
                     console.table(board);
                 },
                 findNextFit : function () {
-                    console.clear();
-                    console.log('findNextFit');
+                    this.positionsTried++;
+                    // console.log(this.positionsTried);
                     var firstEmpty = this.findFirstEmpty();
+                    var hasHole = this.isHole(firstEmpty);
                     var exit = false;
-                    if (firstEmpty && !exit) {
+                    if (firstEmpty && !hasHole && !exit) {
                         var theLength = $scope.methods.pentominosLength();
                         var boardWidth = this.width();
                         var boardHeight = this.height();
@@ -220,13 +264,14 @@ angular.module('pentominoApp')
                                     pentomino.face = face;
                                     $scope.methods.adjustDimensions(i);
                                     $scope.methods.movePentomino(i,firstEmpty);
-                                    console.log(pentomino.name);
+                                    // console.log(pentomino.name);
                                     // $scope.$applyAsync();
                                     if (this.isFitting()) {
-                                        this.logBoard();
+                                        // console.clear();
+                                        // this.logBoard();
                                         this.findNextFit();
-                                        this.logBoard();
-                                        console.log('back');
+                                        // this.logBoard();
+                                        // console.log('back');
                                         // $scope.methods.movePentomino(i,[0,this.height() + 1]);
                                     } else {
                                         // $scope.$apply();
@@ -237,10 +282,10 @@ angular.module('pentominoApp')
                             }
                         }
                     } else {
-                        exit = true;
-                        console.log('boardIsFull');
+                        // exit = true;
+                        // console.log('holeFound');
                     }
-
+                    // console.log('no fit found');
                 },
                 autoSolve : function () {
                     // The x block can only have these 5 unique positions and it can't rotate
@@ -257,6 +302,7 @@ angular.module('pentominoApp')
                     for (var i = 0; i < startPositionsXblock[boardType].length; i++) {
                         $scope.methods.movePentomino(9,startPositionsXblock[boardType][i]);
                         this.findNextFit();
+                        console.log(this.positionsTried);
                     }
                     // console.table(this.fields);
                 }
