@@ -245,11 +245,15 @@ angular.module('pentominoApp')
                     console.table(this.fields);
                     console.table(board);
                 },
+                stashPentomino : function (i) {
+                    $scope.methods.movePentomino(i,[0,this.height() + 1]);
+                    $scope.pentominos[i].onBoard = false;
+                    this.logBoard();
+                },
                 findNextFit : function () {
                     // console.log(this.positionsTried);
                     var firstEmpty = this.findFirstEmpty();
                     var hasHole = this.isHole(firstEmpty);
-                    // var exit = (firstEmpty === false);
                     var shiftLeft = true;
                     if (!hasHole) {
                         var theLength = $scope.methods.pentominosLength();
@@ -259,46 +263,39 @@ angular.module('pentominoApp')
                         for (var i = 0; i < theLength; i++) {
                             pentomino = $scope.pentominos[i];
                             if (!pentomino.onBoard) {
-                                $scope.lastPentomino = pentomino;
+                                $scope.lastPentomino = i;
                                 for (var face = 0; face < pentomino.faces.length; face++) {
-                                    // $scope.methods.movePentomino(i,[0,this.height() + 1]);
                                     this.positionsTried++;
                                     pentomino.face = face;
                                     $scope.methods.adjustDimensions(i);
                                     $scope.methods.movePentomino(i,firstEmpty,shiftLeft);
                                     pentomino.onBoard = true;
                                     this.logBoard();
-                                    // console.log(pentomino.name);
-                                    // $scope.$applyAsync();
                                     if (this.isFitting()) {
-                                        // console.clear();
-                                        // this.logBoard();
-                                        if (!this.findNextFit()) {
-                                            $scope.methods.movePentomino(i,[0,this.height() + 1]);
-                                            pentomino.onBoard = false;
-                                            this.logBoard();
+                                        if (this.isSolved()) {
+                                            confirm('doorgaan?');
                                         }
-                                        // this.logBoard();
-                                        // console.log('back');
-                                        // $scope.methods.movePentomino(i,[0,this.height() + 1]);
+                                        if (!this.findNextFit()) {
+                                            this.stashPentomino(i);
+                                        }
+                                        console.log('back');
+                                        this.stashPentomino(i);
                                     } else {
-                                        $scope.methods.movePentomino(i,[0,this.height() + 1]);
-                                        pentomino.onBoard = false;
-                                        this.logBoard();
+                                        // Not fitting (overlapping or out of board)
+                                        this.stashPentomino(i);
                                     }
                                 }
                             }
                         }
+                        this.logBoard();
                     } else {
                         if ($scope.lastPentomino) {
-                            $scope.methods.movePentomino($scope.pentominos.indexOf($scope.lastPentomino),[0,this.height() + 1]);
-                            $scope.lastPentomino.onBoard = false;
+                            this.stashPentomino($scope.lastPentomino);
                             $scope.lastPentomino = null;
-                            this.logBoard();
                         }
                     }
+                    // There was a hole not fitting a block (< 5 spaces)
                     return firstEmpty;
-                    // console.log('no fit found');
                 },
                 autoSolve : function () {
                     // The x block can only have these 5 unique positions and it can't rotate
