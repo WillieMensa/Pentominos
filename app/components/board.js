@@ -251,6 +251,46 @@ angular.module('pentominoApp')
                     this.logBoard();
                 },
                 findNextFit : function () {
+                    var firstEmpty, hasHole, theLength, pentomino, shiftLeft = true;
+                    if (!this.isSolved()) {
+                        firstEmpty = this.findFirstEmpty();
+                        hasHole = this.isHole(firstEmpty);
+                        if (!hasHole) {
+                            theLength = $scope.methods.pentominosLength();
+                            for (var i = 0; i < theLength; i++) {
+                                pentomino = $scope.pentominos[i];
+                                if (!pentomino.onBoard) {
+                                    $scope.lastPentomino = i;
+                                    for (var face = 0; face < pentomino.faces.length; face++) {
+                                        this.positionsTried++;
+                                        pentomino.face = face;
+                                        $scope.methods.adjustDimensions(i);
+                                        $scope.methods.movePentomino(i,firstEmpty,shiftLeft);
+                                        pentomino.onBoard = true;
+                                        this.logBoard();
+                                        if (this.isFitting()) {
+                                            this.findNextFit();
+                                            this.stashPentomino(i);
+                                            // this.logBoard();
+                                            console.clear();
+                                        } else {
+                                            this.stashPentomino(i);
+                                            this.logBoard();
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            this.stashPentomino($scope.lastPentomino);
+                            this.logBoard();
+                        }
+                    } else {
+                        confirm('doorgaan?');
+                        this.stashPentomino($scope.lastPentomino);
+                        this.logBoard();
+                    }
+                },
+                OldfindNextFit : function () {
                     // console.log(this.positionsTried);
                     var firstEmpty = this.findFirstEmpty();
                     var hasHole = this.isHole(firstEmpty);
@@ -311,6 +351,7 @@ angular.module('pentominoApp')
                     $scope.pentominos[9].onBoard = true;
                     for (var i = 0; i < startPositionsXblock[boardType].length; i++) {
                         $scope.methods.movePentomino(9,startPositionsXblock[boardType][i]);
+                        $scope.lastPentomino = 9;
                         this.findNextFit();
                         console.log(this.positionsTried);
                     }
