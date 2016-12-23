@@ -68,11 +68,17 @@ angular.module('pentominoApp')
                         pentomino.dimensions.reverse();
                     }
                 },
-                adjustDimensions : function(pentomino) {
+                adjustDimensions : function(i) {
+                    var pentomino = $scope.pentominos[i];
                     pentomino.dimensions = angular.copy(pentomino.initialDimensions);
                     if (pentomino.face % 2 == 1) {
                         pentomino.dimensions.reverse();
                     }
+                },
+                setPosition : function (block, position) {
+                    var pentomino = $scope.pentominos[block];
+                    pentomino.position.x = position[0];
+                    pentomino.position.y = position[1];
                 },
                 isActive : function (i) {
                     return ($scope.pentominos.indexOf($scope.currentPentomino) === i);
@@ -94,10 +100,10 @@ angular.module('pentominoApp')
                 },
                 startDrag : function(pentomino, part, event) {
                     // event.stopPropagation();
-                    var clientPos = $scope.methods.getClientPos(event);
+                    var clientPos = this.getClientPos(event);
                     $scope.currentPentomino = pentomino;
                     this.part = part;
-                    $scope.board.registerPiece(pentomino,-1);
+                    $scope.board.registerPiece($scope.pentominos.indexOf(pentomino),-1);
                     this.container = event.target.offsetParent.offsetParent;
                     this.container.style.zIndex = 100;
                     this.startX = clientPos.x - this.container.offsetLeft;
@@ -109,7 +115,7 @@ angular.module('pentominoApp')
                     // console.log('start', this.x, this.y);
                 },
                 doDrag : function(event) {
-                    var clientPos = $scope.methods.getClientPos(event);
+                    var clientPos = this.getClientPos(event);
                     if ($scope.currentPentomino) {
                         // console.log(event);
                         this.x = clientPos.x - this.startX;
@@ -122,6 +128,29 @@ angular.module('pentominoApp')
                 isDragged : function() {
                     return ((Math.abs(this.dragEndPos.x - this.dragStartPos.x) > 19) || (Math.abs(this.dragEndPos.y - this.dragStartPos.y) > 19));
                 },
+                findFirstPartRight : function(i) {
+                    var pentomino = $scope.pentominos[i];
+                    var offsetRight = pentomino.dimensions[0];
+                    var part = pentomino.faces[pentomino.face][0];
+                    for (var j = 0; j < pentomino.faces[pentomino.face].length; j++) {
+                        part = pentomino.faces[pentomino.face][j];
+                        offsetRight = ((part[1] === 0) && (part[0] < offsetRight)) ? part[0] : offsetRight;
+                    }
+                    return offsetRight;
+                },
+                movePentomino : function (i,position,shiftLeft) {
+                    var newPosition;
+                    if (shiftLeft) { // If left top of pentomino is empty ___|
+                        var xShift = this.findFirstPartRight(i);
+                        newPosition = [position[0]-xShift,position[1]];
+                    } else {
+                        newPosition = position;
+                    }
+                    $scope.board.registerPiece(i,-1);
+                    this.setPosition(i,newPosition);
+                    $scope.board.registerPiece(i,1);
+                    // console.table($scope.board.fields);
+                },
                 alignToGrid : function() {
                     $scope.currentPentomino.position.x = Math.round(this.x / $scope.board.partSize);
                     $scope.currentPentomino.position.y = Math.round(this.y / $scope.board.partSize);
@@ -132,14 +161,14 @@ angular.module('pentominoApp')
                     this.dragEndPos.x = this.x;
                     this.dragEndPos.y = this.y;
                     if ($scope.currentPentomino) {
-                        if (!$scope.methods.isDragged()) {
+                        if (!this.isDragged()) {
                             if ((($scope.currentPentomino.type < 4) && (this.part < 3)) ||
                                 (($scope.currentPentomino.type == 4) && (this.part < 1))) {
-                                $scope.methods.flipRotate($scope.currentPentomino, this.part);
+                                this.flipRotate($scope.currentPentomino, this.part);
                             }
                         }
-                        $scope.methods.alignToGrid();
-                        $scope.board.registerPiece($scope.currentPentomino,1);
+                        this.alignToGrid();
+                        $scope.board.registerPiece($scope.pentominos.indexOf($scope.currentPentomino),1);
                         $scope.board.isSolved();
                         this.resetVars();
                     }
@@ -148,34 +177,31 @@ angular.module('pentominoApp')
                     var solutionString = $scope.solutions[$scope.board.brdType][$scope.currentSolution];
                     var splitString = solutionString.substr(1).split('#');
                     var pentomino;
-                    var theLength = $scope.methods.pentominosLength();
+                    var theLength = this.pentominosLength();
                     for (var i = 0; i < theLength; i++) {
                         pentomino = $scope.pentominos[i];
                         pentomino.face = parseInt(splitString[i].charAt(1),10);
                         pentomino.position.x = parseInt(splitString[i].charAt(2));
                         pentomino.position.y = parseInt(splitString[i].charAt(3));
-                        $scope.methods.adjustDimensions(pentomino);
+                        this.adjustDimensions(i);
                     }
                     $scope.board.registerPieces();
                 },
                 clearBoard : function () {
-                    var boardWidth = $scope.board.width();
-                    var xPos;
-                    for (var i = 0; i < $scope.pentominos.length; i++) {
-                        xPos = $scope.pentominos[i].position.x;
-                        $scope.methods.flipRotate($scope.pentominos[i], 1);
-                        if (xPos < $scope.board.width()/2) {
-                            $scope.pentominos[i].position.x = -2 * $scope.pentominos[i].position.x;
-                        } else {
-                            $scope.pentominos[i].position.x += 2 * (boardWidth - xPos);
-                        }
+                    var theLength = this.pentominosLength();
+                    var pentomino;
+                    for (var i = 0; i < theLength; i++) {
+                        pentomino = $scope.pentominos[i];
+                        this.movePentomino(i,[0,$scope.board.height() + 1]);
+                        pentomino.face = 0;
+                        this.adjustDimensions(i);
                     }
                 },
                 mixBoard : function () {
                     var boardWidth = $scope.board.width();
                     var xPos, face;
                     var pentomino;
-                    var theLength = $scope.methods.pentominosLength();
+                    var theLength = this.pentominosLength();
                     for (var i = 0; i < theLength; i++) {
                         pentomino = $scope.pentominos[i];
                         xPos = Math.floor(Math.random() * $scope.board.width());
@@ -184,16 +210,15 @@ angular.module('pentominoApp')
                         pentomino.position.x = xPos;
                         pentomino.position.y = yPos;
                         pentomino.face = face;
-                        $scope.methods.adjustDimensions(pentomino);
+                        $scope.pentominos.adjustDimensions(i);
                     }
                     $scope.board.registerPieces();
-                    // console.table($scope.board.fields);
                 },
                 flipBoardYAxis : function () {
                     var pentomino;
                     for (var i = 0; i < $scope.pentominos.length; i++) {
                         pentomino = $scope.pentominos[i];
-                        $scope.methods.flipRotate(pentomino,1);
+                        this.flipRotate(pentomino,1);
                         pentomino.position.x = $scope.board.width() - pentomino.position.x - pentomino.dimensions[0];
                     }
                 },
@@ -210,7 +235,7 @@ angular.module('pentominoApp')
                         pentomino.position.x = $scope.board.width() - origin.y;
                         pentomino.position.y = origin.x;
                         // rotated pentomino
-                        $scope.methods.flipRotate(pentomino,0);
+                        this.flipRotate(pentomino,0);
                     }
                 },
                 shiftPieces : function (dx,dy) {
@@ -220,11 +245,11 @@ angular.module('pentominoApp')
                 },
                 rotateBoard : function () {
                     if ($scope.board.brdType == 'square') {
-                        $scope.methods.rotateSquareBoard();
+                        this.rotateSquareBoard();
                     } else {
                         // rotate twice and shift pentominos 4 positions down
-                        for (var i = 0; i < 2; i++) $scope.methods.rotateSquareBoard();
-                        $scope.methods.shiftPieces(0,4);
+                        for (var i = 0; i < 2; i++) this.rotateSquareBoard();
+                        this.shiftPieces(0,4);
                     }
                     // console.log($scope.pentominos[12]);
                 }

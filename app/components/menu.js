@@ -14,10 +14,10 @@ angular.module('pentominoApp')
                 $scope.settings.menuVisible = false;
             };
             $scope.setOpaqueBlocks = function () {
-                $scope.opaqueBlocks = true;
+                $scope.settings.opaqueBlocks = true;
             };
             $scope.setTransparentBlocks = function () {
-                $scope.opaqueBlocks = false;
+                $scope.settings.opaqueBlocks = false;
             };
         }
 	};

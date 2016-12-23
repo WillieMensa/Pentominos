@@ -7,13 +7,14 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
     // $scope.board = {};
     // $scope.board.brdType = 'square';
     $scope.settings = {
-        menuVisible : false
+        menuVisible : false,
+        opaqueBlocks : true
     };
     $scope.pentominos = {};
     $scope.solutions = dataservice.getSolutions();
     $scope.currentSolution = 0;
     $scope.currentPentomino = null;
-    $scope.opaqueBlocks = true;
+    $scope.lastPentomino = null; // for autoSolve
     $scope.saveSolution = function (solutionString) {
         dataservice.saveSolution($scope.board.brdType, solutionString);
     };
@@ -32,7 +33,7 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
                     } else {
                         pentomino.dimensions = angular.copy(pentomino.initialDimensions);
                     }
-                    $scope.methods.adjustDimensions(pentomino);
+                    $scope.methods.adjustDimensions(i);
                 }
             }
             $scope.board.registerPieces();
