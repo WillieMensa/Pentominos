@@ -1,21 +1,29 @@
 <div ng-show="solutions[board.brdType].length">
     <button class="small r"
-        ng-disabled="(currentSolution == solutions[board.brdType].length - 1)"
         title="Show next solution"
+        ng-show="settings.solutionsShown"
+        ng-disabled="(currentSolution == solutions[board.brdType].length - 1)"
         ng-click="showNextSolution(board.brdType)"
         ng-touchstart="showNextSolution(board.brdType)">
-        <span class="fa fa-step-forward fa-lg"></span>
+        <icon class="fa fa-step-forward fa-lg"></icon>
     </button>
     <button class="small l"
-        ng-disabled="(currentSolution == 0)"
         title="Show previous solution"
+        ng-show="settings.solutionsShown"
+        ng-disabled="(currentSolution == 0)"
         ng-click="showPreviousSolution(board.brdType)"
         ng-touchstart="showPreviousSolution(board.brdType)">
-        <span class="fa fa-step-backward fa-lg"></span>
+        <icon class="fa fa-step-backward fa-lg"></icon>
     </button>
-    <button
+    <button class="rounded"
+        ng-show="!settings.solutionsShown"
         ng-class="{'solved' : (board.solved && !board.newSolution)}"
         ng-click="showSolution()">Show solution
         {{currentSolution + 1}} / {{solutions[board.brdType].length}}
     </button>
+    <span class="rounded"
+        ng-show="settings.solutionsShown"
+        ng-class="{'solved' : (board.solved && !board.newSolution)}">
+        Solution {{currentSolution + 1}} / {{solutions[board.brdType].length}}
+    </span>
 </div>

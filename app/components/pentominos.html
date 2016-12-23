@@ -4,7 +4,7 @@
     ng-style="methods.getPentominoCss(pentomino.position)"
     ng-class="{
         'active' : methods.isActive($index),
-        'transparent' : opaqueBlocks == false
+        'transparent' : settings.opaqueBlocks == false
     }">
     <div class="relContainer"
         ng-repeat="face in pentomino.faces track by $index"

@@ -32,6 +32,9 @@ body{
 .l{
 	float: left;
 }
+.rounded{
+    border-radius: 100px
+}
 .clearFix{
 	clear:both;
 }
@@ -70,7 +73,8 @@ h1{
 }
 #hamburger{
     position: absolute;
-    left: 0;
+    left: 2px;
+    top: 2px;
     z-index: 1;
 }
 #hamburger .fa-bars{
@@ -118,9 +122,11 @@ nav ul li{
 #board.rectangle #controls > div:first-child{
     margin-bottom: 10px;
 }
-#controls button{
-    height: 40px;
-    line-height: 40px;
+#controls button,
+#controls span{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
     font-family: inherit;
     background-color: transparent;
     border: none;
@@ -128,12 +134,19 @@ nav ul li{
     text-align: center;
     color: white;
     font-size: 14px;
+    margin-top: 10px;
+    padding: 0 10px;
+}
+#controls button{
     cursor: pointer;
 }
 #controls button.small{
     width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 5px;
 }
-#controls button + span{
+#controls button + icon{
     margin: 0 10px;
     line-height: 30px;
 }

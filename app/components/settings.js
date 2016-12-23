@@ -8,7 +8,8 @@ angular.module('pentominoApp')
 		templateUrl: 'app/components/settings.html',
         link: function ($scope) {
             $scope.showSolution = function() {
-                $scope.methods.showSolution($scope.solutions[$scope.board.brdType][$scope.currentSolution]);
+                $scope.methods.showSolution();
+                $scope.settings.solutionsShown = true;
             };
             $scope.showPreviousSolution = function() {
                 if ($scope.currentSolution > 0) {
