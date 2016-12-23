@@ -9,6 +9,7 @@ angular.module('pentominoApp')
         link: function ($scope) {
             $scope.showSolution = function() {
                 $scope.methods.showSolution();
+                $scope.settings.solutionsShown = true;
             };
             $scope.showPreviousSolution = function() {
                 if ($scope.currentSolution > 0) {

@@ -8,7 +8,8 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
     // $scope.board.brdType = 'square';
     $scope.settings = {
         menuVisible : false,
-        opaqueBlocks : true
+        opaqueBlocks : true,
+        solutionsShown : false
     };
     $scope.pentominos = {};
     $scope.solutions = dataservice.getSolutions();

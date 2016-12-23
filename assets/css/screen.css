@@ -32,6 +32,9 @@ body{
 .l{
 	float: left;
 }
+.rounded{
+    border-radius: 100px
+}
 .clearFix{
 	clear:both;
 }
@@ -119,7 +122,9 @@ nav ul li{
 #board.rectangle #controls > div:first-child{
     margin-bottom: 10px;
 }
-#controls button{
+#controls button,
+#controls span{
+    display: inline-block;
     height: 40px;
     line-height: 40px;
     font-family: inherit;
@@ -129,12 +134,15 @@ nav ul li{
     text-align: center;
     color: white;
     font-size: 14px;
+    padding: 0;
+}
+#controls button{
     cursor: pointer;
 }
 #controls button.small{
     width: 40px;
 }
-#controls button + span{
+#controls button + icon{
     margin: 0 10px;
     line-height: 30px;
 }
