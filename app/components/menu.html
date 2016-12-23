@@ -4,8 +4,7 @@
 <ul id="menu" ng-show="settings.menuVisible">
     <li ng-click="hideTheMenu()"
         ng-touchstart="hideTheMenu()">
-        <i class="fa fa-times" aria-hidden="true"></i>
-    </li>
+        <i class="fa fa-times" aria-hidden="true"></i></li>
     <li ng-show="board.brdType == 'square'"
         ng-click="getStartPosition('rectangle')"
         ng-touchstart="getStartPosition('rectangle')">6&nbsp;&times;&nbsp;10</li>
@@ -24,6 +23,7 @@
         ng-touchstart="methods.flipBoardYAxis()">Flip Board</li>
     <li ng-click="methods.mixBoard()"
         ng-touchstart="methods.mixBoard()">Shuffle</li>
-    <li ng-click="board.autoSolve()"
+    <li ng-show="solutions[board.brdType].length > 10"
+        ng-click="board.autoSolve()"
         ng-touchstart="board.autoSolve()">Spoiler</li>
 </ul>
