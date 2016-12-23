@@ -144,7 +144,8 @@ angular.module('pentominoApp')
                         this.resetVars();
                     }
                 },
-                showSolution : function (solutionString) {
+                showSolution : function () {
+                    var solutionString = $scope.solutions[$scope.board.brdType][$scope.currentSolution];
                     var splitString = solutionString.substr(1).split('#');
                     var pentomino;
                     var theLength = $scope.methods.pentominosLength();
