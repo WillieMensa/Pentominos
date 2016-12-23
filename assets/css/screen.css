@@ -125,8 +125,8 @@ nav ul li{
 #controls button,
 #controls span{
     display: inline-block;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
     font-family: inherit;
     background-color: transparent;
     border: none;
@@ -134,13 +134,17 @@ nav ul li{
     text-align: center;
     color: white;
     font-size: 14px;
-    padding: 0;
+    margin-top: 10px;
+    padding: 0 10px;
 }
 #controls button{
     cursor: pointer;
 }
 #controls button.small{
     width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 5px;
 }
 #controls button + icon{
     margin: 0 10px;
