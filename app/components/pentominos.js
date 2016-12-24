@@ -140,7 +140,7 @@ angular.module('pentominoApp')
                         this.y = clientPos.y - this.startY;
                         this.container.style.left = this.x + 'px';
                         this.container.style.top = this.y + 'px';
-                        console.log(this.x, this.y);
+                        // console.log('drag', this.x, this.y);
                     }
                 },
                 stopDrag : function(event) {
