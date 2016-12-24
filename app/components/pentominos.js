@@ -33,6 +33,38 @@ angular.module('pentominoApp')
                         };
                     }
                 },
+                getPartCss : function(pentomino, part) {
+                    return {
+                        'left':part[0]*$scope.board.partSize+'px',
+                        'top':part[1]*$scope.board.partSize+'px',
+                        'backgroundColor':pentomino.color
+                    };
+                },
+                getPartClasses : function (pentomino, partIndex) {
+                    var classes = ['fa'];
+                    // C and T blocks don't need mirrorring in every direction
+                    var flipH = !($scope.pentominos.indexOf(pentomino) === 1 &&
+                                pentomino.dimensions[0] > pentomino.dimensions[1] ||
+                                $scope.pentominos.indexOf(pentomino) === 6 &&
+                                pentomino.face % 2 === 0);
+                    var flipV = !($scope.pentominos.indexOf(pentomino) === 1 &&
+                                pentomino.dimensions[0] < pentomino.dimensions[1] ||
+                                $scope.pentominos.indexOf(pentomino) === 6 &&
+                                pentomino.face % 2 === 1);
+                    if (partIndex === 0 && pentomino.type < 5) {
+                        classes.push('fa-refresh');
+                        classes.push('rotate');
+                    }
+                    if (partIndex === 1 && pentomino.type < 4 && flipH) {
+                        classes.push('fa-arrows-h');
+                        classes.push('flipH');
+                    }
+                    if (partIndex === 2 && pentomino.type < 4 && flipV) {
+                        classes.push('fa-arrows-v');
+                        classes.push('flipV');
+                    }
+                    return classes.join(' ');
+                },
                 // Returns the new face index for a given face, action and blocktype
                 flipRotate : function (pentomino, part) {
                     var rotable = [
@@ -100,13 +132,6 @@ angular.module('pentominoApp')
                 },
                 isActive : function (i) {
                     return ($scope.pentominos.indexOf($scope.currentPentomino) === i);
-                },
-                getPartCss : function(pentomino, part) {
-                    return {
-                        'left':part[0]*$scope.board.partSize+'px',
-                        'top':part[1]*$scope.board.partSize+'px',
-                        'backgroundColor':pentomino.color
-                    };
                 },
                 getClientPos : function (event) {
                     var clientX = (event.touches) ? event.touches[0].clientX : event.clientX;
