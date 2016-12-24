@@ -70,8 +70,10 @@ angular.module('pentominoApp')
                 },
                 adjustDimensions : function(i) {
                     var pentomino = $scope.pentominos[i];
-                    pentomino.dimensions = angular.copy(pentomino.initialDimensions);
-                    if (pentomino.face % 2 == 1) {
+                    if (pentomino && pentomino.initialDimensions) {
+                        pentomino.dimensions = angular.copy(pentomino.initialDimensions);
+                    }
+                    if (pentomino && pentomino.face % 2 == 1) {
                         pentomino.dimensions.reverse();
                     }
                 },

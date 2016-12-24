@@ -116,12 +116,6 @@ nav ul li{
     margin-top: 5px;
     text-align: center;
 }
-#board.square #controls > div:first-child{
-    margin-bottom: 30px;
-}
-#board.rectangle #controls > div:first-child{
-    margin-bottom: 10px;
-}
 #controls button,
 #controls span{
     display: inline-block;
