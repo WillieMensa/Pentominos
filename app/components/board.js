@@ -60,13 +60,15 @@ angular.module('pentominoApp')
                     var x, y;
                     var pentomino = $scope.pentominos[i];
                     // console.log(pentomino.name);
-                    for (var j = 0; j < pentomino.faces[pentomino.face].length; j++) {
-                        x = pentomino.faces[pentomino.face][j][0]+pentomino.position.x;
-                        y = pentomino.faces[pentomino.face][j][1]+pentomino.position.y;
-                        if (this.onBoard(x,y)) {
-                            this.fields[y][x] += onOff;
-                        }
+                    if (pentomino && pentomino.faces) {
+                        for (var j = 0; j < pentomino.faces[pentomino.face].length; j++) {
+                            x = pentomino.faces[pentomino.face][j][0]+pentomino.position.x;
+                            y = pentomino.faces[pentomino.face][j][1]+pentomino.position.y;
+                            if (this.onBoard(x,y)) {
+                                this.fields[y][x] += onOff;
+                            }
 
+                        }
                     }
                 },
                 registerAllPieces : function() {
@@ -106,7 +108,7 @@ angular.module('pentominoApp')
                     return solutionString;
                 },
                 isNewSolution : function() {
-                    var solutionString;
+                    var solutionString = this.solution2String();
                     var isNewSolution = true;
                     var theLength = $scope.methods.pentominosLength();
                     var rotations = (this.brdType == 'square')? 4 : 2;
