@@ -1,11 +1,11 @@
 angular.module('pentominoApp')
 
 // The terminal (input / output)
-.directive('settings', function() {
+.directive('controls', function() {
 	return {
 		restrict: 'A',
         scope: false,
-		templateUrl: 'app/components/settings.html',
+		templateUrl: 'app/components/controls.html',
         link: function ($scope) {
             $scope.showSolution = function() {
                 $scope.methods.showSolution();

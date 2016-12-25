@@ -254,7 +254,7 @@ angular.module('pentominoApp')
                         pentomino.position.x = xPos;
                         pentomino.position.y = yPos;
                         pentomino.face = face;
-                        $scope.pentominos.adjustDimensions(i);
+                        $scope.methods.adjustDimensions(i);
                     }
                     $scope.board.registerPieces();
                 },
