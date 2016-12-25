@@ -34,7 +34,9 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
                     } else {
                         pentomino.dimensions = angular.copy(pentomino.initialDimensions);
                     }
-                    $scope.methods.adjustDimensions(i);
+                    if ($scope.methods) {
+                        $scope.methods.adjustDimensions(i);
+                    }
                 }
             }
             $scope.board.registerPieces();

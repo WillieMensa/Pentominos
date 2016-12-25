@@ -26,6 +26,11 @@ body{
     justify-content: flex-start;
     align-items: center;
 }
+@media (min-height: 700px) {
+  body {
+      justify-content: center;
+  }
+}
 .r{
 	float:right;
 }
@@ -131,6 +136,9 @@ nav ul li{
     margin-top: 10px;
     padding: 0 10px;
 }
+#controls span.solved{
+    border: 1px dotted lime;
+}
 #controls button{
     cursor: pointer;
 }
@@ -185,6 +193,14 @@ nav ul li{
     line-height: 38px;
     opacity: 0.2;
     /*display: none;*/
+}
+.block_y .part::before,
+.block_n .part::before{
+    opacity: 0.4;
+}
+.block_t .part::before,
+.block_v .part::before{
+    opacity: 0.3;
 }
 .pentomino.active .part::before,
 .pentomino:hover .part::before{
