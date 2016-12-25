@@ -18,7 +18,8 @@
     <button class="rounded"
         ng-show="!settings.solutionsShown"
         ng-class="{'solved' : (board.solved && !board.newSolution)}"
-        ng-click="showSolution()">Show solution
+        ng-click="showSolution()"
+        ng-touchstart="showSolution()">Show solution
         {{currentSolution + 1}} / {{solutions[board.brdType].length}}
     </button>
     <span class="rounded"

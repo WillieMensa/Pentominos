@@ -9,18 +9,14 @@
     <div class="relContainer"
         ng-repeat="face in pentomino.faces track by $index"
         ng-if="$index == pentomino.face">
-        <div class="part"
+        <div class="part {{methods.getPartClasses(pentomino, $index)}}"
             ng-repeat="part in face track by $index"
             ng-mousedown="methods.startDrag(pentomino, $index, $event)"
             ng-touchstart="methods.startDrag(pentomino, $index, $event)"
-            ng-class="{
-                'fa fa-refresh rotate':($index==0 && pentomino.type < 5),
-                'fa fa-arrows-h flipH':($index==1 && pentomino.type < 4),
-                'fa fa-arrows-v flipV':($index==2 && pentomino.type < 4)
-            }"
             ng-style="{{methods.getPartCss(pentomino, part)}}">
-            <!-- <span ng-if="$index==3">{{pentomino.position.x + '/' + pentomino.position.y}}</span>
-            <span ng-if="$index==4">{{pentomino.face}}</span> -->
+            <!-- Enabling these gives a bug when dragging by these !!!!!!! -->
+            <!-- <span ng-if="$index==3">{{pentomino.position.x + '/' + pentomino.position.y}}</span> -->
+            <!-- <span ng-if="$index==4">{{pentomino.face}}</span> -->
         </div>
     </div>
 </div>
