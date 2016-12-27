@@ -1,13 +1,14 @@
 angular.module('pentominoApp')
 
 // The terminal (input / output)
-.directive('board', [function() {
+.directive('board', ['$timeout', function($timeout) {
 	return {
 		restrict: 'A',
         scope: false,
 		templateUrl: 'app/components/board.html',
         link: function($scope) {
             $scope.board = {
+                self : this,
                 fields : [],
                 partSize : 40,
                 brdType : 'square',
@@ -227,6 +228,12 @@ angular.module('pentominoApp')
                         return (sum % 5 === 0);
                     }
                 },
+                updateScreen : function () {
+                    if ($scope) {
+                        // $scope.$digest();
+                        $scope.$applyAsync();
+                    }
+                },
                 logBoard : function () {
                     var board = [];
                     var w = this.width();
@@ -244,8 +251,10 @@ angular.module('pentominoApp')
                             }
                         }
                     }
+                    // $scope.board.updateScreen();
                     console.table(this.fields);
                     console.table(board);
+                    confirm('doorgaan?');
                 },
                 stashPentomino : function (i) {
                     $scope.methods.movePentomino(i,[0,this.height() + 1]);
@@ -254,9 +263,9 @@ angular.module('pentominoApp')
                 },
                 findNextFit : function () {
                     var firstEmpty, hasHole, theLength, pentomino, shiftLeft = true;
-                    if (!this.isSolved()) {
-                        firstEmpty = this.findFirstEmpty();
-                        hasHole = this.isHole(firstEmpty);
+                    if (!$scope.board.isSolved()) {
+                        firstEmpty = $scope.board.findFirstEmpty();
+                        hasHole = $scope.board.isHole(firstEmpty);
                         if (!hasHole) {
                             theLength = $scope.methods.pentominosLength();
                             for (var i = 0; i < theLength; i++) {
@@ -264,80 +273,34 @@ angular.module('pentominoApp')
                                 if (!pentomino.onBoard) {
                                     $scope.lastPentomino = i;
                                     for (var face = 0; face < pentomino.faces.length; face++) {
-                                        this.positionsTried++;
+                                        $scope.board.positionsTried++;
                                         pentomino.face = face;
                                         $scope.methods.adjustDimensions(i);
                                         $scope.methods.movePentomino(i,firstEmpty,shiftLeft);
                                         pentomino.onBoard = true;
-                                        this.logBoard();
-                                        if (this.isFitting()) {
-                                            this.findNextFit();
-                                            this.stashPentomino(i);
-                                            // this.logBoard();
+                                        $scope.board.logBoard();
+                                        if ($scope.board.isFitting()) {
+                                            $scope.board.findNextFit();
+                                            // $scope.board.updateScreen();
+                                            // $scope.board.findNextFit();
+                                            $scope.board.stashPentomino(i);
+                                            $scope.board.logBoard();
                                             console.clear();
                                         } else {
-                                            this.stashPentomino(i);
-                                            this.logBoard();
+                                            $scope.board.stashPentomino(i);
+                                            $scope.board.logBoard();
                                         }
                                     }
                                 }
                             }
                         } else {
-                            this.stashPentomino($scope.lastPentomino);
-                            this.logBoard();
+                            $scope.board.stashPentomino($scope.lastPentomino);
+                            $scope.board.logBoard();
                         }
                     } else {
-                        confirm('doorgaan?');
-                        this.stashPentomino($scope.lastPentomino);
-                        this.logBoard();
+                        $scope.board.stashPentomino($scope.lastPentomino);
+                        $scope.board.logBoard();
                     }
-                },
-                OldfindNextFit : function () {
-                    // console.log(this.positionsTried);
-                    var firstEmpty = this.findFirstEmpty();
-                    var hasHole = this.isHole(firstEmpty);
-                    var shiftLeft = true;
-                    if (!hasHole) {
-                        var theLength = $scope.methods.pentominosLength();
-                        var boardWidth = this.width();
-                        var boardHeight = this.height();
-                        var pentomino;
-                        for (var i = 0; i < theLength; i++) {
-                            pentomino = $scope.pentominos[i];
-                            if (!pentomino.onBoard) {
-                                $scope.lastPentomino = i;
-                                for (var face = 0; face < pentomino.faces.length; face++) {
-                                    this.positionsTried++;
-                                    pentomino.face = face;
-                                    $scope.methods.adjustDimensions(i);
-                                    $scope.methods.movePentomino(i,firstEmpty,shiftLeft);
-                                    pentomino.onBoard = true;
-                                    this.logBoard();
-                                    if (this.isFitting()) {
-                                        if (this.isSolved()) {
-                                            confirm('doorgaan?');
-                                        }
-                                        if (!this.findNextFit()) {
-                                            this.stashPentomino(i);
-                                        }
-                                        console.log('back');
-                                        this.stashPentomino(i);
-                                    } else {
-                                        // Not fitting (overlapping or out of board)
-                                        this.stashPentomino(i);
-                                    }
-                                }
-                            }
-                        }
-                        this.logBoard();
-                    } else {
-                        if ($scope.lastPentomino) {
-                            this.stashPentomino($scope.lastPentomino);
-                            $scope.lastPentomino = null;
-                        }
-                    }
-                    // There was a hole not fitting a block (< 5 spaces)
-                    return firstEmpty;
                 },
                 autoSolve : function () {
                     // The x block can only have these 5 unique positions and it can't rotate
@@ -347,6 +310,7 @@ angular.module('pentominoApp')
                     };
                     var boardType = this.brdType;
                     var pentomino = $scope.pentominos[9];
+                    $scope.$watchGroup($scope.pentominos, $scope.board.updateScreen);
                     $scope.settings.menuVisible = false;
                     $scope.methods.clearBoard();
                     // $scope.$applyAsync();
@@ -354,7 +318,7 @@ angular.module('pentominoApp')
                     for (var i = 0; i < startPositionsXblock[boardType].length; i++) {
                         $scope.methods.movePentomino(9,startPositionsXblock[boardType][i]);
                         $scope.lastPentomino = 9;
-                        this.findNextFit();
+                        $scope.board.findNextFit();
                         console.log(this.positionsTried);
                     }
                     // console.table(this.fields);
