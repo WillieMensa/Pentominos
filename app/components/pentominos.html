@@ -1,6 +1,6 @@
 <div class="pentomino block_{{pentomino.name}}"
     ng-repeat="pentomino in pentominos track by $index"
-    ng-show="pentominos && (((board.brdType == 'square') && ($index < 13)) || ((board.brdType == 'rectangle') && ($index < 12)))"
+    ng-hide="(board.boardTypes[board.boardType].surface == 60) && ($index > 11)"
     ng-style="methods.getPentominoCss(pentomino.position)"
     ng-class="{
         'active' : methods.isActive($index),

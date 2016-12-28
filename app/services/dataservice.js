@@ -19,34 +19,31 @@ angular.module('pentominoApp')
 				});
 		},
         getStartPosition : function(boardType){
-			var fileName;
-            switch (boardType) {
-                case 'rectangle':
-                    fileName = 'assets/data/rectangle-start.json';
-                    break;
-                default: // square
-                    fileName = 'assets/data/square-start.json';
-            }
+			var fileName = 'assets/data/start-'+boardType+'.json';
 			return $http.get(fileName)
 				.then(function(response){
                     return response.data;
 				});
 		},
-        getSolutions : function(){
-            if (localStorage.getItem("pentominos")) {
-                solutions = JSON.parse(localStorage.getItem("pentominos"));
+        getSolutions : function(boardTypes){
+            if (localStorage.getItem("pentominos2")) {
+                solutions = JSON.parse(localStorage.getItem("pentominos2"));
             } else {
-                solutions = {
-                    rectangle : [],
-                    square : []
-                };
+                solutions = {};
+            }
+            for (var type in boardTypes) {
+                if (boardTypes.hasOwnProperty(type)) {
+                    if (!solutions.hasOwnProperty(type)) {
+                        solutions[type] = [];
+                    }
+                }
             }
             return solutions;
         },
-        saveSolution : function (boardType, solutionString) {
-            var solutions = this.getSolutions();
+        saveSolution : function (boardTypes, boardType, solutionString) {
+            var solutions = this.getSolutions(boardTypes);
                 solutions[boardType].push(solutionString);
-			    localStorage.setItem("pentominos", JSON.stringify(solutions));
+			    localStorage.setItem("pentominos2", JSON.stringify(solutions));
                 // console.table(solutionString);
         }
 

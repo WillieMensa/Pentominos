@@ -5,25 +5,28 @@ var app = angular.module('pentominoApp', ['ngTouch']);
 app.controller('mainController', ['$scope', '$timeout', 'dataservice', function($scope, $timeout, dataservice){
 
     // $scope.board = {};
-    // $scope.board.brdType = 'square';
+    // $scope.board.boardType = 'square';
     $scope.settings = {
         menuVisible : false,
+        submenuBoardsVisible : false,
         opaqueBlocks : true,
         solutionsShown : false
     };
     $scope.pentominos = {};
-    $scope.solutions = dataservice.getSolutions();
+    // $scope.solutions = dataservice.getSolutions($scope.board.boardTypes);
     $scope.currentSolution = 0;
     $scope.currentPentomino = null;
     $scope.lastPentomino = null; // for autoSolve
     $scope.saveSolution = function (solutionString) {
-        dataservice.saveSolution($scope.board.brdType, solutionString);
+        dataservice.saveSolution($scope.board.boardTypes, $scope.board.boardType, solutionString);
     };
-    $scope.getStartPosition = function (brdType) {
-        $scope.board.brdType = (brdType) ? brdType : $scope.board.brdType;
-        var boardType = $scope.board.brdType;
+    $scope.getStartPosition = function (boardType) {
+        $scope.settings.menuVisible = false;
+        $scope.settings.solutionsShown = false;
+        $scope.board.boardType = (boardType) ? boardType : $scope.board.boardType;
+        var brdType = $scope.board.boardType;
         var pentomino;
-        dataservice.getStartPosition(boardType).then(function(data) {
+        dataservice.getStartPosition(brdType).then(function(data) {
             if ($scope.pentominos) {
                 for (var i = 0; i < $scope.pentominos.length; i++) {
                     pentomino = $scope.pentominos[i];
@@ -50,7 +53,7 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
                 $scope.pentominos[i].color = data[i].color;
             }
             $scope.getStartPosition();
-            $scope.solutions = dataservice.getSolutions();
+            $scope.solutions = dataservice.getSolutions($scope.board.boardTypes);
         });
     });
 
