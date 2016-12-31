@@ -137,8 +137,8 @@ angular.module('pentominoApp')
                     var clientX = (event.touches) ? event.touches[0].clientX : event.clientX;
                     var clientY = (event.touches) ? event.touches[0].clientY : event.clientY;
                     return {
-                        x : clientX,
-                        y : clientY
+                        x : clientX / $scope.settings.scale,
+                        y : clientY / $scope.settings.scale
                     };
                 },
                 startDrag : function(pentomino, part, event) {

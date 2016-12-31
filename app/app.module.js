@@ -10,7 +10,21 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
         menuVisible : false,
         submenuBoardsVisible : false,
         opaqueBlocks : true,
-        solutionsShown : false
+        solutionsShown : false,
+        scale : 1
+    };
+    $scope.getScale = function() {
+        var scale = Math.min(document.querySelectorAll("html")[0].clientWidth / document.querySelectorAll("#board")[0].clientWidth, 1);
+        scale = Math.floor(scale * 10) / 10;
+        $scope.settings.scale = scale;
+        return {
+            'transformOrigin': 'top',
+            'transform': 'scale('+scale+', '+scale+')',
+            'WebkitTransform': 'scale('+scale+', '+scale+')',
+            'MozTransform': 'scale('+scale+', '+scale+')',
+            'OTransform': 'scale('+scale+', '+scale+')',
+            'MsTransform': 'scale('+scale+', '+scale+')'
+        };
     };
     $scope.pentominos = {};
     // $scope.solutions = dataservice.getSolutions($scope.board.boardTypes);

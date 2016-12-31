@@ -10,7 +10,7 @@
 
     <li ng-mouseenter="toggleSubmenuBoards()"
         ng-mouseleave="toggleSubmenuBoards()"
-        ng-touchstart="showSubmenuBoards()">
+        ng-touchend="toggleSubmenuBoards()">
         Board sizes&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
         <ul ng-show="settings.submenuBoardsVisible"
             class="subMenu">
