@@ -8,14 +8,16 @@
         ng-touchstart="hideTheMenu()">
         <i class="fa fa-times" aria-hidden="true"></i></li>
 
-    <li ng-mouseenter="toggleSubmenuBoards()"
+    <li ng-show="solutions['square'].length > 1"
+        ng-mouseenter="toggleSubmenuBoards()"
         ng-mouseleave="toggleSubmenuBoards()"
         ng-touchend="toggleSubmenuBoards()">
         Board sizes&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
         <ul ng-show="settings.submenuBoardsVisible"
             class="subMenu">
             <li ng-repeat="(key, val) in board.boardTypes track by $index"
-                ng-class="{'active' : {{board.boardType == key}}}"
+                ang-hide="0 < 1"
+                ng-class="{'active' : board.boardType == key}"
                 ng-click="getStartPosition(key)"
                 ng-touchstart="getStartPosition(key)">{{val.w}}&nbsp;&times;&nbsp;{{val.h}}</li>
         </ul>
@@ -38,7 +40,7 @@
     <li ng-click="methods.mixBoard()"
         ng-touchstart="methods.mixBoard()">Shuffle</li>
 
-    <li ng-show="solutions[board.boardType].length > 10"
+    <li ng-show="solutions[board.boardType].length > 20"
         ng-click="board.autoSolve()"
         ng-touchstart="board.autoSolve()">Spoiler</li>
 </ul>
