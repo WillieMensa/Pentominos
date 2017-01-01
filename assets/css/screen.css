@@ -236,10 +236,6 @@ footer{
 footer span{
     color:#fff !important;
 }
-footer :first-child,
-footer :first-of-type('span'){
-    m
-}
 footer a{
     color: #f2f2f2;
     text-decoration: none;

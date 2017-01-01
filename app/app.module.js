@@ -19,11 +19,9 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
         $scope.settings.scale = scale;
         return {
             'transformOrigin': 'top',
-            'transform': 'scale('+scale+', '+scale+')',
-            'WebkitTransform': 'scale('+scale+', '+scale+')',
-            'MozTransform': 'scale('+scale+', '+scale+')',
-            'OTransform': 'scale('+scale+', '+scale+')',
-            'MsTransform': 'scale('+scale+', '+scale+')'
+            '-webkit-transform': 'scale('+scale+', '+scale+')',
+            '-ms-transform': 'scale('+scale+', '+scale+')',
+            'transform': 'scale('+scale+', '+scale+')'
         };
     };
     $scope.pentominos = {};
