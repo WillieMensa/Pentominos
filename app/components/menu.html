@@ -16,7 +16,7 @@
         <ul ng-show="settings.submenuBoardsVisible"
             class="subMenu">
             <li ng-repeat="(key, val) in board.boardTypes track by $index"
-                ang-hide="0 < 1"
+                ng-show="showThisBoard(key)"
                 ng-class="{'active' : board.boardType == key}"
                 ng-click="getStartPosition(key)"
                 ng-touchstart="getStartPosition(key)">{{val.w}}&nbsp;&times;&nbsp;{{val.h}}</li>
