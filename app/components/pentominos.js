@@ -259,6 +259,7 @@ angular.module('pentominoApp')
                         $scope.methods.adjustDimensions(i);
                     }
                     $scope.board.registerPieces();
+                    $scope.settings.menuVisible = false;
                 },
                 flipBoardYAxis : function () {
                     var pentomino;
