@@ -18,7 +18,7 @@ angular.module('pentominoApp')
                 }
             };
             $scope.showNextSolution = function() {
-                if ($scope.currentSolution < $scope.solutions[$scope.board.brdType].length) {
+                if ($scope.currentSolution < $scope.solutions[$scope.board.boardType].length) {
                     $scope.currentSolution ++;
                     $scope.showSolution();
                 }

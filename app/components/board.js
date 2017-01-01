@@ -10,25 +10,47 @@ angular.module('pentominoApp')
             $scope.board = {
                 fields : [],
                 partSize : 40,
-                brdType : 'square',
-                brdTypes : {
+                boardType : 'square',
+                boardTypes : {
                     'square' : {
                         w : 8,
-                        h : 8
+                        h : 8,
+                        surface : 64
                     },
                     'rectangle' : {
                         w : 6,
-                        h : 10
+                        h : 10,
+                        surface : 60
+                    },
+                    'dozen' : {
+                        w : 12,
+                        h : 5,
+                        surface : 60
+                    },
+                    'beam' : {
+                        w : 15,
+                        h : 4,
+                        surface : 60
+                    },
+                    'stick' :{
+                        w : 16,
+                        h : 4,
+                        surface : 64
+                    },
+                    'twig' :{
+                        w : 20,
+                        h : 3,
+                        surface : 60
                     }
                 },
                 solved : false,
                 newSolution : false,
                 positionsTried : 0,
                 width : function() {
-                    return this.brdTypes[this.brdType].w;
+                    return this.boardTypes[this.boardType].w;
                 },
                 height : function() {
-                    return this.brdTypes[this.brdType].h;
+                    return this.boardTypes[this.boardType].h;
                 },
                 onBoard : function(x,y) {
                     return (x >= 0) && (x < this.width()) &&
@@ -92,10 +114,13 @@ angular.module('pentominoApp')
                     return true;
                 },
                 pentomino2string : function (pentomino) {
+                    parts = [];
                     if (pentomino) {
-                        return '#' + pentomino.name + pentomino.face + pentomino.position.x + pentomino.position.y;
-                    } else {
-                        return 'false';
+                        parts.push('#' + pentomino.name);
+                        parts.push(pentomino.face);
+                        parts.push(pentomino.position.x);
+                        parts.push(pentomino.position.y);
+                        return  parts.join('_');
                     }
                 },
                 solution2String : function () {
@@ -111,12 +136,12 @@ angular.module('pentominoApp')
                     var solutionString = this.solution2String();
                     var isNewSolution = true;
                     var theLength = $scope.methods.pentominosLength();
-                    var rotations = (this.brdType == 'square')? 4 : 2;
+                    var rotations = (this.boardType == 'square')? 4 : 2;
                     for (var flip = 0; flip < 2; flip++) {
                         for (var rotation = 0; rotation < rotations; rotation++) {
-                            for (var i = 0; i < $scope.solutions[this.brdType].length; i++) {
+                            for (var i = 0; i < $scope.solutions[this.boardType].length; i++) {
                                 solutionString = this.solution2String();
-                                isNewSolution = isNewSolution && (solutions[this.brdType][i] !== solutionString);
+                                isNewSolution = isNewSolution && (solutions[this.boardType][i] !== solutionString);
                                 if (!isNewSolution) return i;
                             }
                             $scope.methods.rotateBoard();
@@ -136,7 +161,7 @@ angular.module('pentominoApp')
                             this.newSolution = false;
                         } else {
                             $scope.saveSolution(solutionResult);
-                            $scope.solutions[this.brdType].push(solutionResult);
+                            $scope.solutions[this.boardType].push(solutionResult);
                             this.newSolution = true;
                         }
                     } else {
@@ -168,7 +193,7 @@ angular.module('pentominoApp')
                 },
                 isHole : function (xy) {
                     var holeSize = 0;
-                    var minHoleSize = ($scope.pentominos[12].onBoard || this.brdType === 'rectangle') ? 5 : 4;
+                    var minHoleSize = ($scope.pentominos[12].onBoard || this.boardType === 'rectangle') ? 5 : 4;
                     var w = this.width();
                     var h = this.height();
                     var label = 'a';
@@ -345,7 +370,7 @@ angular.module('pentominoApp')
                         'square' : [[1,0],[1,1],[2,0],[2,1],[2,2]],
                         'rectangle' : [[1,0],[0,1],[1,1],[0,2],[1,2],[0,3],[1,3]],
                     };
-                    var boardType = this.brdType;
+                    var boardType = this.boardType;
                     var pentomino = $scope.pentominos[9];
                     $scope.settings.menuVisible = false;
                     $scope.methods.clearBoard();

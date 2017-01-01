@@ -13,6 +13,20 @@
         <link rel="stylesheet" href="assets/css/reset.css" />
         <link rel="stylesheet" href="assets/css/screen.css" />
         <script src="https://use.fontawesome.com/3554191950.js"></script>
+        <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-2700808-7']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+        </script>
+
     </head>
 
     <body ng-app="pentominoApp"
@@ -20,7 +34,8 @@
         ng-mousemove="methods.doDrag($event)"
         ng-touchmove="methods.doDrag($event)"
         ng-mouseup="methods.stopDrag($event)"
-        ng-touchend="methods.stopDrag($event)">
+        ng-touchend="methods.stopDrag($event)"
+        ng-style="getScale()">
 
         <header ng-style="board.theHeaderCss()">
             <nav menu id="hamburger"></nav>
@@ -36,7 +51,7 @@
 
         <footer>
             <a href="http://www.ashware.nl" target="_blank" class="r">&copy;&nbsp;ashWare</a>
-            <span class='st_sharethis' displayText='ShareThis'></span>
+            <!-- <span class='st_sharethis' displayText='ShareThis'></span> -->
         </footer>
 
         <scripts class="hidden">

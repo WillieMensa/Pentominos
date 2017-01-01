@@ -26,6 +26,11 @@ body{
     justify-content: flex-start;
     align-items: center;
 }
+@media (min-height: 700px) {
+  body {
+      justify-content: center;
+  }
+}
 .r{
 	float:right;
 }
@@ -84,14 +89,17 @@ h1{
     margin-top: -1px;
     cursor: pointer;
 }
-nav ul{
+nav ul#menu{
     position: absolute;
     left: -5px;
     top: 0;
+}
+nav ul{
     background-color: rgba(34,34,34,.7);
     border: 1px solid rgba(34,34,34,.7);
 }
 nav ul li{
+    position: relative;
     font-size: 14px;
     color: #333;
     background-color: ghostwhite;
@@ -99,6 +107,18 @@ nav ul li{
     padding: 10px 20px 10px 15px;
     margin: 1px;
     cursor: pointer;
+}
+nav ul li:hover{
+    background-color: gainsboro;
+}
+nav ul li.active{
+    background-color: silver;
+}
+nav ul.subMenu{
+    position: absolute;
+    left: 99%;
+    top: -2px;
+    z-index: 1;
 }
 #board{
     position: relative;
@@ -130,6 +150,9 @@ nav ul li{
     font-size: 14px;
     margin-top: 10px;
     padding: 0 10px;
+}
+#controls span.solved{
+    border: 1px dotted lime;
 }
 #controls button{
     cursor: pointer;
@@ -186,6 +209,14 @@ nav ul li{
     opacity: 0.2;
     /*display: none;*/
 }
+.block_y .part::before,
+.block_n .part::before{
+    opacity: 0.4;
+}
+.block_t .part::before,
+.block_v .part::before{
+    opacity: 0.3;
+}
 .pentomino.active .part::before,
 .pentomino:hover .part::before{
     opacity: 1;
@@ -204,10 +235,6 @@ footer{
 }
 footer span{
     color:#fff !important;
-}
-footer :first-child,
-footer :first-of-type('span'){
-    m
 }
 footer a{
     color: #f2f2f2;

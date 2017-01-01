@@ -9,9 +9,34 @@ angular.module('pentominoApp')
         link: function($scope) {
             $scope.showTheMenu = function() {
                 $scope.settings.menuVisible = true;
+                $scope.settings.submenuBoardsVisible = false;
             };
             $scope.hideTheMenu = function() {
                 $scope.settings.menuVisible = false;
+            };
+            $scope.showThisBoard = function(key) {
+                var threshold = 3;
+                if ($scope.solutions) {
+                    switch (key) {
+                        case 'square':
+                            return true;
+                        case 'rectangle':
+                            return $scope.solutions['square'].length > threshold;
+                        case 'beam':
+                            return $scope.solutions['rectangle'].length > threshold;
+                        case 'stick':
+                            return $scope.solutions['beam'].length > threshold;
+                        case 'twig':
+                            return $scope.solutions['stick'].length > threshold;
+                        default:
+                            return false;
+                    }
+                    console.log($scope.board.boardTypes[key]);
+                }
+                return true;
+            };
+            $scope.toggleSubmenuBoards = function() {
+                $scope.settings.submenuBoardsVisible = !$scope.settings.submenuBoardsVisible;
             };
             $scope.setOpaqueBlocks = function () {
                 $scope.settings.opaqueBlocks = true;

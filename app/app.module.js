@@ -5,25 +5,40 @@ var app = angular.module('pentominoApp', ['ngTouch']);
 app.controller('mainController', ['$scope', '$timeout', 'dataservice', function($scope, $timeout, dataservice){
 
     // $scope.board = {};
-    // $scope.board.brdType = 'square';
+    // $scope.board.boardType = 'square';
     $scope.settings = {
         menuVisible : false,
+        submenuBoardsVisible : false,
         opaqueBlocks : true,
-        solutionsShown : false
+        solutionsShown : false,
+        scale : 1
+    };
+    $scope.getScale = function() {
+        var scale = Math.min(document.querySelectorAll("html")[0].clientWidth / document.querySelectorAll("#board")[0].clientWidth, 1);
+        scale = Math.floor(scale * 10) / 10;
+        $scope.settings.scale = scale;
+        return {
+            'transformOrigin': 'top',
+            '-webkit-transform': 'scale('+scale+', '+scale+')',
+            '-ms-transform': 'scale('+scale+', '+scale+')',
+            'transform': 'scale('+scale+', '+scale+')'
+        };
     };
     $scope.pentominos = {};
-    $scope.solutions = dataservice.getSolutions();
+    // $scope.solutions = dataservice.getSolutions($scope.board.boardTypes);
     $scope.currentSolution = 0;
     $scope.currentPentomino = null;
     $scope.lastPentomino = null; // for autoSolve
     $scope.saveSolution = function (solutionString) {
-        dataservice.saveSolution($scope.board.brdType, solutionString);
+        dataservice.saveSolution($scope.board.boardTypes, $scope.board.boardType, solutionString);
     };
-    $scope.getStartPosition = function (brdType) {
-        $scope.board.brdType = (brdType) ? brdType : $scope.board.brdType;
-        var boardType = $scope.board.brdType;
+    $scope.getStartPosition = function (boardType) {
+        $scope.settings.menuVisible = false;
+        $scope.settings.solutionsShown = false;
+        $scope.board.boardType = (boardType) ? boardType : $scope.board.boardType;
+        var brdType = $scope.board.boardType;
         var pentomino;
-        dataservice.getStartPosition(boardType).then(function(data) {
+        dataservice.getStartPosition(brdType).then(function(data) {
             if ($scope.pentominos) {
                 for (var i = 0; i < $scope.pentominos.length; i++) {
                     pentomino = $scope.pentominos[i];
@@ -34,7 +49,9 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
                     } else {
                         pentomino.dimensions = angular.copy(pentomino.initialDimensions);
                     }
-                    $scope.methods.adjustDimensions(i);
+                    if ($scope.methods) {
+                        $scope.methods.adjustDimensions(i);
+                    }
                 }
             }
             $scope.board.registerPieces();
@@ -48,7 +65,7 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
                 $scope.pentominos[i].color = data[i].color;
             }
             $scope.getStartPosition();
-            $scope.solutions = dataservice.getSolutions();
+            $scope.solutions = dataservice.getSolutions($scope.board.boardTypes);
         });
     });
 

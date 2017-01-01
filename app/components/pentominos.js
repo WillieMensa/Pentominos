@@ -23,7 +23,7 @@ angular.module('pentominoApp')
                     this.part = null;
                 },
                 pentominosLength : function () {
-                    return ($scope.board.brdType == 'rectangle') ? $scope.pentominos.length-1 : $scope.pentominos.length;
+                    return ($scope.board.boardType == 'rectangle') ? $scope.pentominos.length-1 : $scope.pentominos.length;
                 },
                 getPentominoCss : function (position) {
                     if (position) {
@@ -137,8 +137,8 @@ angular.module('pentominoApp')
                     var clientX = (event.touches) ? event.touches[0].clientX : event.clientX;
                     var clientY = (event.touches) ? event.touches[0].clientY : event.clientY;
                     return {
-                        x : clientX,
-                        y : clientY
+                        x : clientX / $scope.settings.scale,
+                        y : clientY / $scope.settings.scale
                     };
                 },
                 startDrag : function(pentomino, part, event) {
@@ -218,15 +218,17 @@ angular.module('pentominoApp')
                     this.container.style.top = $scope.currentPentomino.position.y * $scope.board.partSize + 'px';
                 },
                 showSolution : function () {
-                    var solutionString = $scope.solutions[$scope.board.brdType][$scope.currentSolution];
+                    var solutionString = $scope.solutions[$scope.board.boardType][$scope.currentSolution];
                     var splitString = solutionString.substr(1).split('#');
+                    var props = [];
                     var pentomino;
                     var theLength = this.pentominosLength();
                     for (var i = 0; i < theLength; i++) {
                         pentomino = $scope.pentominos[i];
-                        pentomino.face = parseInt(splitString[i].charAt(1),10);
-                        pentomino.position.x = parseInt(splitString[i].charAt(2));
-                        pentomino.position.y = parseInt(splitString[i].charAt(3));
+                        props = splitString[i].split('_')
+                        pentomino.face = parseInt(props[1],10);
+                        pentomino.position.x = parseInt(props[2],10);
+                        pentomino.position.y = parseInt(props[3],10);
                         this.adjustDimensions(i);
                     }
                     $scope.board.registerPieces();
@@ -288,7 +290,7 @@ angular.module('pentominoApp')
                     }
                 },
                 rotateBoard : function () {
-                    if ($scope.board.brdType == 'square') {
+                    if ($scope.board.boardType == 'square') {
                         this.rotateSquareBoard();
                     } else {
                         // rotate twice and shift pentominos 4 positions down

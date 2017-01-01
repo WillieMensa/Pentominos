@@ -1,19 +1,27 @@
 <i class="fa fa-bars" aria-hidden="true"
     ng-click="showTheMenu()"
     ng-touchstart="showTheMenu()"></i>
+
 <ul id="menu" ng-show="settings.menuVisible">
 
     <li ng-click="hideTheMenu()"
         ng-touchstart="hideTheMenu()">
         <i class="fa fa-times" aria-hidden="true"></i></li>
 
-    <li ng-show="board.brdType == 'square'"
-        ng-click="getStartPosition('rectangle')"
-        ng-touchstart="getStartPosition('rectangle')">6&nbsp;&times;&nbsp;10</li>
-
-    <li ng-show="board.brdType == 'rectangle'"
-        ng-click="getStartPosition('square')"
-        ng-touchstart="getStartPosition('square')">8&nbsp;&times;&nbsp;8</li>
+    <li ng-show="solutions['square'].length > 1"
+        ng-mouseenter="toggleSubmenuBoards()"
+        ng-mouseleave="toggleSubmenuBoards()"
+        ng-touchend="toggleSubmenuBoards()">
+        Board sizes&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
+        <ul ng-show="settings.submenuBoardsVisible"
+            class="subMenu">
+            <li ng-repeat="(key, val) in board.boardTypes track by $index"
+                ng-show="showThisBoard(key)"
+                ng-class="{'active' : board.boardType == key}"
+                ng-click="getStartPosition(key)"
+                ng-touchstart="getStartPosition(key)">{{val.w}}&nbsp;&times;&nbsp;{{val.h}}</li>
+        </ul>
+    </li>
 
     <li ng-click="setOpaqueBlocks()"
         ng-show="settings.opaqueBlocks == false"
@@ -24,15 +32,15 @@
         ng-touchstart="setTransparentBlocks()">Transparent</li>
 
     <li ng-click="methods.rotateBoard()"
-        ng-touchstart="methods.rotateBoard()">Rotate&nbsp;Board</li>
+        ng-touchstart="methods.rotateBoard()">Rotate&nbsp;Blocks</li>
 
     <li ng-click="methods.flipBoardYAxis()"
-        ng-touchstart="methods.flipBoardYAxis()">Flip Board</li>
+        ng-touchstart="methods.flipBoardYAxis()">Flip Blocks</li>
 
     <li ng-click="methods.mixBoard()"
         ng-touchstart="methods.mixBoard()">Shuffle</li>
 
-    <li ng-show="solutions[board.brdType].length > 10"
+    <li ng-show="solutions[board.boardType].length > 20"
         ng-click="board.autoSolve()"
         ng-touchstart="board.autoSolve()">Spoiler</li>
 </ul>
