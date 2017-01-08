@@ -254,7 +254,6 @@ angular.module('pentominoApp')
                     // $scope.board.updateScreen();
                     console.table(this.fields);
                     console.table(board);
-                    confirm('doorgaan?');
                 },
                 stashPentomino : function (i) {
                     $scope.methods.movePentomino(i,[0,this.height() + 1]);
@@ -281,15 +280,10 @@ angular.module('pentominoApp')
                                         $scope.board.logBoard();
                                         if ($scope.board.isFitting()) {
                                             $scope.board.findNextFit();
-                                            // $scope.board.updateScreen();
-                                            // $scope.board.findNextFit();
-                                            $scope.board.stashPentomino(i);
-                                            $scope.board.logBoard();
-                                            console.clear();
-                                        } else {
-                                            $scope.board.stashPentomino(i);
-                                            $scope.board.logBoard();
                                         }
+                                        $scope.board.stashPentomino(i);
+                                        $scope.board.logBoard();
+                                        console.clear();
                                     }
                                 }
                             }
@@ -310,7 +304,6 @@ angular.module('pentominoApp')
                     };
                     var boardType = this.brdType;
                     var pentomino = $scope.pentominos[9];
-                    $scope.$watchGroup($scope.pentominos, $scope.board.updateScreen);
                     $scope.settings.menuVisible = false;
                     $scope.methods.clearBoard();
                     // $scope.$applyAsync();

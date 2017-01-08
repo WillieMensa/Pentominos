@@ -7,7 +7,6 @@ angular.module('pentominoApp')
         scope: false,
 		templateUrl: 'app/components/pentominos.html',
         link: function($scope) {
-
             $scope.methods = {
                 startX : 0, startY : 0,
                 x : 0, y : 0,
