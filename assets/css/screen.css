@@ -1,6 +1,8 @@
 @charset "UTF-8";
+
 /* CSS Document */
-body, html{
+
+body, html {
     width: 100%;
     height: 100%;
     background-color: #222;
@@ -13,62 +15,78 @@ body, html{
     -ms-user-select: none;
     user-select: none;
 }
-html{
+
+html {
     display: flex;
     flex-direction: column;
     align-content: stretch;
     align-items: center;
 }
-body{
+
+body {
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 }
+
 @media (min-height: 700px) {
-  body {
-      justify-content: center;
-  }
+    body {
+        justify-content: center;
+    }
 }
-.r{
-	float:right;
+
+.r {
+    float: right;
 }
-.l{
-	float: left;
+
+.l {
+    float: left;
 }
-.rounded{
+
+.rounded {
     border-radius: 100px
 }
-.clearFix{
-	clear:both;
+
+.clearFix {
+    clear: both;
 }
-.hidden{
-	display:none;
+
+.hidden {
+    display: none;
 }
-.invisible{
+
+.invisible {
     visibility: hidden;
 }
-.pushTop{
-	margin-top: 12px;
+
+.pushTop {
+    margin-top: 12px;
 }
-.pushLeft{
-	margin-left: 12px;
+
+.pushLeft {
+    margin-left: 12px;
 }
-.pushBottom{
-	margin-bottom: 12px;
+
+.pushBottom {
+    margin-bottom: 12px;
 }
-.pushBottomMore{
-	margin-bottom: 24px;
+
+.pushBottomMore {
+    margin-bottom: 24px;
 }
-.textAlignLeft{
+
+.textAlignLeft {
     text-align: left;
 }
-header{
+
+header {
     position: relative;
     height: 40px;
 }
-h1{
+
+h1 {
     font-family: inherit;
     font-size: 21px;
     letter-spacing: 1px;
@@ -76,29 +94,34 @@ h1{
     line-height: 0;
     margin: 20px 0 -20px 0;
 }
-#hamburger{
+
+#hamburger {
     position: absolute;
     left: 2px;
     top: 2px;
-    z-index: 1;
+    z-index: 100;
 }
-#hamburger .fa-bars{
+
+#hamburger .fa-bars {
     height: 40px;
     line-height: 40px;
     padding: 0 10px;
     margin-top: -1px;
     cursor: pointer;
 }
-nav ul#menu{
+
+nav ul#menu {
     position: absolute;
     left: -5px;
     top: 0;
 }
-nav ul{
-    background-color: rgba(34,34,34,.7);
-    border: 1px solid rgba(34,34,34,.7);
+
+nav ul {
+    background-color: rgba(34, 34, 34, .7);
+    border: 1px solid rgba(34, 34, 34, .7);
 }
-nav ul li{
+
+nav ul li {
     position: relative;
     font-size: 14px;
     color: #333;
@@ -108,36 +131,41 @@ nav ul li{
     margin: 1px;
     cursor: pointer;
 }
-nav ul li:hover{
+
+nav ul li:hover {
     background-color: gainsboro;
 }
-nav ul li.active{
+
+nav ul li.active {
     background-color: silver;
 }
-nav ul.subMenu{
+
+nav ul.subMenu {
     position: absolute;
     left: 99%;
     top: -2px;
     z-index: 1;
 }
-#board{
+
+#board {
     position: relative;
     /*margin: 40px auto;*/
     background-color: lightgray;
     border: 5px solid darkgray;
 }
-#board.solved,
-.solved{
+
+#board.solved, .solved {
     border-color: lime;
-    -webkit-box-shadow: 0 0 30px 0 rgba(0,255,0,.5);
-    box-shadow: 0 0 30px 0 rgba(0,255,0,.5);
+    -webkit-box-shadow: 0 0 30px 0 rgba(0, 255, 0, .5);
+    box-shadow: 0 0 30px 0 rgba(0, 255, 0, .5);
 }
-#controls{
+
+#controls {
     margin-top: 5px;
     text-align: center;
 }
-#controls button,
-#controls span{
+
+#controls button, #controls span {
     display: inline-block;
     height: 30px;
     line-height: 30px;
@@ -151,35 +179,43 @@ nav ul.subMenu{
     margin-top: 10px;
     padding: 0 10px;
 }
-#controls span.solved{
+
+#controls span.solved {
     border: 1px dotted lime;
 }
-#controls button{
+
+#controls button {
     cursor: pointer;
 }
-#controls button.small{
+
+#controls button.small {
     width: 40px;
     height: 40px;
     line-height: 40px;
     margin-top: 5px;
 }
-#controls button + icon{
+
+#controls button+icon {
     margin: 0 10px;
     line-height: 30px;
 }
-#controls button[disabled='disabled']{
+
+#controls button[disabled='disabled'] {
     visibility: hidden;
 }
+
 .pentomino {
     position: absolute;
     left: 0;
     top: 0;
     pointer-events: none;
 }
-.relContainer{
+
+.relContainer {
     position: relative;
 }
-.part{
+
+.part {
     position: absolute;
     left: 0;
     top: 0;
@@ -187,56 +223,67 @@ nav ul.subMenu{
     height: 40px;
     text-align: center;
     color: white;
-    border: 1px solid rgba(211,211,211,.2);
+    border: 1px solid rgba(211, 211, 211, .2);
     box-sizing: border-box;
-    pointer-events:auto;
-    cursor: move; /* fallback: no `url()` support or images disabled */
-    cursor: -webkit-grab; /* Chrome 1-21, Safari 4+ */
-    cursor:    -moz-grab; /* Firefox 1.5-26 */
-    cursor:         grab; /* W3C standards syntax, should come least */
+    pointer-events: auto;
+    cursor: move;
+    /* fallback: no `url()` support or images disabled */
+    cursor: -webkit-grab;
+    /* Chrome 1-21, Safari 4+ */
+    cursor: -moz-grab;
+    /* Firefox 1.5-26 */
+    cursor: grab;
+    /* W3C standards syntax, should come least */
 }
-.part > span {
+
+.part>span {
     line-height: 40px;
 }
+
 .part:active {
     cursor: url(images/grabbing.cur);
     cursor: -webkit-grabbing;
-    cursor:    -moz-grabbing;
-    cursor:         grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
 }
-.part::before{
+
+.part::before {
     line-height: 38px;
     opacity: 0.2;
     /*display: none;*/
 }
-.block_y .part::before,
-.block_n .part::before{
+
+.block_y .part::before, .block_n .part::before {
     opacity: 0.4;
 }
-.block_t .part::before,
-.block_v .part::before{
+
+.block_t .part::before, .block_v .part::before {
     opacity: 0.3;
 }
-.pentomino.active .part::before,
-.pentomino:hover .part::before{
+
+.pentomino.active .part::before, .pentomino:hover .part::before {
     opacity: 1;
     /*display: inline;*/
 }
-.pentomino.transparent .part{
+
+.pentomino.transparent .part {
     opacity: .7;
 }
-footer{
+
+footer {
     display: block;
     width: 100%;
     position: absolute;
     padding: 0 10px;
     bottom: 10px;
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
-footer span{
-    color:#fff !important;
+
+footer span {
+    color: #fff !important;
 }
-footer a{
+
+footer a {
     color: #f2f2f2;
     text-decoration: none;
     font-size: 12px;

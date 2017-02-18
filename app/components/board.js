@@ -317,53 +317,6 @@ angular.module('pentominoApp')
                         this.logBoard();
                     }
                 },
-                OldfindNextFit : function () {
-                    // console.log(this.positionsTried);
-                    var firstEmpty = this.findFirstEmpty();
-                    var hasHole = this.isHole(firstEmpty);
-                    var shiftLeft = true;
-                    if (!hasHole) {
-                        var theLength = $scope.methods.pentominosLength();
-                        var boardWidth = this.width();
-                        var boardHeight = this.height();
-                        var pentomino;
-                        for (var i = 0; i < theLength; i++) {
-                            pentomino = $scope.pentominos[i];
-                            if (!pentomino.onBoard) {
-                                $scope.lastPentomino = i;
-                                for (var face = 0; face < pentomino.faces.length; face++) {
-                                    this.positionsTried++;
-                                    pentomino.face = face;
-                                    $scope.methods.adjustDimensions(i);
-                                    $scope.methods.movePentomino(i,firstEmpty,shiftLeft);
-                                    pentomino.onBoard = true;
-                                    this.logBoard();
-                                    if (this.isFitting()) {
-                                        if (this.isSolved()) {
-                                            confirm('doorgaan?');
-                                        }
-                                        if (!this.findNextFit()) {
-                                            this.stashPentomino(i);
-                                        }
-                                        console.log('back');
-                                        this.stashPentomino(i);
-                                    } else {
-                                        // Not fitting (overlapping or out of board)
-                                        this.stashPentomino(i);
-                                    }
-                                }
-                            }
-                        }
-                        this.logBoard();
-                    } else {
-                        if ($scope.lastPentomino) {
-                            this.stashPentomino($scope.lastPentomino);
-                            $scope.lastPentomino = null;
-                        }
-                    }
-                    // There was a hole not fitting a block (< 5 spaces)
-                    return firstEmpty;
-                },
                 autoSolve : function () {
                     // The x block can only have these 5 unique positions and it can't rotate
                     var startPositionsXblock = {
