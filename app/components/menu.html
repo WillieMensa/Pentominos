@@ -37,7 +37,8 @@
     <li ng-click="methods.flipBoardYAxis()"
         ng-touchstart="methods.flipBoardYAxis()">Flip Blocks</li>
 
-    <li ng-click="methods.mixBoard()"
+    <li ng-show="screenIsLargeEnough()"
+        ng-click="methods.mixBoard()"
         ng-touchstart="methods.mixBoard()">Shuffle</li>
 
     <li ng-show="solutions[board.boardType].length > 20"
