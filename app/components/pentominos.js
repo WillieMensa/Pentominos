@@ -252,17 +252,32 @@ angular.module('pentominoApp')
                         }
                     },
                     mixBoard: function() {
-                        var boardWidth = $scope.board.width();
-                        var xPos, face;
+                        var xPos, yPos, clw, clh, offsetX, offsetY, maxX, maxY, face;
                         var pentomino;
                         var theLength = this.pentominosLength();
+                        clw = Math.floor(document.querySelectorAll('html')[0].clientWidth / $scope.board.partSize);
+                        clh = Math.floor(document.querySelectorAll('html')[0].clientHeight / $scope.board.partSize);
+                        maxX = clw - 4;
+                        maxY = clh - 4;
+                        // offset values in positions
+                        offsetX = Math.floor((clw - $scope.board.width()) / 2);
+                        offsetY = Math.floor((clh - $scope.board.height()) / 2);
+
                         for (var i = 0; i < theLength; i++) {
                             pentomino = $scope.pentominos[i];
-                            xPos = Math.floor(Math.random() * $scope.board.width());
-                            yPos = Math.floor(Math.random() * $scope.board.height());
+                            // find random off board position
+                            do {
+                                xPos = Math.floor(Math.random() * maxX);
+                                xPos -= offsetX;
+
+                                yPos = Math.floor(Math.random() * maxY);
+                                yPos -= offsetY;
+
+                                pentomino.position.x = xPos;
+                                pentomino.position.y = yPos;
+                            } while ($scope.board.touchesBoard(pentomino));
+
                             face = Math.floor(Math.random() * pentomino.faces.length);
-                            pentomino.position.x = xPos;
-                            pentomino.position.y = yPos;
                             pentomino.face = face;
                             $scope.methods.adjustDimensions(i);
                         }
