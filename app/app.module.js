@@ -2,26 +2,29 @@
 var app = angular.module('pentominoApp', ['ngTouch']);
 
 // Controller for blocks
-app.controller('mainController', ['$scope', '$timeout', 'dataservice', function($scope, $timeout, dataservice){
+app.controller('mainController', ['$scope', '$timeout', 'dataservice', function($scope, $timeout, dataservice) {
 
     // $scope.board = {};
     // $scope.board.boardType = 'square';
     $scope.settings = {
-        menuVisible : false,
-        submenuBoardsVisible : false,
-        opaqueBlocks : true,
-        solutionsShown : false,
-        scale : 1
+        menuVisible: false,
+        submenuBoardsVisible: false,
+        opaqueBlocks: true,
+        solutionsShown: false,
+        scale: 1
     };
     $scope.getScale = function() {
-        var scale = Math.min(document.querySelectorAll("html")[0].clientWidth / document.querySelectorAll("#board")[0].clientWidth, 1);
+        var screenWidth = document.querySelectorAll("html")[0].clientWidth;
+        var boardWidth = document.querySelectorAll("#board")[0].clientWidth;
+        var scale = Math.min(screenWidth / boardWidth, 1);
+
         scale = Math.floor(scale * 10) / 10;
         $scope.settings.scale = scale;
         return {
             'transformOrigin': 'top',
-            '-webkit-transform': 'scale('+scale+', '+scale+')',
-            '-ms-transform': 'scale('+scale+', '+scale+')',
-            'transform': 'scale('+scale+', '+scale+')'
+            '-webkit-transform': 'scale(' + scale + ', ' + scale + ')',
+            '-ms-transform': 'scale(' + scale + ', ' + scale + ')',
+            'transform': 'scale(' + scale + ', ' + scale + ')'
         };
     };
     $scope.pentominos = {};
@@ -29,10 +32,10 @@ app.controller('mainController', ['$scope', '$timeout', 'dataservice', function(
     $scope.currentSolution = 0;
     $scope.currentPentomino = null;
     $scope.lastPentomino = null; // for autoSolve
-    $scope.saveSolution = function (solutionString) {
+    $scope.saveSolution = function(solutionString) {
         dataservice.saveSolution($scope.board.boardTypes, $scope.board.boardType, solutionString);
     };
-    $scope.getStartPosition = function (boardType) {
+    $scope.getStartPosition = function(boardType) {
         $scope.settings.menuVisible = false;
         $scope.settings.solutionsShown = false;
         $scope.board.boardType = (boardType) ? boardType : $scope.board.boardType;

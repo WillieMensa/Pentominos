@@ -3,7 +3,7 @@
     ng-hide="(board.boardTypes[board.boardType].surface == 60) && ($index > 11)"
     ng-style="methods.getPentominoCss(pentomino.position)"
     ng-class="{
-        'active' : methods.isActive($index),
+        'active' : {{methods.isActive($index)}},
         'transparent' : settings.opaqueBlocks == false
     }">
     <div class="relContainer"
