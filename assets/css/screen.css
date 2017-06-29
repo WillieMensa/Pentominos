@@ -16,13 +16,6 @@ body, html {
     user-select: none;
 }
 
-html {
-    display: flex;
-    flex-direction: column;
-    align-content: stretch;
-    align-items: center;
-}
-
 body {
     flex: 1 0 auto;
     display: flex;
