@@ -7,7 +7,7 @@ A rectangular board, without the square piece which is not really a pentomino is
 
 I'm still busy implementing the 'autosolve' option.
 
-Creado originalmente por Esger.
+## Creado originalmente por Esger.
 
 Trato de implementar una version que presente una secuencia de rompecabeza de dificultad creciente.
 
